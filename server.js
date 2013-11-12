@@ -5,19 +5,68 @@ var express = require('express')
     , fs = require('fs')
     , path = require('path')
     , ejs = require('ejs')
+    , passport = require('passport')
+    , GitHubStrategy = require('passport-github').Strategy
     , extend = require('node.extend')
     , app = express()
-    , Firebase = require('firebase');
+    , Firebase = require('firebase')
+    , config = require('./config'); //make sure it's pointing in the right direction
 
-/*
-    var resources = new Firebase('https://13protons.firebaseio.com/http4apis/resources');
-    resources.on('value', function(snapshop){
-        console.log("resources: ", snapshot.val());
+    
+    var fbURL = config['FIREBASE_FORGE'];
+    
+    //Configure sessions and passport
+    app.use(express.cookieParser(config['SESSION_SECRET']));
+    app.use(express.session({secret: config['SESSION_SECRET']}));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    
+    // Use the GitHubStrategy within Passport.
+    //   Strategies in Passport require a `verify` function, which accept
+    //   credentials (in this case, an accessToken, refreshToken, and GitHub
+    //   profile), and invoke a callback with a user object.
+    passport.use(new GitHubStrategy({
+        clientID: config['GITHUB_CLIENT'],
+        clientSecret: config['GITHUB_SECRET'],
+        callbackURL: "http://localhost:3000/auth/github/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function () {
+            //save provider, id, display
+            var p = {
+                "provider": profile.provider,
+                "id": profile.id,
+                "displayName": profile.displayName,
+            }
+            var user = new Firebase(fbURL + '/users/' + profile.id);
+            user.once('value', function(snapshot){
+                if(snapshot.val() == null){
+                    //create that user
+                    console.log('creating user...');
+                    var users = new Firebase(fbURL + '/users');
+                    users.child(p.id).set(p, function(e){
+                        if(e){console.log('problem creating user', e);}
+                        else{console.log('created user');}
+                    });
+                }
+            });
+            console.log('logged in: ', p);
+            return done(null, p);
+        });
+      }
+    ));
+    
+    passport.serializeUser(function(user, done) {
+      done(null, user.id);
     });
-*/  
-
-    var user = "1234";
-    var fbURL = "https://13protons.firebaseio.com/http4apis";
+    
+    passport.deserializeUser(function(id, done) {
+        var user = new Firebase(fbURL + '/users/' + id);
+        user.once('value', function(snapshot){
+            done(null, snapshot.val());
+        });
+    }); 
     
 	app.engine('.html', require('ejs').__express);
 	app.set('views', __dirname + '/views');
@@ -42,19 +91,58 @@ var express = require('express')
                 output.push({"title": data.title, "votes": data.votes.total, "voteups": data.votes.up, "link": data.direction + "/" + data.type + "/" + data.title})
             }            
             res.render('index', {
-                "resources": output
+                "resources": output,
+                "page": "home"
             });
         });
 	  
 	});
+
+    app.get('/account', function(req, res){
+        if(typeof(req.user) == "undefined"){
+           res.redirect('/login');
+           }
+        else {
+            user = reduce(req.user, ['displayName', 'username', 'id', 'profileUrl']);
+            user['avatar_url'] = "http://www.gravatar.com/avatar/" + req.user._json.gravatar_id + ".jpg?s=200";
+            res.render(__dirname + '/views/account.ejs', {
+                "type": "account",
+                "user": user
+            });
+        }
+	});
+    
+    app.get('/logout', function(req, res){
+            req.logout();
+            res.redirect('/');
+        });
+
+    app.get('/auth/github', passport.authenticate('github'));
+    app.get('/auth/github/callback', 
+            
+      passport.authenticate('github', { failureRedirect: '/login' }),
+      function(req, res) {
+          req.session['auth'] = true;
+        res.redirect('/');
+        
+      });
+
+
     app.get('/:direction/:type/:title', function(req, res){
+        var user = null;
+        if(typeof(req.user) != 'undefined'){ 
+            user = req.user.id ;
+            console.log(user);
+        }
+        
         var d = {
             "dir": req.params.direction,
             "type": req.params.type,
             "title": req.params.title,
             "name": ""
+            
         }
-        
+        //var user = req.user.id;
         d.name =  d.dir + d.type + d.title;
         var resource = new Firebase(fbURL + '/resources/' + d.name);
         resource.once('value', function(snap_r){
@@ -62,13 +150,11 @@ var express = require('express')
             var data = snap_r.val();
             var v = req.query.vote;
             
-            var userVotes = new Firebase(fbURL + '/users/' + user + '/votes');
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name);
             didVote.once('value', function(snap_d){
-                userVotes.once('value', function(snap_u){
                     data.your_vote = snap_d.val();
                     
-                    if(typeof(v) != "undefined"){
+                    if(typeof(v) != "undefined" && user !== null){
                         //voting! Yup, that's 12 possible references to update
                         var update = {
                             resource: {
@@ -159,19 +245,34 @@ var express = require('express')
                         res.redirect(req._parsedUrl.pathname);
                     }else {
                         res.render(__dirname + '/views/resource_show.ejs', {
-                            "r": data
+                            "r": data,
+                            "page": "resource"
                         });
                     }
                     
                     
-                });
             });
             
-        });
-        
-       
+        });   
        
     });
+
+    app.get('/:page', function(req, res) {
+	  	fs.stat(__dirname + '/views/' + req.params.page + ".ejs", function(err){
+	  		if(err){
+				res.render('404', {
+                    "page":  "not_fount"
+                });
+	  		}else{
+	  			res.render(__dirname + '/views/' + req.params.page + ".ejs", {
+                    "page": "page"
+                });
+	  			
+	  		}
+	  	});
+
+	});
+
     /*
 	app.locals({
 	  table  : function(list) {

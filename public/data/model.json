@@ -1,31 +1,5 @@
 {"http4apis": {
-    "users": {
-       "1234": {
-        "id": "1234",
-        "name": "Alan",
-        "votes": {
-            "total": 2,
-            "up": 1,
-            "down": 1,
-            "resources": {
-                "responsecode200": true,
-                "responsecode301": false
-                }
-            }
-        },
-       "2345": {
-        "id": "2345",
-        "name": "Jo Gabba Gabba",
-        "votes": {
-            "total": 2,
-            "up": 2,
-            "resources": {
-                "responsecode301": true,
-                "responsecode500": false
-                }
-            }
-        }
-    }
+    "users": { }
     ,
     "resources": {
         "responsecode200": {
@@ -36,12 +10,10 @@
     "direction": "response",
     "type": "code", 
     "votes": {
-        "total": 1,
-        "up": 1,
+        "total": 0,
+        "up": 0,
         "down": 0,
-        "raw": {
-            "1234": true
-        }
+        "raw": { }
     }
    },
 "responsecode301":{
@@ -52,13 +24,10 @@
  "direction": "response",
     "type": "code", 
     "votes": {
-        "total": 2,
-        "up": 1,
-        "down": 1,
-        "raw": {
-            "2345": true, 
-            "1234": false
-        }
+        "total": 0,
+        "up": 0,
+        "down": 0,
+        "raw": { }
     } 
    },
 "responsecode404":{
@@ -83,21 +52,15 @@
     "direction": "response",
     "type": "code",
     "votes": {
-        "total": 1,
-        "up": 1,
+        "total": 0,
+        "up": 0,
         "down": 0,
-        "raw": {
-            "2345": true
-        }
+        "raw": { }
     }
    }},
     "votes": {
-        "total": 4,
-        "raw": {
-                    "responsecode200": {"1234": true},
-                    "responsecode301": {"2345": true,"1234": false},
-                    "responsecode500": {"2345": true}
-                }
+        "total": 0,
+        "raw": {}
     }
     
 }}
