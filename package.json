@@ -1,0 +1,27 @@
+{
+  "name": "http",
+  "version": "0.0.0",
+  "description": "Voting on things",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "api",
+    "craft"
+  ],
+  "author": "Alan Languirand <alanguirand@apigee.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~3.1.2",
+    "ejs": "~0.8.4",
+    "less-middleware": "~0.1.12",
+    "node.extend": "~1.0.8",
+    "firebase": "~0.6.9"
+  },
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.2.0"
+  }
+}

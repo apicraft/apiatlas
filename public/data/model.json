@@ -1,0 +1,10 @@
+{
+ "name": "Accept",
+ "description": "Content-Types that are acceptable for the response",
+ "example": "Accept: text/plain",
+ "direction": "request",
+ "type": "header", 
+ "votes": 0,
+ "voteups": 0,
+ "votedowns": 0
+}

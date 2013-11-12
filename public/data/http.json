@@ -1,0 +1,708 @@
+{
+"request":{
+ "header": [
+{
+ "name": "Accept",
+ "description": "Content-Types that are acceptable for the response",
+ "example": "Accept: text/plain"
+},{
+ "name": "Accept-Charset",
+ "description": "Character sets that are acceptable",
+ "example": "Accept-Charset: utf-8"
+},{
+ "name": "Accept-Datetime",
+ "description": "Acceptable version in time",
+ "example": "Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT</code>"
+},{
+ "name": "Accept-Encoding",
+ "description": "List of acceptable encodings. See <a href='/wiki/HTTP_compression' title='HTTP compression'>HTTP compression</a>.",
+ "example": "Accept-Encoding: gzip, deflate"
+},{
+ "name": "Accept-Language",
+ "description": "List of acceptable human languages for response",
+ "example": "Accept-Language: en-US"
+},{
+ "name": "Authorization",
+ "description": "Authentication credentials for HTTP authentication",
+ "example": "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+},{
+ "name": "Cache-Control",
+ "description": "Used to specify directives that MUST be obeyed by all caching mechanisms along the request/response chain",
+ "example": "Cache-Control: no-cache"
+},{
+ "name": "Connection",
+ "description": "What type of connection the user-agent would prefer",
+ "example": "Connection: keep-alive"
+},{
+ "name": "Content-Length",
+ "description": "The length of the request body in <a href='/wiki/Octet_(computing)' title='Octet (computing)'>octets</a> (8-bit bytes)",
+ "example": "Content-Length: 348"
+},{
+ "name": "Content-MD5",
+ "description": "A <a href='/wiki/Base64' title='Base64'>Base64</a>-encoded binary <a href='/wiki/MD5' title='MD5'>MD5</a> sum of the content of the request body",
+ "example": "Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ=="
+},{
+ "name": "Content-Type",
+ "description": "The <a href='/wiki/MIME_type' title='MIME type' class='mw-redirect'>MIME type</a> of the body of the request (used with POST and PUT requests)",
+ "example": "Content-Type: application/x-www-form-urlencoded"
+},{
+ "name": "<a href='/wiki/HTTP_Cookie' title='HTTP Cookie' class='mw-redirect'>Cookie</a>",
+ "description": "an HTTP cookie previously sent by the server with <tt><a href='#innerlink_set-cookie'>Set-Cookie</a></tt> (below)",
+ "example": "Cookie: $Version=1; Skin=new;</code>"
+},{
+ "name": "Date",
+ "description": "The date and time that the message was sent",
+ "example": "Date: Tue, 15 Nov 1994 08:12:31 GMT"
+},{
+ "name": "Expect",
+ "description": "Indicates that particular server behaviors are required by the client",
+ "example": "Expect: 100-continue"
+},{
+ "name": "From",
+ "description": "The email address of the user making the request",
+ "example": "From: user@example.com"
+},{
+ "name": "Host",
+ "description": "The domain name of the server (for virtual hosting), and the TCP port number on which the server is listening. The port number may be omitted if the port is the standard port for the service requested. Mandatory since HTTP/1.1. Although domain name are specified as case-insensitive, it is not specified whether the contents of the Host field should be interpreted in a case-insensitive manner and in practice some implementations of virtual hosting interpret the contents of the Host field in a case-sensitive manner.",
+ "example": "Host: en.wikipedia.org:80</code>
+<p><code>Host: en.wikipedia.org</code></p>
+"
+},{
+ "name": "If-Match",
+ "description": "Only perform the action if the client supplied entity matches the same entity on the server. This is mainly for methods like PUT to only update a resource if it has not been modified since the user last updated it.",
+ "example": "If-Match: '737060cd8c284d8af7ad3082f209582d'"
+},{
+ "name": "If-Modified-Since",
+ "description": "Allows a <i>304 Not Modified</i> to be returned if content is unchanged",
+ "example": "If-Modified-Since: Sat, 29 Oct 1994 19:43:31 GMT"
+},{
+ "name": "If-None-Match",
+ "description": "Allows a <i>304 Not Modified</i> to be returned if content is unchanged, see <a href='/wiki/HTTP_ETag' title='HTTP ETag'>HTTP ETag</a>",
+ "example": "If-None-Match: '737060cd8c284d8af7ad3082f209582d'"
+},{
+ "name": "If-Range",
+ "description": "If the entity is unchanged, send me the part(s) that I am missing; otherwise, send me the entire new entity",
+ "example": "If-Range: '737060cd8c284d8af7ad3082f209582d'"
+},{
+ "name": "If-Unmodified-Since",
+ "description": "Only send the response if the entity has not been modified since a specific time.",
+ "example": "If-Unmodified-Since: Sat, 29 Oct 1994 19:43:31 GMT"
+},{
+ "name": "Max-Forwards",
+ "description": "Limit the number of times the message can be forwarded through proxies or gateways.",
+ "example": "Max-Forwards: 10"
+},{
+ "name": "Origin",
+ "description": "Initiates a request for <a href='/wiki/Cross-origin_resource_sharing' title='Cross-origin resource sharing'>cross-origin resource sharing</a> (asks server for an 'Access-Control-Allow-Origin' response header) .",
+ "example": "Origin: http://www.example-social-network.com</code>"
+},{
+ "name": "Pragma",
+ "description": "Implementation-specific headers that may have various effects anywhere along the request-response chain.",
+ "example": "<a href='#Avoiding_caching'>Pragma: no-cache</a>"
+},{
+ "name": "Proxy-Authorization",
+ "description": "Authorization credentials for connecting to a proxy.",
+ "example": "Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+},{
+ "name": "Range",
+ "description": "Request only part of an entity. Bytes are numbered from 0.",
+ "example": "Range: bytes=500-999"
+},{
+ "name": "Referer",
+ "description": "This is the address of the previous web page from which a link to the currently requested page was followed. (The word “referrer” is misspelled in the RFC as well as in most implementations.)",
+ "example": "Referer: http://en.wikipedia.org/wiki/Main_Page"
+},{
+ "name": "TE",
+ "description": "The transfer encodings the user agent is willing to accept: the same values as for the response header Transfer-Encoding can be used, plus the 'trailers' value (related to the chunked transfer method) to notify the server it expects to receive additional headers (the trailers) after the last, zero-sized, chunk.",
+ "example": "TE: trailers, <a href='/wiki/Deflate' title='Deflate' class='mw-redirect'>deflate</a>"
+},{
+ "name": "<a href='/wiki/Upgrade_header' title='Upgrade header' class='mw-redirect'>Upgrade</a>",
+ "description": "Ask the server to upgrade to another protocol.",
+ "example": "Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11"
+},{
+ "name": "User-Agent",
+ "description": "The <a href='/wiki/User_agent_string' title='User agent string' class='mw-redirect'>user agent string</a> of the user agent",
+ "example": "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0"
+},{
+ "name": "Via",
+ "description": "Informs the server of proxies through which the request was sent.",
+ "example": "Via: 1.0 fred, 1.1 example.com (Apache/1.1)"
+},{
+ "name": "Warning",
+ "description": "A general warning about possible problems with the entity body.",
+ "example": "Warning: 199 Miscellaneous warning"
+}
+],
+ "verb": [
+  {
+   "name": "GET",
+   "description": "Requests a representation of the specified resource. Requests using GET should only retrieve data and should have no other effect."
+  },
+  {
+   "name": "HEAD",
+   "description": "Asks for the response identical to the one that would correspond to a GET request, but without the response body. This is useful for retrieving meta-information written in response headers, without having to transport the entire content."
+  },
+  {
+   "name": "POST",
+   "description": "Requests that the server accept the entity enclosed in the request as a new subordinate of the web resource identified by the URI. The data POSTed might be, as examples, an annotation for existing resources; a message for a bulletin board, newsgroup, mailing list, or comment thread; a block of data that is the result of submitting a web form to a data-handling process; or an item to add to a database."
+  },
+  {
+   "name": "PUT",
+   "description": "Requests that the enclosed entity be stored under the supplied URI. If the URI refers to an already existing resource, it is modified; if the URI does not point to an existing resource, then the server can create the resource with that URI."
+  },
+  {
+   "name": "DELETE",
+   "description": "Deletes the specified resource."
+  },
+  {
+   "name": "TRACE",
+   "description": "Echoes back the received request so that a client can see what (if any) changes or additions have been made by intermediate servers."
+  },
+  {
+   "name": "OPTIONS",
+   "description": "Returns the HTTP methods that the server supports for specified URL. This can be used to check the functionality of a web server by requesting '*' instead of a specific resource."
+  },
+  {
+   "name": "CONNECT",
+   "description": "Converts the request connection to a transparent TCP/IP tunnel, usually to facilitate SSL-encrypted communication (HTTPS) through an unencrypted HTTP proxy."
+  },
+  {
+   "name": "PATCH",
+   "description": "Is used to apply partial modifications to a resource."
+  }
+ ]
+ },
+ "response":{
+  "header": [{
+ "name": "Accept",
+ "description": "Content-Types that are acceptable for the response",
+ "example": "Accept: text/plain"
+},
+{
+ "name": "Accept-Charset",
+ "description": "Character sets that are acceptable",
+ "example": "Accept-Charset: utf-8"
+},
+{
+ "name": "Accept-Datetime",
+ "description": "Acceptable version in time",
+ "example": "Accept-Datetime: Thu, 31 May 2007 20:35:00 GMT"
+},
+{
+ "name": "Accept-Encoding",
+ "description": "List of acceptable encodings. See HTTP compression.",
+ "example": "Accept-Encoding: gzip, deflate"
+},
+{
+ "name": "Accept-Language",
+ "description": "List of acceptable human languages for response",
+ "example": "Accept-Language: en-US"
+},
+{
+ "name": "Authorization",
+ "description": "Authentication credentials for HTTP authentication",
+ "example": "Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+},
+{
+ "name": "Cache-Control",
+ "description": "Used to specify directives that MUST be obeyed by all caching mechanisms along the request/response chain",
+ "example": "Cache-Control: no-cache"
+},
+{
+ "name": "Connection",
+ "description": "What type of connection the user-agent would prefer",
+ "example": "Connection: keep-alive"
+},
+{
+ "name": "Content-Length",
+ "description": "The length of the request body in octets (8-bit bytes)",
+ "example": "Content-Length: 348"
+},
+{
+ "name": "Content-MD5",
+ "description": "A Base64-encoded binary MD5 sum of the content of the request body",
+ "example": "Content-MD5: Q2hlY2sgSW50ZWdyaXR5IQ=="
+},
+{
+ "name": "Content-Type",
+ "description": "The MIME type of the body of the request (used with POST and PUT requests)",
+ "example": "Content-Type: application/x-www-form-urlencoded"
+},
+{
+ "name": "Cookie",
+ "description": "an HTTP cookie previously sent by the server with Set-Cookie (below)",
+ "example": "Cookie: $Version=1; Skin=new;"
+ },
+{
+ "name": "Date",
+ "description": "The date and time that the message was sent",
+ "example": "Date: Tue, 15 Nov 1994 08:12:31 GMT"
+},
+{
+ "name": "Expect",
+ "description": "Indicates that particular server behaviors are required by the client",
+ "example": "Expect: 100-continue"
+},
+{
+ "name": "From",
+ "description": "The email address of the user making the request",
+ "example": "From: user@example.com"
+},
+{
+ "name": "Host",
+ "description": "The domain name of the server (for virtual hosting), and the TCP port number on which the server is listening. The port number may be omitted if the port is the standard port for the service requested.[8] Mandatory since HTTP/1.1. Although domain name are specified as case-insensitive, it is not specified whether the contents of the Host field should be interpreted in a case-insensitive manner and in practice some implementations of virtual hosting interpret the contents of the Host field in a case-sensitive manner.",
+ "example": "Host: en.wikipedia.org:80, or Host: en.wikipedia.org"
+},
+{
+ "name": "If-Match",
+ "description": "Only perform the action if the client supplied entity matches the same entity on the server. This is mainly for methods like PUT to only update a resource if it has not been modified since the user last updated it.",
+ "example": "If-Match: '737060cd8c284d8af7ad3082f209582d'"
+},
+{
+ "name": "If-Modified-Since",
+ "description": "Allows a 304 Not Modified to be returned if content is unchanged",
+ "example": "If-Modified-Since: Sat, 29 Oct 1994 19:43:31 GMT"
+},
+{
+ "name": "If-None-Match",
+ "description": "Allows a 304 Not Modified to be returned if content is unchanged. See HTTP ETag",
+ "example": "If-None-Match: '737060cd8c284d8af7ad3082f209582d'"
+},
+{
+ "name": "If-Range",
+ "description": "If the entity is unchanged, send me the part(s) that I am missing; otherwise, send me the entire new entity",
+ "example": "If-Range: '737060cd8c284d8af7ad3082f209582d'"
+},
+{
+ "name": "If-Unmodified-Since",
+ "description": "Only send the response if the entity has not been modified since a specific time.",
+ "example": "If-Unmodified-Since: Sat, 29 Oct 1994 19:43:31 GMT"
+},
+{
+ "name": "Max-Forwards",
+ "description": "Limit the number of times the message can be forwarded through proxies or gateways.",
+ "example": "Max-Forwards: 10"
+},
+{
+ "name": "Origin",
+ "description": "Initiates a request for cross-origin resource sharing (asks server for an 'Access-Control-Allow-Origin' response header) .",
+ "example": "Origin: http://www.example-social-network.com"
+ },
+{
+ "name": "Pragma",
+ "description": "Implementation-specific headers that may have various effects anywhere along the request-response chain.",
+ "example": "Pragma: no-cache"
+},
+{
+ "name": "Proxy-Authorization",
+ "description": "Authorization credentials for connecting to a proxy.",
+ "example": "Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=="
+},
+{
+ "name": "Range",
+ "description": "Request only part of an entity. Bytes are numbered from 0.",
+ "example": "Range: bytes=500-999"
+},
+{
+ "name": "Referer",
+ "description": "This is the address of the previous web page from which a link to the currently requested page was followed. (The word 'referrer'”' is misspelled in the RFC as well as in most implementations.)",
+ "example": "Referer: http://en.wikipedia.org/wiki/Main_Page"
+},
+{
+ "name": "TE",
+ "description": "The transfer encodings the user agent is willing to accept: the same values as for the response header Transfer-Encoding can be used, plus the 'trailers' value (related to the 'chunked' transfer method) to notify the server it expects to receive additional headers (the trailers) after the last, zero-sized, chunk.",
+ "example": "TE: trailers, deflate"
+},
+{
+ "name": "Upgrade",
+ "description": "Ask the server to upgrade to another protocol.",
+ "example": "Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11"
+},
+{
+ "name": "User-Agent",
+ "description": "The user agent string of the user agent",
+ "example": "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0"
+},
+{
+ "name": "Via",
+ "description": "Informs the server of proxies through which the request was sent.",
+ "example": "Via: 1.0 fred, 1.1 example.com (Apache/1.1)"
+},
+{
+ "name": "Warning",
+ "description": "A general warning about possible problems with the entity body.",
+ "example": "Warning: 199 Miscellaneous warning"
+}],
+  "code": [
+   {
+    "name": "100",
+    "description": "Continue",
+    "example": "This means that the server has received the request headers, and that the client should proceed to send the request body (in the case of a request for which a body needs to be sent; for example, a POST request). If the request body is large, sending it to a server when a request has already been rejected based upon inappropriate headers is inefficient. To have a server check if the request could be accepted based on the request's headers alone, a client must send Expect: 100-continue as a header in its initial request and check if a 100 Continue status code is received in response before continuing (or receive 417 Expectation Failed and not continue)."
+   },
+   {
+    "name": "101"
+    "description": "Switching Protocols",
+    "example": "This means the requester has asked the server to switch protocols and the server is acknowledging that it will do so."
+   },
+   {
+    "name": "102",
+    "description": "Processing",
+    "example": "This code indicates that the server has received and is processing the request, but no response is available yet. This prevents the client from timing out and assuming the request was lost."
+   },
+   {
+    "name": "200",
+    "description": "OK",
+    "example": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+   },
+   {
+    "name": "201",
+    "description": "Created",
+    "example": "The request has been fulfilled and resulted in a new resource being created."
+   },
+   {
+    "name": "202 Accepted",
+    "example": "The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place."
+   },
+   {
+    "name": "203",
+    "description": "Non-Authoritative Information",
+    "example": "The server successfully processed the request, but is returning information that may be from another source."
+   },
+   {
+    "name": "204",
+    "description": "No Content",
+    "example": "The server successfully processed the request, but is not returning any content. Usually used as a response to a successful delete request."
+   },
+   {
+    "name": "205",
+    "description": "Reset Content",
+    "example": "The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view."
+   },
+   {
+    "name": "206",
+    "description": "Partial Content",
+    "example": "The server is delivering only part of the resource due to a range header sent by the client. The range header is used by tools like wget to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams."
+   },
+   {
+    "name": "207",
+    "description": "Multi-Status",
+    "example": "The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made."
+   },
+   {
+    "name": "208",
+    "description": "Already Reported",
+    "example": "The members of a DAV binding have already been enumerated in a previous reply to this request, and are not being included again."
+   },
+   {
+    "name": "226",
+    "description": "IM Used",
+    "example": "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance."
+   },
+   {
+    "name": "300",
+    "description": "Multiple Choices",
+    "example": "Indicates multiple options for the resource that the client may follow. It, for instance, could be used to present different format options for video, list files with different extensions, or word sense disambiguation."
+   },
+   {
+    "name": "301",
+    "description": "Moved Permanently",
+    "example": "This and all future requests should be directed to the given URI."
+   },
+   {
+    "name": "302",
+    "description": "Found",
+    "example": "This is an example of industry practice contradicting the standard. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was 'Moved Temporarily'), but popular browsers implemented 302 with the functionality of a 303 See Other. Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, some Web applications and frameworks use the 302 status code as if it were the 303."
+   },
+   {
+    "name": "303",
+    "description": "See Other",
+    "example": "The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message."
+   },
+   {
+    "name": "304",
+    "description": "Not Modified",
+    "example": "Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-Match. This means that there is no need to retransmit the resource, since the client still has a previously-downloaded copy."
+   },
+   {
+    "name": "305",
+    "description": "Use Proxy",
+    "example": "The requested resource is only available through a proxy, whose address is provided in the response. Many HTTP clients (such as Mozilla and Internet Explorer) do not correctly handle responses with this status code, primarily for security reasons.[citation needed]"
+   },
+   {
+    "name": "306",
+    "description": "Switch Proxy",
+    "example": "No longer used. Originally meant 'Subsequent requests should use the specified proxy.'"
+   },
+   {
+    "name": "307",
+    "description": "Temporary Redirect",
+    "example": "In this case, the request should be repeated with another URI; however, future requests should still use the original URI. In contrast to how 302 was historically implemented, the request method is not allowed to be changed when reissuing the original request. For instance, a POST request should be repeated using another POST request."
+   },
+   {
+    "name": "308",
+    "description": "Permanent Redirect",
+    "example": "The request, and all future requests should be repeated using another URI. 307 and 308 (as proposed) parallel the behaviours of 302 and 301, but do not allow the HTTP method to change. So, for example, submitting a form to a permanently redirected resource may continue smoothly."
+   },
+   {
+    "name": "400",
+    "description": "Bad Request",
+    "example": "The request cannot be fulfilled due to bad syntax."
+   },
+   {
+    "name": "401",
+    "description": "Unauthorized",
+    "example": "Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource. See Basic access authentication and Digest access authentication."
+   },
+   {
+    "name": "402",
+    "description": "Payment Required",
+    "example": "Reserved for future use. The original intention was that this code might be used as part of some form of digital cash or micropayment scheme, but that has not happened, and this code is not usually used. As an example of its use, however, Apple's defunct MobileMe service generated a 402 error if the MobileMe account was delinquent.[citation needed] In addition, YouTube uses this status if a particular IP address has made excessive requests, and requires the person to enter a CAPTCHA."
+   },
+   {
+    "name": "403",
+    "description": "Forbidden",
+    "example": "The request was a valid request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference. On servers where authentication is required, this commonly means that the provided credentials were successfully authenticated but that the credentials still do not grant the client permission to access the resource (e.g. a recognized user attempting to access restricted content)."
+   },
+   {
+    "name": "404",
+    "description": "Not Found",
+    "example": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+   },
+   {
+    "name": "405",
+    "description": "Method Not Allowed",
+    "example": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+   },
+   {
+    "name": "406",
+    "description": "Not Acceptable",
+    "example": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+   },
+   {
+    "name": "407",
+    "description": "Proxy Authentication Required",
+    "example": "The client must first authenticate itself with the proxy."
+   },
+   {
+    "name": "408",
+    "description": "Request Timeout",
+    "example": "The server timed out waiting for the request. According to W3 HTTP specifications: The client did not produce a request within the time that the server was prepared to wait. The client MAY repeat the request without modifications at any later time."
+   },
+   {
+    "name": "409",
+    "description": "Conflict",
+    "example": "Indicates that the request could not be processed because of conflict in the request, such as an edit conflict in the case of multiple updates."
+   },
+   {
+    "name": "410",
+    "description": "Gone",
+    "example": "Indicates that the resource requested is no longer available and will not be available again. This should be used when a resource has been intentionally removed and the resource should be purged. Upon receiving a 410 status code, the client should not request the resource again in the future. Clients such as search engines should remove the resource from their indices. Most use cases do not require clients and search engines to purge the resource, and a '404 Not Found' may be used instead."
+   },
+   {
+    "name": "411",
+    "description": "Length Required",
+    "example": "The request did not specify the length of its content, which is required by the requested resource."
+   },
+   {
+    "name": "412",
+    "description": "Precondition Failed",
+    "example": "The server does not meet one of the preconditions that the requester put on the request."
+   },
+   {
+    "name": "413",
+    "description": "Request Entity Too Large",
+    "example": "The request is larger than the server is willing or able to process."
+   },
+   {
+    "name": "414",
+    "description": "Request-URI Too Long",
+    "example": "The URI provided was too long for the server to process. Often the result of too much data being encoded as a query-string of a GET request, in which case it should be converted to a POST request."
+   },
+   {
+    "name": "415",
+    "description": "Unsupported Media Type",
+    "example": "The request entity has a media type which the server or resource does not support. For example, the client uploads an image as image/svg+xml, but the server requires that images use a different format."
+   },
+   {
+    "name": "416",
+    "description": "Requested Range Not Satisfiable",
+    "example": "The client has asked for a portion of the file, but the server cannot supply that portion. For example, if the client asked for a part of the file that lies beyond the end of the file."
+   },
+   {
+    "name": "417",
+    "description": "Expectation Failed",
+    "example": "The server cannot meet the requirements of the Expect request-header field."
+   },
+   {
+    "name": "419",
+    "description": "Authentication Timeout",
+    "example": "Not a part of the HTTP standard, 419 Authentication Timeout denotes that previously valid authentication has expired. It is used as an alternative to 401 Unauthorized in order to differentiate from otherwise authenticated clients being denied access to specific server resources[citation needed]."
+   },
+   {
+    "name": "420",
+    "description": "Method Failure (Spring Framework)",
+    "example": "Not part of the HTTP standard, but defined by Spring in the HttpStatus class to be used when a method failed."
+   },
+   {
+    "name": "420",
+    "description": "Enhance Your Calm (Twitter)",
+    "example": "Not part of the HTTP standard, but returned by the Twitter Search and Trends API when the client is being rate limited. Other services may wish to implement the 429 Too Many Requests response code instead."
+   },
+   {
+    "name": "422",
+    "description": "Unprocessable Entity",
+    "example": "The request was well-formed but was unable to be followed due to semantic errors."
+   },
+   {
+    "name": "423",
+    "description": "Locked",
+    "example": "The resource that is being accessed is locked."
+   },
+   {
+    "name": "424",
+    "description": "Failed Dependency",
+    "example": "The request failed due to failure of a previous request (e.g. a PROPPATCH)."
+   },
+   {
+    "name": "424",
+    "description": "Method Failure",
+    "example": "Indicates the method was not executed on a particular resource within its scope because some part of the method's execution failed causing the entire method to be aborted."
+   },
+   {
+    "name": "425",
+    "description": "Unordered Collection",
+    "example": "Defined in drafts of 'WebDAV Advanced Collections Protocol', but not present in 'Web Distributed Authoring and Versioning (WebDAV) Ordered Collections Protocol'."
+   },
+   {
+    "name": "426",
+    "description": "Upgrade Required",
+    "example": "The client should switch to a different protocol such as TLS/1.0.[17]"
+   },
+   {
+    "name": "428",
+    "description": "Precondition Required",
+    "example": "The origin server requires the request to be conditional. Intended to prevent 'the \"lost update\" problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict.'"
+   },
+   {
+    "name": "429",
+    "description": "Too Many Requests",
+    "example": "The user has sent too many requests in a given amount of time. Intended for use with rate limiting schemes."
+   },
+   {
+    "name": "431",
+    "description": "Request Header Fields Too Large",
+    "example": "The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large."
+   },
+   {
+    "name": "444",
+    "description": "No Response",
+    "example": "Used in Nginx logs to indicate that the server has returned no information to the client and closed the connection (useful as a deterrent for malware)."
+   },
+   {
+    "name": "449",
+    "description": "Retry With (Microsoft)",
+    "example": "A Microsoft extension. The request should be retried after performing the appropriate action.. Often search-engines or custom applications will ignore required parameters. Where no default action is appropriate, the Aviongoo website sends a 'HTTP/1.1 449 Retry with valid parameters: param1, param2, . . .' response. The applications may choose to learn, or not."
+   },
+   {
+    "name": "450",
+    "description": "Blocked by Windows Parental Controls (Microsoft)",
+    "example": "A Microsoft extension. This error is given when Windows Parental Controls are turned on and are blocking access to the given webpage."
+   },
+   {
+    "name": "451",
+    "description": "Unavailable For Legal Reasons (Internet draft)
+Defined in the internet draft 'A New HTTP Status Code for Legally-restricted Resources'. Intended to be used when resource access is denied for legal reasons, e.g. censorship or government-mandated blocked access. A reference to the 1953 dystopian novel Fahrenheit 451, where books are outlawed."
+   },
+   {
+    "name": "451",
+    "description": "Redirect (Microsoft)",
+    "example": "Used in Exchange ActiveSync if there either is a more efficient server to use or the server can't access the users' mailbox. The client is supposed to re-run the HTTP Autodiscovery protocol to find a better suited server."
+   },
+   {
+    "name": "494",
+    "description": "Request Header Too Large (Nginx)",
+    "example": "Nginx internal code similar to 413 but it was introduced earlier.[original research?]"
+   },
+   {
+    "name": "495",
+    "description": "Cert Error (Nginx)",
+    "example": "Nginx internal code used when SSL client certificate error occurred to distinguish it from 4XX in a log and an error page redirection."
+   },
+   {
+    "name": "496",
+    "description": "No Cert (Nginx)",
+    "example": "Nginx internal code used when client didn't provide certificate to distinguish it from 4XX in a log and an error page redirection."
+   },
+   {
+    "name": "497",
+    "description": "HTTP to HTTPS (Nginx)",
+    "example": "Nginx internal code used for the plain HTTP requests that are sent to HTTPS port to distinguish it from 4XX in a log and an error page redirection."
+   },
+   {
+    "name": "499",
+    "description": "Client Closed Request (Nginx)",
+    "example": "Used in Nginx logs to indicate when the connection has been closed by client while the server is still processing its request, making server unable to send a status code back."
+   },
+   {
+    "name": "500",
+    "description": "Internal Server Error",
+    "example": "A generic error message, given when no more specific message is suitable."
+   },
+   {
+    "name": "501",
+    "description": "Not Implemented",
+    "example": "The server either does not recognize the request method, or it lacks the ability to fulfill the request. Usually this implies future availability (eg. a new feature of a web-service API)."
+   },
+   {
+    "name": "502",
+    "description": "Bad Gateway",
+    "example": "The server was acting as a gateway or proxy and received an invalid response from the upstream server."
+   },
+   {
+    "name": "503",
+    "description": "Service Unavailable",
+    "example": "The server is currently unavailable (because it is overloaded or down for maintenance). Generally, this is a temporary state. Sometimes, this can be permanent as well on test servers."
+   },
+   {
+    "name": "504",
+    "description": "Gateway Timeout",
+    "example": "The server was acting as a gateway or proxy and did not receive a timely response from the upstream server."
+   },
+   {
+    "name": "505",
+    "description": "HTTP Version Not Supported",
+    "example": "The server does not support the HTTP protocol version used in the request."
+   },
+   {
+    "name": "506",
+    "description": "Variant Also Negotiates",
+    "example": "Transparent content negotiation for the request results in a circular reference."
+   },
+   {
+    "name": "507",
+    "description": "Insufficient Storage",
+    "example": "The server is unable to store the representation needed to complete the request."
+   },
+   {
+    "name": "508",
+    "description": "Loop Detected",
+    "example": "The server detected an infinite loop while processing the request (sent in lieu of 208)."
+   },
+   {
+    "name": "509",
+    "description": "Bandwidth Limit Exceeded (Apache bw/limited extension)",
+    "example": "This status code, while used by many servers, is not specified in any RFCs."
+   },
+   {
+    "name": "510",
+    "description": "Not Extended",
+    "example": "Further extensions to the request are required for the server to fulfil it."
+   },
+   {
+    "name": "511",
+    "description": "Network Authentication Required",
+    "example": "The client needs to authenticate to gain network access. Intended for use by intercepting proxies used to control access to the network (e.g. 'captive portals' used to require agreement to Terms of Service before granting full Internet access via a Wi-Fi hotspot). This code is not specified in any RFCs, but is used by Microsoft HTTP proxies to signal a network connect timeout behind the proxy to a client in front of the proxy."
+  }
+ ]
+}
+}
