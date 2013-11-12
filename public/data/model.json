@@ -1,10 +1,103 @@
-{
- "name": "Accept",
- "description": "Content-Types that are acceptable for the response",
- "example": "Accept: text/plain",
- "direction": "request",
- "type": "header", 
- "votes": 0,
- "voteups": 0,
- "votedowns": 0
-}
+{"http4apis": {
+    "users": {
+       "1234": {
+        "id": "1234",
+        "name": "Alan",
+        "votes": {
+            "total": 2,
+            "up": 1,
+            "down": 1,
+            "resources": {
+                "responsecode200": true,
+                "responsecode301": false
+                }
+            }
+        },
+       "2345": {
+        "id": "2345",
+        "name": "Jo Gabba Gabba",
+        "votes": {
+            "total": 2,
+            "up": 2,
+            "resources": {
+                "responsecode301": true,
+                "responsecode500": false
+                }
+            }
+        }
+    }
+    ,
+    "resources": {
+        "responsecode200": {
+    "name": "responsecode200",
+    "title": "200",
+    "description": "OK",
+    "example": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action.",
+    "direction": "response",
+    "type": "code", 
+    "votes": {
+        "total": 1,
+        "up": 1,
+        "down": 0,
+        "raw": {
+            "1234": true
+        }
+    }
+   },
+"responsecode301":{
+    "name": "responsecode301",
+    "title": "301",
+    "description": "Moved Permanently",
+    "example": "This and all future requests should be directed to the given URI.",
+ "direction": "response",
+    "type": "code", 
+    "votes": {
+        "total": 2,
+        "up": 1,
+        "down": 1,
+        "raw": {
+            "2345": true, 
+            "1234": false
+        }
+    } 
+   },
+"responsecode404":{
+    "name": "responsecode404",
+    "title": "404",
+    "description": "Not Found",
+    "example": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.",
+    "direction": "response",
+    "type": "code", 
+    "votes": {
+        "total": 0,
+        "up": 0,
+        "down": 0,
+        "raw": {}
+    }
+   },
+"responsecode500":{
+    "name": "responsecode500",
+    "title": "500",
+    "description": "Internal Server Error",
+    "example": "A generic error message, given when no more specific message is suitable.",
+    "direction": "response",
+    "type": "code",
+    "votes": {
+        "total": 1,
+        "up": 1,
+        "down": 0,
+        "raw": {
+            "2345": true
+        }
+    }
+   }},
+    "votes": {
+        "total": 4,
+        "raw": {
+                    "responsecode200": {"1234": true},
+                    "responsecode301": {"2345": true,"1234": false},
+                    "responsecode500": {"2345": true}
+                }
+    }
+    
+}}

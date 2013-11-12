@@ -1,4 +1,14 @@
 <% include header %>
-	<h1>Hi!</h1>
+	<table>
+        
+        <% console.log(resources); %>
+        <% for(var i=0; i < resources.length; i++){ 
+           resource = resources[i];
+           %>
+        <tr><td><a href="/<%= resource.link %>"><%= resource.title %></a></td><td><%= resource.voteups%>/<%= resource.votes %></td></tr>   
+        <% } %>
+        
+        
+    </table>
 <% include footer %>
 

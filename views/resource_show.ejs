@@ -1,0 +1,8 @@
+<% include header %>
+	<h1><%= r.title %></h1>
+    <p>You voted: <%= r.your_vote %>. Vote: <a href="?vote=up">Up</a> or <a href="?vote=down">Down</a></p>
+    <h2><%= r.description %></h2>
+    <p><%= r.example %></p>
+    <p><%= r.votes.up %>/<%= r.votes.total %></p>
+    <p><a href=""></a></p>
+<% include footer %>
