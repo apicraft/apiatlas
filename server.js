@@ -79,11 +79,11 @@ var express = require('express')
                                 user: new Firebase(fbURL + '/resources/' + d.name + '/votes/raw/' + user)
                             },
                             user: {
-                                self: new Firebase(fbURL + '/users/' + user),
+                                self: new Firebase(fbURL + '/users/' + user + '/votes/resources'),
                                 down: new Firebase(fbURL + '/users/' + user + '/votes/down'),
                                 up: new Firebase(fbURL + '/users/' + user + '/votes/up'),
                                 total: new Firebase(fbURL + '/users/' + user + '/votes/total'),
-                                resource: new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name);
+                                resource: new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name)
                             },
                             raw: {
                                 self: new Firebase(fbURL + '/raw'),
@@ -93,31 +93,47 @@ var express = require('express')
                                 
                         }
                         function vote(boolean){
-                            update.resource.self.push({user: boolean});
-                            update.user.self.child('votes').child('resources').push({d.name: boolean});
-                            update.raw.self.child(d.name).push({user: boolean});
+                            var targetResourceName = d.name;
+                            update.resource.self.child(user).set(boolean);
+                            update.user.self.child(targetResourceName).set(boolean);
+                            update.raw.self.child(d.name).child(user).set(boolean);
+                            
+                            //update vote for resource
+                            update.resource.total.transaction(function(c) { return c + 1; });
+                            update.user.total.transaction(function(c) { return c + 1; });
+                            update.raw.total.transaction(function(c) { return c + 1; });
+                            
+                            if(boolean){
+                                update.resource.up.transaction(function(c) { return c + 1; });
+                                update.user.up.transaction(function(c) { return c + 1; });
+                            }else{
+                                update.resource.down.transaction(function(c) { return c + 1; });
+                                update.user.down.transaction(function(c) { return c + 1; });
+                            }
+
+                        }
+                        function reduceTotals(){
+                                update.resource.total.transaction(function(c) { return c - 1; });
+                                update.user.total.transaction(function(c) { return c - 1; });
+                                update.raw.total.transaction(function(c) { return c - 1; });
                         }
                                                
                         if(v == "up" && data.your_vote !== true){
                             //vote up                            
                             if(data.your_vote === false){
-                                //reduce down votes
+                                
                                 console.log('changing down to up');
-                                
-                                //remove vote from resource
-                                update.resource.down.transaction(function(c) { return c - 1; });
-                                update.resource.total.transaction(function(c) { return c - 1; });
-                                //remove vote from user
-                                update.user.down.transaction(function(c) { return c - 1; });
-                                update.user.total.transaction(function(c) { return c - 1; });
-                                //remove vote from raw
-                                update.raw.total.transaction(function(c) { return c - 1; });
-                                
                                 //remove previous votes 
                                 update.resource.user.remove();
                                 update.user.resource.remove();
                                 update.raw.user.remove();
                                 
+                                //decrement total counters
+                                update.resource.down.transaction(function(c) { return c - 1; });
+                                update.user.down.transaction(function(c) { return c - 1; });
+                                
+                                reduceTotals();
+  
                             }
                             //increase up votes 
                             vote(true);
@@ -125,21 +141,29 @@ var express = require('express')
                         }if(v == "down" && data.your_vote !== false){
                             //vote down
                             if(data.your_vote === true){
-                                //reduce up votes first 
-                                
+                                console.log('changing up to down');
                                 //remove previous votes 
                                 update.resource.user.remove();
                                 update.user.resource.remove();
                                 update.raw.user.remove();
+                                
+                                //decrement total counters
+                                update.resource.up.transaction(function(c) { return c - 1; });
+                                update.user.up.transaction(function(c) { return c - 1; });
+                                
+                                reduceTotals();
+
                             }
-                            vote(false);
-                            
+                            vote(false);           
                         }
+                        res.redirect(req._parsedUrl.pathname);
+                    }else {
+                        res.render(__dirname + '/views/resource_show.ejs', {
+                            "r": data
+                        });
                     }
                     
-                    res.render(__dirname + '/views/resource_show.ejs', {
-                        "r": data
-                    });
+                    
                 });
             });
             
