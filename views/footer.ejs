@@ -1,6 +1,13 @@
 <p>
-    <a href="/auth/github">Login</a> with github...<br/>
-    <a href="/logout">Logout</a>
+    <%  //logged in
+    if(typeof(user) == 'number' && user != null){  %>
+    
+        <a href="/logout?last=<%= name %>">Logout</a> 
+    <% } else { 
+        //not logged in 
+    %>
+        <a href="/auth/github?last=<%= name %>">Login</a> with github...<br/>
+    <% } %>
 </p>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="/js/function.js"></script>

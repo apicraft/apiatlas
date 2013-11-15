@@ -1,3 +1,10 @@
+/*
+
+2013 Alan Languirand
+@13protons
+
+*/
+
 var express = require('express')
     , lessMiddleware = require('less-middleware')
     , http = require('http')
@@ -10,7 +17,7 @@ var express = require('express')
     , extend = require('node.extend')
     , app = express()
     , Firebase = require('firebase')
-    , config = require('./config'); //make sure it's pointing in the right direction
+    , config = require('./config'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
 
     
     var fbURL = config['FIREBASE_FORGE'];
@@ -82,6 +89,9 @@ var express = require('express')
 
     //default page
     app.get('/', function(req, res) {
+        
+        user = getUser(req);
+        
         var resources = new Firebase(fbURL + '/resources');
         resources.once('value', function(snapshot){
             var output = [];
@@ -92,7 +102,9 @@ var express = require('express')
             }            
             res.render('index', {
                 "resources": output,
-                "page": "home"
+                "page": "home", 
+                "user": user,
+                "name": ""
             });
         });
 	  
@@ -107,33 +119,52 @@ var express = require('express')
             user['avatar_url'] = "http://www.gravatar.com/avatar/" + req.user._json.gravatar_id + ".jpg?s=200";
             res.render(__dirname + '/views/account.ejs', {
                 "type": "account",
-                "user": user
+                "user": user,
+                "name": ""
             });
         }
 	});
     
     app.get('/logout', function(req, res){
+            if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
+            else{ req.session.last = req.query.last }
+        
             req.logout();
-            res.redirect('/');
+            req.session['auth'] = false;
+            res.redirect(req.session.last);
         });
 
-    app.get('/auth/github', passport.authenticate('github'));
+    //Simple login
+    //app.get('/auth/github', passport.authenticate('github'));
+
+    //Handle "?last=x if available
+    app.get('/auth/github', function(req, res, next) {
+        if(typeof(req.query.last) == "undefined"){ req.session.last = '/login'; }
+        else{ req.session.last = req.query.last }
+        
+          passport.authenticate('github', function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.redirect(req.session.last); }
+            req.logIn(user, function(err) {
+              if (err) { return next(err); }
+              return res.redirect(req.session.last);
+            });
+          })(req, res, next);
+    });
+
+
     app.get('/auth/github/callback', 
             
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
           req.session['auth'] = true;
-        res.redirect('/');
+        res.redirect(req.session.last);
         
       });
 
 
     app.get('/:direction/:type/:title', function(req, res){
-        var user = null;
-        if(typeof(req.user) != 'undefined'){ 
-            user = req.user.id ;
-            console.log(user);
-        }
+        user = getUser(req);
         
         var d = {
             "dir": req.params.direction,
@@ -154,6 +185,7 @@ var express = require('express')
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
                     
+                    //this if block actually does the voting!
                     if(typeof(v) != "undefined" && user !== null){
                         //voting! Yup, that's 12 possible references to update
                         var update = {
@@ -172,9 +204,9 @@ var express = require('express')
                                 resource: new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name)
                             },
                             raw: {
-                                self: new Firebase(fbURL + '/raw'),
-                                total: new Firebase(fbURL + '/raw/total'),
-                                user: new Firebase(fbURL + '/raw/' + d.name + '/' + user)
+                                self: new Firebase(fbURL + '/votes'),
+                                total: new Firebase(fbURL + '/votes/total'),
+                                user: new Firebase(fbURL + '/votes/' + d.name + '/' + user)
                             }
                                 
                         }
@@ -246,7 +278,10 @@ var express = require('express')
                     }else {
                         res.render(__dirname + '/views/resource_show.ejs', {
                             "r": data,
-                            "page": "resource"
+                            "page": "resource",
+                            "user": user,
+                            "name": "/" + d.dir +"/"+ d.type +"/"+ d.title
+                            
                         });
                     }
                     
@@ -258,14 +293,19 @@ var express = require('express')
     });
 
     app.get('/:page', function(req, res) {
+        user = getUser(req);
 	  	fs.stat(__dirname + '/views/' + req.params.page + ".ejs", function(err){
 	  		if(err){
 				res.render('404', {
-                    "page":  "not_fount"
+                    "page":  "not_found",
+                    "user": user,
+                    "name": "/404"
                 });
 	  		}else{
 	  			res.render(__dirname + '/views/' + req.params.page + ".ejs", {
-                    "page": "page"
+                    "page": "page",
+                    "user": user,
+                    "name": "/" + req.params.page
                 });
 	  			
 	  		}
@@ -287,6 +327,14 @@ var express = require('express')
 	app.listen(port);
 
 	console.log('Listening on port %d', port);
+
+    function getUser(req){
+        var user = null;
+        if(typeof(req.user) != 'undefined'){ 
+            user = req.user.id ;
+        }
+        return user;
+    }
 
 function log(x){
     console.log(x);
