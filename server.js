@@ -20,10 +20,10 @@ var express = require('express')
     , config = require('./config'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
 
     
-    var fbURL = config['FIREBASE_FORGE'];
+    var fbURL = config['FIREBASE_FORGE']; //firebase endpoint
     
     //Configure sessions and passport
-    app.use(express.cookieParser(config['SESSION_SECRET']));
+    app.use(express.cookieParser(config['SESSION_SECRET'])); //make it a good one
     app.use(express.session({secret: config['SESSION_SECRET']}));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -35,7 +35,7 @@ var express = require('express')
     passport.use(new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
-        callbackURL: "http://localhost:3000/auth/github/callback"
+        callbackURL: "http://localhost:3000/auth/github/callback" //change for production
       },
       function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -90,8 +90,6 @@ var express = require('express')
     //default page
     app.get('/', function(req, res) {
         
-        user = getUser(req);
-        
         var resources = new Firebase(fbURL + '/resources');
         resources.once('value', function(snapshot){
             var output = [];
@@ -99,32 +97,22 @@ var express = require('express')
             for(var resource in d){
                 var data = snapshot.val()[resource];
                 output.push({"title": data.title, "votes": data.votes.total, "voteups": data.votes.up, "link": data.direction + "/" + data.type + "/" + data.title})
-            }            
+            }   //how many until this breaks? 
+            
+            //name = page name used for redirects after login/logout attempts
+            //page = a class name used for target styles and the page startup routine isolation in jQuery
+            //resources = the big list
+            //user = do we have one? Just a github ID and name. All public info, nothing sensetive. 
             res.render('index', {
                 "resources": output,
                 "page": "home", 
-                "user": user,
+                "user": getUser(req),
                 "name": ""
             });
         });
 	  
 	});
 
-    app.get('/account', function(req, res){
-        if(typeof(req.user) == "undefined"){
-           res.redirect('/login');
-           }
-        else {
-            user = reduce(req.user, ['displayName', 'username', 'id', 'profileUrl']);
-            user['avatar_url'] = "http://www.gravatar.com/avatar/" + req.user._json.gravatar_id + ".jpg?s=200";
-            res.render(__dirname + '/views/account.ejs', {
-                "type": "account",
-                "user": user,
-                "name": ""
-            });
-        }
-	});
-    
     app.get('/logout', function(req, res){
             if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
             else{ req.session.last = req.query.last }
@@ -164,7 +152,10 @@ var express = require('express')
 
 
     app.get('/:direction/:type/:title', function(req, res){
-        user = getUser(req);
+        user = null;
+        var full_user = getUser(req);
+        if(full_user !== null){user = full_user.id;}
+        
         
         var d = {
             "dir": req.params.direction,
@@ -279,7 +270,7 @@ var express = require('express')
                         res.render(__dirname + '/views/resource_show.ejs', {
                             "r": data,
                             "page": "resource",
-                            "user": user,
+                            "user": full_user,
                             "name": "/" + d.dir +"/"+ d.type +"/"+ d.title
                             
                         });
@@ -331,7 +322,7 @@ var express = require('express')
     function getUser(req){
         var user = null;
         if(typeof(req.user) != 'undefined'){ 
-            user = req.user.id ;
+            user = req.user ;
         }
         return user;
     }

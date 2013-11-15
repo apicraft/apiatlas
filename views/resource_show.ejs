@@ -4,7 +4,7 @@
     <p><%= r.example %></p>
 
     <%  //logged in
-    if(typeof(user) == 'number' && user != null){  %>
+    if(typeof(user) == 'object' && user != null){  %>
         <p>You voted: <%= r.your_vote %>. Vote: <a href="?vote=up">Up</a> or <a href="?vote=down">Down</a></p> 
     <% } else { /*not logged in*/  %>
         <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>

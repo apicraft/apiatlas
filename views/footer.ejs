@@ -1,8 +1,10 @@
 <p>
     <%  //logged in
-    if(typeof(user) == 'number' && user != null){  %>
+    if(typeof(user) == 'object' && user != null){  
+        console.log(user);
+        %>
     
-        <a href="/logout?last=<%= name %>">Logout</a> 
+        <a href="/logout?last=<%= name %>">Logout <%= user.displayName %></a> 
     <% } else { 
         //not logged in 
     %>
