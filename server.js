@@ -96,7 +96,8 @@ var express = require('express')
             var d = snapshot.val()
             for(var resource in d){
                 var data = snapshot.val()[resource];
-                output.push({"title": data.title, "votes": data.votes.total, "voteups": data.votes.up, "link": data.direction + "/" + data.type + "/" + data.title})
+                var urlFragment = data.direction + "/" + data.type + "/" + data.title;
+                output.push({"title": data.title, "votes": data.votes.total, "voteups": data.votes.up, "link": urlFragment, "update": fbURL + '/resources/' + data.direction + data.type + data.title + "/votes", "id": data.direction + "_" + data.type + "_" + data.title})
             }   //how many until this breaks? 
             
             //name = page name used for redirects after login/logout attempts
@@ -107,7 +108,8 @@ var express = require('express')
                 "resources": output,
                 "page": "home", 
                 "user": getUser(req),
-                "name": ""
+                "name": "",
+                "data": JSON.stringify(output)
             });
         });
 	  
@@ -155,7 +157,6 @@ var express = require('express')
         user = null;
         var full_user = getUser(req);
         if(full_user !== null){user = full_user.id;}
-        
         
         var d = {
             "dir": req.params.direction,

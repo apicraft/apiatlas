@@ -1,7 +1,7 @@
 <p>
     <%  //logged in
     if(typeof(user) == 'object' && user != null){  
-        console.log(user);
+        
         %>
     
         <a href="/logout?last=<%= name %>">Logout <%= user.displayName %></a> 
@@ -11,8 +11,9 @@
         <a href="/auth/github?last=<%= name %>">Login</a> with github...<br/>
     <% } %>
 </p>
+<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="/js/function.js"></script>
+<script type="text/javascript" src="/js/functions.js"></script>
 
 </body>
 </html>

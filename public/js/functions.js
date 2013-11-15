@@ -4,37 +4,18 @@ $(function(){
     var alts = ['resource', 'home'];
     var preloads = {
         'home': function(){
-            $(window).load(function(){
-                $t = $("#hero.resource h1");
-                if($t.text().length > 8){
-                    $("#hero").addClass("fit");
-                    $t.fitText(.7);
-                }
-                if($t.text().length > 12){
-                    $t.fitText(.9);
-                }
-            });
-            $(window).scroll(UpdateTableHeaders).trigger("scroll");
-            
-            function UpdateTableHeaders() {
-                if($(window).scrollTop() > $(".persistent_header").eq(0).offset().top){
-                    $(".floating_header").addClass("active");
-                   } else {
-                       $(".floating_header").removeClass("active");
-                   };
-               $(".persistent_header").each(function() {
-               
-                   var el             = $(this),
-                       offset         = el.offset(),
-                       scrollTop      = $(window).scrollTop()
-                   
-                   if (scrollTop > offset.top){
-                        //a header is visible
-                       $(".floating_header").html(el.html());
-                   } 
-                   return;
-               });
-            } //UpdateTableHeaders
+            fbRefs = []
+            for(i in resources){
+                //console.log(resources[i].update);
+                fbRefs[i] = new Firebase(resources[i].update);
+                fbRefs[i].on('value', function(snapshot){
+                    console.log(this);
+                    if(snapshot.val() !== null) {
+                        var targetID = this.id;
+                        $('#' + targetID).find('.votes').html(this.voteups + "/" + this.votes);
+                    }
+                }, function(){}, resources[i]);
+            }
         }, 
         'resource': function(){
             //load the page's data

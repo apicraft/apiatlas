@@ -1,6 +1,10 @@
 <html>
 <head>
-
+<% if(page == 'home'){ %>
+<script type="text/javascript">
+        var resources = <%- data %>;
+</script>
+<% } %>
 </head>
 <body class="<%= page %>">
 <% if(page != 'home'){ %> <p><a href="/">Home</a></p> <% } %>
