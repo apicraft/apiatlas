@@ -4,7 +4,7 @@
         <% for(var i=0; i < resources.length; i++){ 
            resource = resources[i];
            %>
-        <tr id="<%= resource.id %>"><td class="title"><a href="/<%= resource.link %>"><%= resource.title %></a></td><td class="votes"><%= resource.voteups%>/<%= resource.votes %></td></tr>   
+        <tr id="<%= resource.id %>"><td class="title"><a href="/<%= resource.link %>"><%= resource.title %></a></td><td class="votes"><%= resource.up %>/<%= resource.total %></td></tr>   
         <% } %>
         
         

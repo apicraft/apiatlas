@@ -97,7 +97,7 @@ var express = require('express')
             for(var resource in d){
                 var data = snapshot.val()[resource];
                 var urlFragment = data.direction + "/" + data.type + "/" + data.title;
-                output.push({"title": data.title, "votes": data.votes.total, "voteups": data.votes.up, "link": urlFragment, "update": fbURL + '/resources/' + data.direction + data.type + data.title + "/votes", "id": data.direction + "_" + data.type + "_" + data.title})
+                output.push({"title": data.title, "total": data.votes.total, "up": data.votes.up, "link": urlFragment, "update": fbURL + '/resources/' + data.direction + data.type + data.title + "/votes", "id": data.direction + "_" + data.type + "_" + data.title})
             }   //how many until this breaks? 
             
             //name = page name used for redirects after login/logout attempts
@@ -272,8 +272,8 @@ var express = require('express')
                             "r": data,
                             "page": "resource",
                             "user": full_user,
-                            "name": "/" + d.dir +"/"+ d.type +"/"+ d.title
-                            
+                            "name": "/" + d.dir +"/"+ d.type +"/"+ d.title,
+                            "updateURL": resource
                         });
                     }
                     

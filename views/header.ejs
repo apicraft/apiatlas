@@ -1,10 +1,11 @@
 <html>
 <head>
-<% if(page == 'home'){ %>
-<script type="text/javascript">
-        var resources = <%- data %>;
-</script>
-<% } %>
+
+    <script type="text/javascript">
+        <% if(page == 'home' ){ %> var resources = <%- data %>; <% } %>
+        <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>
+    </script>
+
 </head>
-<body class="<%= page %>">
+<body class="<%= page %>" id="<%= page %>">
 <% if(page != 'home'){ %> <p><a href="/">Home</a></p> <% } %>

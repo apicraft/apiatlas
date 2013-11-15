@@ -12,16 +12,18 @@ $(function(){
                     console.log("changing", this.title);
                     if(snapshot.val() !== null) {
                         var targetID = this.id;
-                        
-                        $('#' + targetID).find('.votes').html(snapshot.val().up + "/" + snapshot.val().total);
+                        if(typeof(snapshot.val().up) != 'undefined'){
+                            $('#' + targetID).find('.votes').html(snapshot.val().up + "/" + snapshot.val().total);
+                        }
                     }
                 }, function(){}, resources[i]);
             }
         }, 
         'resource': function(){
-           
-           
-            
+            var resource = new Firebase(updateURL);
+            resource.on('value', function(snapshot){
+                $('.votes').html(snapshot.val().votes.up + "/" + snapshot.val().votes.total);
+            });
         },
         '*': function(){
             //run before ANY page
