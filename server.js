@@ -157,38 +157,42 @@ var express = require('express')
             "dir": req.params.direction,
             "type": req.params.type,
             "title": req.params.title,
+            "uid": "",
             "name": ""
             
         }
         //var user = req.user.id;
-        d.name =  d.dir + d.type + d.title;
-        var resource = new Firebase(fbURL + '/resources/' + d.name);
+        d.uid =  d.dir + d.type + d.title;
+        d.name = d.dir + "/" + d.type + "/" + d.title;
+        var resource = new Firebase(fbURL + '/' + d.name);
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
-            var data = snap_r.val();
+            var data = snap_r.val();            
             var v = req.query.vote;
             
-            var didVote = new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name);
+            var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
+            
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
                     
                     //this if block actually does the voting!
                     if(typeof(v) != "undefined" && user !== null){
-                        //voting! Yup, that's 12 possible references to update
+    
+    //voting! Yup, that's 12 possible references to update
                         var update = {
                             resource: {
-                                self: new Firebase(fbURL + '/resources/' + d.name + '/votes/raw'),
-                                down: new Firebase(fbURL + '/resources/' + d.name + '/votes/down'),
-                                up: new Firebase(fbURL + '/resources/' + d.name + '/votes/up'),
-                                total: new Firebase(fbURL + '/resources/' + d.name + '/votes/total'),
-                                user: new Firebase(fbURL + '/resources/' + d.name + '/votes/raw/' + user)
+                                self: new Firebase(fbURL + '/' + d.name + '/votes/raw'),
+                                down: new Firebase(fbURL + '/' + d.name + '/votes/down'),
+                                up: new Firebase(fbURL + '/' + d.name + '/votes/up'),
+                                total: new Firebase(fbURL + '/' + d.name + '/votes/total'),
+                                user: new Firebase(fbURL + '/' + d.name + '/votes/raw/' + user)
                             },
                             user: {
-                                self: new Firebase(fbURL + '/users/' + user + '/votes/resources'),
+                                self: new Firebase(fbURL + '/users/' + user + '/votes/'),
                                 down: new Firebase(fbURL + '/users/' + user + '/votes/down'),
                                 up: new Firebase(fbURL + '/users/' + user + '/votes/up'),
                                 total: new Firebase(fbURL + '/users/' + user + '/votes/total'),
-                                resource: new Firebase(fbURL + '/users/' + user + '/votes/resources/' + d.name)
+                                resource: new Firebase(fbURL + '/users/' + user + '/votes/' + d.name)
                             },
                             raw: {
                                 self: new Firebase(fbURL + '/votes'),
@@ -217,51 +221,50 @@ var express = require('express')
                             }
 
                         }
-                        function reduceTotals(){
+                        function reduceTotals(x){
+                                //remove previous votes 
+                                update.resource.user.remove();
+                                update.user.resource.remove();
+                                update.raw.user.remove();
+                                
+                                //decrement total counters
                                 update.resource.total.transaction(function(c) { return c - 1; });
                                 update.user.total.transaction(function(c) { return c - 1; });
                                 update.raw.total.transaction(function(c) { return c - 1; });
+                                
+                                if(data.your_vote === false || data.your_vote === null){
+                                    update.resource.down.transaction(function(c) { return c - 1; });
+                                    update.user.down.transaction(function(c) { return c - 1; });
+                                }
+                                
+                                if(data.your_vote === true || data.your_vote === null){
+                                    update.resource.up.transaction(function(c) { return c - 1; });
+                                    update.user.up.transaction(function(c) { return c - 1; });
+                                }
+                            
                         }
-                                               
+                        if(v == "remove" && data.your_vote !== null){
+                           console.log("remove vote");
+                           reduceTotals(data.your_vote);
+                           }                      
                         if(v == "up" && data.your_vote !== true){
                             //vote up                            
                             if(data.your_vote === false){
-                                
                                 console.log('changing down to up');
-                                //remove previous votes 
-                                update.resource.user.remove();
-                                update.user.resource.remove();
-                                update.raw.user.remove();
-                                
-                                //decrement total counters
-                                update.resource.down.transaction(function(c) { return c - 1; });
-                                update.user.down.transaction(function(c) { return c - 1; });
-                                
-                                reduceTotals();
-  
+                                reduceTotals(data.your_vote);
                             }
-                            //increase up votes 
                             vote(true);
-                            
-                        }if(v == "down" && data.your_vote !== false){
+                        }
+                        if(v == "down" && data.your_vote !== false){
                             //vote down
                             if(data.your_vote === true){
                                 console.log('changing up to down');
-                                //remove previous votes 
-                                update.resource.user.remove();
-                                update.user.resource.remove();
-                                update.raw.user.remove();
-                                
-                                //decrement total counters
-                                update.resource.up.transaction(function(c) { return c - 1; });
-                                update.user.up.transaction(function(c) { return c - 1; });
-                                
-                                reduceTotals();
-
+                                reduceTotals(data.your_vote);
                             }
                             vote(false);           
                         }
-                        res.redirect(req._parsedUrl.pathname);
+                        //res.redirect(req._parsedUrl.pathname);
+                        
                     }else {
                         res.render(__dirname + '/views/resource_show.ejs', {
                             "r": data,

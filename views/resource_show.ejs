@@ -1,15 +1,26 @@
 <% include header %>
-	<h1><%= r.title %></h1>
+	<h1><%= r.name %></h1>
     <h2><%= r.description %></h2>
     <p><%= r.example %></p>
-
+    
+    <p class="controls vote_<%= r.your_vote %>">
     <%  //logged in
-    if(typeof(user) == 'object' && user != null){  %>
-        <p>You voted: <%= r.your_vote %>. Vote: <a href="?vote=up">Up</a> or <a href="?vote=down">Down</a></p> 
+    if(typeof(user) == 'object' && user != null){ %>
+        <a href="?vote=up" title="You use this in your apis!" class="vote_up"> 
+            <i class="fa fa-thumbs-up"></i>
+            <i class="fa fa-thumbs-o-up"></i>
+        </a> 
+        <a href="?vote=down" title="You DON'T use this in your apis :(" class="vote_down"> 
+            <i class="fa fa-thumbs-down"></i>
+            <i class="fa fa-thumbs-o-down"></i>
+        </a>
+        <a href="?vote=remove" title="Remove my vote." class="vote_remove"><i class="fa fa-trash-o"></i></a>
+        
     <% } else { /*not logged in*/  %>
         <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>
     <% } %>
-     
+    </p>
+
     <p class="votes"><%= r.votes.up %>/<%= r.votes.total %></p>
     <p><a href=""></a></p>
 <% include footer %>
