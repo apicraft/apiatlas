@@ -26,14 +26,42 @@ $(function(){
         "response_headers
         "response_codes"
         */
+        var template = {};
+        $.get("./templates/homepage.ejs", function(t){
+            template.source = t;
+            template.render = function(x){ return ejs.render(this.source, x); }
+            
+            for(var i=0; i < resources.length; i++){ 
+               resources[i].refs = {};
+               resources[i].source = new Firebase(resources[i].updateURL);
+               resources[i].source.once('value', function(snapshot){
+                   for(name in snapshot.val()){
+                    resource = snapshot.val()[name];
+                       //console.log(resource);
+                       this.refs[name] = new Firebase(this.updateURL + "/" + resource.name.toLowerCase());
+                        this.refs[name].on('value', function(snap){
+                            this.self.rel = this.parent.rel + "/" + this.self.name.toLowerCase();
+                            this.self.uid = this.self.rel.replace(/\//g, "");
+                            this.target = $("#" + this.self.uid);
+                            if(this.target.length != 0){
+                                //update!
+                                this.target.find(".votes").html(this.self.votes.up + "/" + this.self.votes.down);
+                            } else {
+                                //render!
+                                this.self.rel = this.parent.rel + "/" + this.self.name.toLowerCase();
+                                $("#" + this.parent.id).append(template.render(this.self));
+                            }
+                        }, function(){}, {"parent": this, "self": resource});
+                   }
+                   
+               }, function(){},resources[i]);
+            }
+            
+        });
         
-        for(var i=0; i < resources.length; i++){ 
-           resources[i].refs = [];
-           resources[i].source = new Firebase(resources[i].updateURL);
-           resources[i].source.on('value', function(snapshot){
-            console.log(snapshot.val());
-           });
-        }
+        
+            
+
             
         }, //end of home  
         'resource': function(){

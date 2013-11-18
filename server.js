@@ -92,10 +92,10 @@ var express = require('express')
         
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
         var output = [
-            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers"},
-            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs"},
-            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers"},
-            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes"}
+            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
+            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
+            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
+            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
         ];
         
         res.render('index', {
