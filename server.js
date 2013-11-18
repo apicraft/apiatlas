@@ -90,28 +90,23 @@ var express = require('express')
     //default page
     app.get('/', function(req, res) {
         
-        var resources = new Firebase(fbURL + '/resources');
-        resources.once('value', function(snapshot){
-            var output = [];
-            var d = snapshot.val()
-            for(var resource in d){
-                var data = snapshot.val()[resource];
-                var urlFragment = data.direction + "/" + data.type + "/" + data.title;
-                output.push({"title": data.title, "total": data.votes.total, "up": data.votes.up, "link": urlFragment, "update": fbURL + '/resources/' + data.direction + data.type + data.title + "/votes", "id": data.direction + "_" + data.type + "_" + data.title})
-            }   //how many until this breaks? 
-            
-            //name = page name used for redirects after login/logout attempts
-            //page = a class name used for target styles and the page startup routine isolation in jQuery
-            //resources = the big list
-            //user = do we have one? Just a github ID and name. All public info, nothing sensetive. 
-            res.render('index', {
+        //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
+        var output = [
+            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers"},
+            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs"},
+            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers"},
+            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes"}
+        ];
+        
+        res.render('index', {
                 "resources": output,
                 "page": "home", 
                 "user": getUser(req),
                 "name": "",
                 "data": JSON.stringify(output)
             });
-        });
+        
+      
 	  
 	});
 

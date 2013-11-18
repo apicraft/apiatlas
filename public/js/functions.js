@@ -4,6 +4,7 @@ $(function(){
     var alts = ['resource', 'home'];
     var preloads = {
         'home': function(){
+        /*
             var fbRefs = []
             for(i in resources){
                 //console.log(resources[i].update);
@@ -18,7 +19,23 @@ $(function(){
                     }
                 }, function(){}, resources[i]);
             }
-        }, 
+        */    
+        /*
+        "request_headers"
+		"request_verbs"
+        "response_headers
+        "response_codes"
+        */
+        
+        for(var i=0; i < resources.length; i++){ 
+           resources[i].refs = [];
+           resources[i].source = new Firebase(resources[i].updateURL);
+           resources[i].source.on('value', function(snapshot){
+            console.log(snapshot.val());
+           });
+        }
+            
+        }, //end of home  
         'resource': function(){
             var resource = new Firebase(updateURL);
             resource.on('value', function(snapshot){
