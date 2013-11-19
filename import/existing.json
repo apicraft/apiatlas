@@ -1,0 +1,130 @@
+{
+  "resources" : {
+    "responsecode200" : {
+      "type" : "code",
+      "description" : "OK",
+      "name" : "responsecode200",
+      "title" : "200",
+      "direction" : "response",
+      "example" : "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action.",
+      "votes" : {
+        "raw" : {
+          "1456258" : true,
+          "78582" : true
+        },
+        "total" : 2,
+        "down" : 0,
+        "up" : 2
+      }
+    },
+    "responsecode500" : {
+      "type" : "code",
+      "description" : "Internal Server Error",
+      "name" : "responsecode500",
+      "title" : "500",
+      "direction" : "response",
+      "example" : "A generic error message, given when no more specific message is suitable.",
+      "votes" : {
+        "raw" : {
+          "1456258" : true,
+          "78582" : true
+        },
+        "total" : 2,
+        "down" : 0,
+        "up" : 2
+      }
+    },
+    "responsecode301" : {
+      "type" : "code",
+      "description" : "Moved Permanently",
+      "name" : "responsecode301",
+      "title" : "301",
+      "direction" : "response",
+      "example" : "This and all future requests should be directed to the given URI.",
+      "votes" : {
+        "raw" : {
+          "1456258" : false,
+          "78582" : true
+        },
+        "total" : 2,
+        "down" : 1,
+        "up" : 1
+      }
+    },
+    "responsecode404" : {
+      "type" : "code",
+      "description" : "Not Found",
+      "name" : "responsecode404",
+      "title" : "404",
+      "direction" : "response",
+      "example" : "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.",
+      "votes" : {
+        "raw" : {
+          "78582" : true
+        },
+        "total" : 1,
+        "down" : 0,
+        "up" : 1
+      }
+    }
+  },
+  "raw" : {
+    "total" : 2,
+    "responsecode301" : {
+      "1456258" : false
+    },
+    "responsecode404" : {
+      "1456258" : true
+    }
+  },
+  "users" : {
+    "1456258" : {
+      "displayName" : "Alan Languirand",
+      "provider" : "github",
+      "votes" : {
+        "resources" : {
+          "responsecode200" : true,
+          "responsecode500" : true,
+          "responsecode301" : false
+        },
+        "total" : 3,
+        "down" : 1,
+        "up" : 2
+      },
+      "id" : 1456258
+    },
+    "78582" : {
+      "displayName" : "Kevin Swiber",
+      "provider" : "github",
+      "votes" : {
+        "resources" : {
+          "responsecode200" : true,
+          "responsecode500" : true,
+          "responsecode301" : true,
+          "responsecode404" : true
+        },
+        "total" : 4,
+        "up" : 4
+      },
+      "id" : 78582
+    }
+  },
+  "votes" : {
+    "responsecode200" : {
+      "1456258" : true,
+      "78582" : true
+    },
+    "responsecode500" : {
+      "1456258" : true,
+      "78582" : true
+    },
+    "total" : 7,
+    "responsecode301" : {
+      "1456258" : false,
+      "78582" : true
+    },
+    "responsecode404" : {
+      "78582" : true
+    }
+  }
+}
