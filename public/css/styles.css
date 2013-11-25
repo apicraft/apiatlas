@@ -3,104 +3,220 @@ body:after{clear:both}
 .resource .controls.vote_null .fa-thumbs-up,.resource .controls.vote_null .fa-thumbs-down,.resource .controls.vote_null .fa-trash-o{display:none}
 .resource .controls.vote_true .fa-thumbs-o-up,.resource .controls.vote_true .fa-thumbs-down{display:none}
 .resource .controls.vote_false .fa-thumbs-up,.resource .controls.vote_false .fa-thumbs-o-down{display:none}
-.bar_100{background-image:linear-gradient(90deg, #e87d7d 100%, #ddd 100%)}
-.bar_99{background-image:linear-gradient(90deg, #e87d83 99%, #ddd 99%)}
-.bar_98{background-image:linear-gradient(90deg, #e87d8a 98%, #ddd 98%)}
-.bar_97{background-image:linear-gradient(90deg, #e87d90 97%, #ddd 97%)}
-.bar_96{background-image:linear-gradient(90deg, #e87d97 96%, #ddd 96%)}
-.bar_95{background-image:linear-gradient(90deg, #e87d9d 95%, #ddd 95%)}
-.bar_94{background-image:linear-gradient(90deg, #e87da4 94%, #ddd 94%)}
-.bar_93{background-image:linear-gradient(90deg, #e87daa 93%, #ddd 93%)}
-.bar_92{background-image:linear-gradient(90deg, #e87db0 92%, #ddd 92%)}
-.bar_91{background-image:linear-gradient(90deg, #e87db7 91%, #ddd 91%)}
-.bar_90{background-image:linear-gradient(90deg, #e87dbd 90%, #ddd 90%)}
-.bar_89{background-image:linear-gradient(90deg, #e87dc4 89%, #ddd 89%)}
-.bar_88{background-image:linear-gradient(90deg, #e87dca 88%, #ddd 88%)}
-.bar_87{background-image:linear-gradient(90deg, #e87dd0 87%, #ddd 87%)}
-.bar_86{background-image:linear-gradient(90deg, #e87dd7 86%, #ddd 86%)}
-.bar_85{background-image:linear-gradient(90deg, #e87ddd 85%, #ddd 85%)}
-.bar_84{background-image:linear-gradient(90deg, #e87de4 84%, #ddd 84%)}
-.bar_83{background-image:linear-gradient(90deg, #e67de8 83%, #ddd 83%)}
-.bar_82{background-image:linear-gradient(90deg, #df7de8 82%, #ddd 82%)}
-.bar_81{background-image:linear-gradient(90deg, #d97de8 81%, #ddd 81%)}
-.bar_80{background-image:linear-gradient(90deg, #d37de8 80%, #ddd 80%)}
-.bar_79{background-image:linear-gradient(90deg, #cc7de8 79%, #ddd 79%)}
-.bar_78{background-image:linear-gradient(90deg, #c67de8 78%, #ddd 78%)}
-.bar_77{background-image:linear-gradient(90deg, #bf7de8 77%, #ddd 77%)}
-.bar_76{background-image:linear-gradient(90deg, #b97de8 76%, #ddd 76%)}
-.bar_75{background-image:linear-gradient(90deg, #b27de8 75%, #ddd 75%)}
-.bar_74{background-image:linear-gradient(90deg, #ac7de8 74%, #ddd 74%)}
-.bar_73{background-image:linear-gradient(90deg, #a67de8 73%, #ddd 73%)}
-.bar_72{background-image:linear-gradient(90deg, #9f7de8 72%, #ddd 72%)}
-.bar_71{background-image:linear-gradient(90deg, #997de8 71%, #ddd 71%)}
-.bar_70{background-image:linear-gradient(90deg, #927de8 70%, #ddd 70%)}
-.bar_69{background-image:linear-gradient(90deg, #8c7de8 69%, #ddd 69%)}
-.bar_68{background-image:linear-gradient(90deg, #867de8 68%, #ddd 68%)}
-.bar_67{background-image:linear-gradient(90deg, #7f7de8 67%, #ddd 67%)}
-.bar_66{background-image:linear-gradient(90deg, #7d81e8 66%, #ddd 66%)}
-.bar_65{background-image:linear-gradient(90deg, #7d88e8 65%, #ddd 65%)}
-.bar_64{background-image:linear-gradient(90deg, #7d8ee8 64%, #ddd 64%)}
-.bar_63{background-image:linear-gradient(90deg, #7d95e8 63%, #ddd 63%)}
-.bar_62{background-image:linear-gradient(90deg, #7d9be8 62%, #ddd 62%)}
-.bar_61{background-image:linear-gradient(90deg, #7da1e8 61%, #ddd 61%)}
-.bar_60{background-image:linear-gradient(90deg, #7da8e8 60%, #ddd 60%)}
-.bar_59{background-image:linear-gradient(90deg, #7daee8 59%, #ddd 59%)}
-.bar_58{background-image:linear-gradient(90deg, #7db5e8 58%, #ddd 58%)}
-.bar_57{background-image:linear-gradient(90deg, #7dbbe8 57%, #ddd 57%)}
-.bar_56{background-image:linear-gradient(90deg, #7dc1e8 56%, #ddd 56%)}
-.bar_55{background-image:linear-gradient(90deg, #7dc8e8 55%, #ddd 55%)}
-.bar_54{background-image:linear-gradient(90deg, #7dcee8 54%, #ddd 54%)}
-.bar_53{background-image:linear-gradient(90deg, #7dd5e8 53%, #ddd 53%)}
-.bar_52{background-image:linear-gradient(90deg, #7ddbe8 52%, #ddd 52%)}
-.bar_51{background-image:linear-gradient(90deg, #7de2e8 51%, #ddd 51%)}
-.bar_50{background-image:linear-gradient(90deg, #7de8e8 50%, #ddd 50%)}
-.bar_49{background-image:linear-gradient(90deg, #7de8e2 49%, #ddd 49%)}
-.bar_48{background-image:linear-gradient(90deg, #7de8db 48%, #ddd 48%)}
-.bar_47{background-image:linear-gradient(90deg, #7de8d5 47%, #ddd 47%)}
-.bar_46{background-image:linear-gradient(90deg, #7de8ce 46%, #ddd 46%)}
-.bar_45{background-image:linear-gradient(90deg, #7de8c8 45%, #ddd 45%)}
-.bar_44{background-image:linear-gradient(90deg, #7de8c1 44%, #ddd 44%)}
-.bar_43{background-image:linear-gradient(90deg, #7de8bb 43%, #ddd 43%)}
-.bar_42{background-image:linear-gradient(90deg, #7de8b5 42%, #ddd 42%)}
-.bar_41{background-image:linear-gradient(90deg, #7de8ae 41%, #ddd 41%)}
-.bar_40{background-image:linear-gradient(90deg, #7de8a8 40%, #ddd 40%)}
-.bar_39{background-image:linear-gradient(90deg, #7de8a1 39%, #ddd 39%)}
-.bar_38{background-image:linear-gradient(90deg, #7de89b 38%, #ddd 38%)}
-.bar_37{background-image:linear-gradient(90deg, #7de895 37%, #ddd 37%)}
-.bar_36{background-image:linear-gradient(90deg, #7de88e 36%, #ddd 36%)}
-.bar_35{background-image:linear-gradient(90deg, #7de888 35%, #ddd 35%)}
-.bar_34{background-image:linear-gradient(90deg, #7de881 34%, #ddd 34%)}
-.bar_33{background-image:linear-gradient(90deg, #7fe87d 33%, #ddd 33%)}
-.bar_32{background-image:linear-gradient(90deg, #86e87d 32%, #ddd 32%)}
-.bar_31{background-image:linear-gradient(90deg, #8ce87d 31%, #ddd 31%)}
-.bar_30{background-image:linear-gradient(90deg, #92e87d 30%, #ddd 30%)}
-.bar_29{background-image:linear-gradient(90deg, #99e87d 29%, #ddd 29%)}
-.bar_28{background-image:linear-gradient(90deg, #9fe87d 28%, #ddd 28%)}
-.bar_27{background-image:linear-gradient(90deg, #a6e87d 27%, #ddd 27%)}
-.bar_26{background-image:linear-gradient(90deg, #ace87d 26%, #ddd 26%)}
-.bar_25{background-image:linear-gradient(90deg, #b3e87d 25%, #ddd 25%)}
-.bar_24{background-image:linear-gradient(90deg, #b9e87d 24%, #ddd 24%)}
-.bar_23{background-image:linear-gradient(90deg, #bfe87d 23%, #ddd 23%)}
-.bar_22{background-image:linear-gradient(90deg, #c6e87d 22%, #ddd 22%)}
-.bar_21{background-image:linear-gradient(90deg, #cce87d 21%, #ddd 21%)}
-.bar_20{background-image:linear-gradient(90deg, #d3e87d 20%, #ddd 20%)}
-.bar_19{background-image:linear-gradient(90deg, #d9e87d 19%, #ddd 19%)}
-.bar_18{background-image:linear-gradient(90deg, #dfe87d 18%, #ddd 18%)}
-.bar_17{background-image:linear-gradient(90deg, #e6e87d 17%, #ddd 17%)}
-.bar_16{background-image:linear-gradient(90deg, #e8e47d 16%, #ddd 16%)}
-.bar_15{background-image:linear-gradient(90deg, #e8dd7d 15%, #ddd 15%)}
-.bar_14{background-image:linear-gradient(90deg, #e8d77d 14%, #ddd 14%)}
-.bar_13{background-image:linear-gradient(90deg, #e8d07d 13%, #ddd 13%)}
-.bar_12{background-image:linear-gradient(90deg, #e8ca7d 12%, #ddd 12%)}
-.bar_11{background-image:linear-gradient(90deg, #e8c47d 11%, #ddd 11%)}
-.bar_10{background-image:linear-gradient(90deg, #e8bd7d 10%, #ddd 10%)}
-.bar_9{background-image:linear-gradient(90deg, #e8b77d 9%, #ddd 9%)}
-.bar_8{background-image:linear-gradient(90deg, #e8b07d 8%, #ddd 8%)}
-.bar_7{background-image:linear-gradient(90deg, #e8aa7d 7%, #ddd 7%)}
-.bar_6{background-image:linear-gradient(90deg, #e8a47d 6%, #ddd 6%)}
-.bar_5{background-image:linear-gradient(90deg, #e89d7d 5%, #ddd 5%)}
-.bar_4{background-image:linear-gradient(90deg, #e8977d 4%, #ddd 4%)}
-.bar_3{background-image:linear-gradient(90deg, #e8907d 3%, #ddd 3%)}
-.bar_2{background-image:linear-gradient(90deg, #e88a7d 2%, #ddd 2%)}
-.bar_1{background-image:linear-gradient(90deg, #e8837d 1%, #ddd 1%)}
-.bar_0{background-image:linear-gradient(90deg, #e87d7d 0%, #ddd 0%)}
+.grid{display:block;width:100%;margin:0 0;*zoom:1;width:640;margin-left:auto;margin-right:auto}.grid:before,.grid:after{content:"";display:table}
+.grid:after{clear:both}
+.grid .home_description{display:inline;float:left;width:100%;margin:0 0}
+.grid #bar_chart table,.grid #heatmap_focus table{display:block;width:100%;margin:0 0;*zoom:1}.grid #bar_chart table:before,.grid #heatmap_focus table:before,.grid #bar_chart table:after,.grid #heatmap_focus table:after{content:"";display:table}
+.grid #bar_chart table:after,.grid #heatmap_focus table:after{clear:both}
+.grid #bar_chart table td,.grid #heatmap_focus table td{display:inline;float:left;width:16.666666666666664%;margin:0 0}.grid #bar_chart table td.controls,.grid #heatmap_focus table td.controls{text-align:center;display:inline;float:left;width:8.333333333333332%;margin:0 0}
+.grid #bar_chart table .votes,.grid #heatmap_focus table .votes{display:inline;float:left;width:50%;margin:0 0}
+.grid .heatmap_wrapper{margin-top:2em;display:inline;float:left;width:100%;margin:0 0}.grid .heatmap_wrapper #heatmap{height:288px}.grid .heatmap_wrapper #heatmap .resource{cursor:pointer;float:left;width:31px;height:31px;border:2px solid #fff;border-radius:18px;transition:border 200ms ease-out;-webkit-transition:border 200ms ease-out;-moz-transition:border 200ms ease-out;-o-transition:border 200ms ease-out}.grid .heatmap_wrapper #heatmap .resource span{display:none}
+.grid .heatmap_wrapper #heatmap .resource:hover{border-color:#aaa}
+#footer{margin-top:1em;padding-top:1em;padding-bottom:10em}
+.ui-tooltip,.arrow:after{background:black;border:2px solid white}
+.ui-tooltip{padding:10px 20px;color:white;border-radius:20px;font:bold 14px;text-transform:uppercase;box-shadow:0 0 7px black}
+.arrow{width:70px;height:16px;overflow:hidden;position:absolute;left:50%;margin-left:-35px;bottom:-16px}.arrow.top{top:-16px;bottom:auto}.arrow.top:after{bottom:-20px;top:auto}
+.arrow.left{left:20%}
+.arrow:after{content:"";position:absolute;left:20px;top:-20px;width:25px;height:25px;box-shadow:6px 5px 9px -9px #000;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);tranform:rotate(45deg)}
+.bar_100{background-image:linear-gradient(90deg, #f00 100%, #ddd 100%)}
+.heat_100{background-color:#f00}
+.bar_99{background-image:linear-gradient(90deg, #ff0500 99%, #ddd 99%)}
+.heat_99{background-color:#ff0500}
+.bar_98{background-image:linear-gradient(90deg, #ff0a00 98%, #ddd 98%)}
+.heat_98{background-color:#ff0a00}
+.bar_97{background-image:linear-gradient(90deg, #ff0f00 97%, #ddd 97%)}
+.heat_97{background-color:#ff0f00}
+.bar_96{background-image:linear-gradient(90deg, #ff1400 96%, #ddd 96%)}
+.heat_96{background-color:#ff1400}
+.bar_95{background-image:linear-gradient(90deg, #ff1900 95%, #ddd 95%)}
+.heat_95{background-color:#ff1900}
+.bar_94{background-image:linear-gradient(90deg, #ff1f00 94%, #ddd 94%)}
+.heat_94{background-color:#ff1f00}
+.bar_93{background-image:linear-gradient(90deg, #ff2400 93%, #ddd 93%)}
+.heat_93{background-color:#ff2400}
+.bar_92{background-image:linear-gradient(90deg, #ff2900 92%, #ddd 92%)}
+.heat_92{background-color:#ff2900}
+.bar_91{background-image:linear-gradient(90deg, #ff2e00 91%, #ddd 91%)}
+.heat_91{background-color:#ff2e00}
+.bar_90{background-image:linear-gradient(90deg, #f30 90%, #ddd 90%)}
+.heat_90{background-color:#f30}
+.bar_89{background-image:linear-gradient(90deg, #ff3800 89%, #ddd 89%)}
+.heat_89{background-color:#ff3800}
+.bar_88{background-image:linear-gradient(90deg, #ff3d00 88%, #ddd 88%)}
+.heat_88{background-color:#ff3d00}
+.bar_87{background-image:linear-gradient(90deg, #ff4200 87%, #ddd 87%)}
+.heat_87{background-color:#ff4200}
+.bar_86{background-image:linear-gradient(90deg, #ff4700 86%, #ddd 86%)}
+.heat_86{background-color:#ff4700}
+.bar_85{background-image:linear-gradient(90deg, #ff4c00 85%, #ddd 85%)}
+.heat_85{background-color:#ff4c00}
+.bar_84{background-image:linear-gradient(90deg, #ff5200 84%, #ddd 84%)}
+.heat_84{background-color:#ff5200}
+.bar_83{background-image:linear-gradient(90deg, #ff5700 83%, #ddd 83%)}
+.heat_83{background-color:#ff5700}
+.bar_82{background-image:linear-gradient(90deg, #ff5c00 82%, #ddd 82%)}
+.heat_82{background-color:#ff5c00}
+.bar_81{background-image:linear-gradient(90deg, #ff6100 81%, #ddd 81%)}
+.heat_81{background-color:#ff6100}
+.bar_80{background-image:linear-gradient(90deg, #f60 80%, #ddd 80%)}
+.heat_80{background-color:#f60}
+.bar_79{background-image:linear-gradient(90deg, #ff6b00 79%, #ddd 79%)}
+.heat_79{background-color:#ff6b00}
+.bar_78{background-image:linear-gradient(90deg, #ff7000 78%, #ddd 78%)}
+.heat_78{background-color:#ff7000}
+.bar_77{background-image:linear-gradient(90deg, #ff7500 77%, #ddd 77%)}
+.heat_77{background-color:#ff7500}
+.bar_76{background-image:linear-gradient(90deg, #ff7a00 76%, #ddd 76%)}
+.heat_76{background-color:#ff7a00}
+.bar_75{background-image:linear-gradient(90deg, #ff8000 75%, #ddd 75%)}
+.heat_75{background-color:#ff8000}
+.bar_74{background-image:linear-gradient(90deg, #ff8500 74%, #ddd 74%)}
+.heat_74{background-color:#ff8500}
+.bar_73{background-image:linear-gradient(90deg, #ff8a00 73%, #ddd 73%)}
+.heat_73{background-color:#ff8a00}
+.bar_72{background-image:linear-gradient(90deg, #ff8f00 72%, #ddd 72%)}
+.heat_72{background-color:#ff8f00}
+.bar_71{background-image:linear-gradient(90deg, #ff9400 71%, #ddd 71%)}
+.heat_71{background-color:#ff9400}
+.bar_70{background-image:linear-gradient(90deg, #f90 70%, #ddd 70%)}
+.heat_70{background-color:#f90}
+.bar_69{background-image:linear-gradient(90deg, #ff9e00 69%, #ddd 69%)}
+.heat_69{background-color:#ff9e00}
+.bar_68{background-image:linear-gradient(90deg, #ffa300 68%, #ddd 68%)}
+.heat_68{background-color:#ffa300}
+.bar_67{background-image:linear-gradient(90deg, #ffa800 67%, #ddd 67%)}
+.heat_67{background-color:#ffa800}
+.bar_66{background-image:linear-gradient(90deg, #ffad00 66%, #ddd 66%)}
+.heat_66{background-color:#ffad00}
+.bar_65{background-image:linear-gradient(90deg, #ffb300 65%, #ddd 65%)}
+.heat_65{background-color:#ffb300}
+.bar_64{background-image:linear-gradient(90deg, #ffb800 64%, #ddd 64%)}
+.heat_64{background-color:#ffb800}
+.bar_63{background-image:linear-gradient(90deg, #ffbd00 63%, #ddd 63%)}
+.heat_63{background-color:#ffbd00}
+.bar_62{background-image:linear-gradient(90deg, #ffc200 62%, #ddd 62%)}
+.heat_62{background-color:#ffc200}
+.bar_61{background-image:linear-gradient(90deg, #ffc700 61%, #ddd 61%)}
+.heat_61{background-color:#ffc700}
+.bar_60{background-image:linear-gradient(90deg, #fc0 60%, #ddd 60%)}
+.heat_60{background-color:#fc0}
+.bar_59{background-image:linear-gradient(90deg, #ffd100 59%, #ddd 59%)}
+.heat_59{background-color:#ffd100}
+.bar_58{background-image:linear-gradient(90deg, #ffd600 58%, #ddd 58%)}
+.heat_58{background-color:#ffd600}
+.bar_57{background-image:linear-gradient(90deg, #ffdb00 57%, #ddd 57%)}
+.heat_57{background-color:#ffdb00}
+.bar_56{background-image:linear-gradient(90deg, #ffe000 56%, #ddd 56%)}
+.heat_56{background-color:#ffe000}
+.bar_55{background-image:linear-gradient(90deg, #ffe500 55%, #ddd 55%)}
+.heat_55{background-color:#ffe500}
+.bar_54{background-image:linear-gradient(90deg, #ffeb00 54%, #ddd 54%)}
+.heat_54{background-color:#ffeb00}
+.bar_53{background-image:linear-gradient(90deg, #fff000 53%, #ddd 53%)}
+.heat_53{background-color:#fff000}
+.bar_52{background-image:linear-gradient(90deg, #fff500 52%, #ddd 52%)}
+.heat_52{background-color:#fff500}
+.bar_51{background-image:linear-gradient(90deg, #fffa00 51%, #ddd 51%)}
+.heat_51{background-color:#fffa00}
+.bar_50{background-image:linear-gradient(90deg, #ff0 50%, #ddd 50%)}
+.heat_50{background-color:#ff0}
+.bar_49{background-image:linear-gradient(90deg, #ffff05 49%, #ddd 49%)}
+.heat_49{background-color:#ffff05}
+.bar_48{background-image:linear-gradient(90deg, #ffff0a 48%, #ddd 48%)}
+.heat_48{background-color:#ffff0a}
+.bar_47{background-image:linear-gradient(90deg, #ffff0f 47%, #ddd 47%)}
+.heat_47{background-color:#ffff0f}
+.bar_46{background-image:linear-gradient(90deg, #ffff14 46%, #ddd 46%)}
+.heat_46{background-color:#ffff14}
+.bar_45{background-image:linear-gradient(90deg, #ffff1a 45%, #ddd 45%)}
+.heat_45{background-color:#ffff1a}
+.bar_44{background-image:linear-gradient(90deg, #ffff1f 44%, #ddd 44%)}
+.heat_44{background-color:#ffff1f}
+.bar_43{background-image:linear-gradient(90deg, #ffff24 43%, #ddd 43%)}
+.heat_43{background-color:#ffff24}
+.bar_42{background-image:linear-gradient(90deg, #ffff29 42%, #ddd 42%)}
+.heat_42{background-color:#ffff29}
+.bar_41{background-image:linear-gradient(90deg, #ffff2e 41%, #ddd 41%)}
+.heat_41{background-color:#ffff2e}
+.bar_40{background-image:linear-gradient(90deg, #ff3 40%, #ddd 40%)}
+.heat_40{background-color:#ff3}
+.bar_39{background-image:linear-gradient(90deg, #ffff38 39%, #ddd 39%)}
+.heat_39{background-color:#ffff38}
+.bar_38{background-image:linear-gradient(90deg, #ffff3d 38%, #ddd 38%)}
+.heat_38{background-color:#ffff3d}
+.bar_37{background-image:linear-gradient(90deg, #ffff42 37%, #ddd 37%)}
+.heat_37{background-color:#ffff42}
+.bar_36{background-image:linear-gradient(90deg, #ffff47 36%, #ddd 36%)}
+.heat_36{background-color:#ffff47}
+.bar_35{background-image:linear-gradient(90deg, #ffff4d 35%, #ddd 35%)}
+.heat_35{background-color:#ffff4d}
+.bar_34{background-image:linear-gradient(90deg, #ffff52 34%, #ddd 34%)}
+.heat_34{background-color:#ffff52}
+.bar_33{background-image:linear-gradient(90deg, #ffff57 33%, #ddd 33%)}
+.heat_33{background-color:#ffff57}
+.bar_32{background-image:linear-gradient(90deg, #ffff5c 32%, #ddd 32%)}
+.heat_32{background-color:#ffff5c}
+.bar_31{background-image:linear-gradient(90deg, #ffff61 31%, #ddd 31%)}
+.heat_31{background-color:#ffff61}
+.bar_30{background-image:linear-gradient(90deg, #ff6 30%, #ddd 30%)}
+.heat_30{background-color:#ff6}
+.bar_29{background-image:linear-gradient(90deg, #ffff6b 29%, #ddd 29%)}
+.heat_29{background-color:#ffff6b}
+.bar_28{background-image:linear-gradient(90deg, #ffff70 28%, #ddd 28%)}
+.heat_28{background-color:#ffff70}
+.bar_27{background-image:linear-gradient(90deg, #ffff75 27%, #ddd 27%)}
+.heat_27{background-color:#ffff75}
+.bar_26{background-image:linear-gradient(90deg, #ffff7a 26%, #ddd 26%)}
+.heat_26{background-color:#ffff7a}
+.bar_25{background-image:linear-gradient(90deg, #ffff80 25%, #ddd 25%)}
+.heat_25{background-color:#ffff80}
+.bar_24{background-image:linear-gradient(90deg, #ffff85 24%, #ddd 24%)}
+.heat_24{background-color:#ffff85}
+.bar_23{background-image:linear-gradient(90deg, #ffff8a 23%, #ddd 23%)}
+.heat_23{background-color:#ffff8a}
+.bar_22{background-image:linear-gradient(90deg, #ffff8f 22%, #ddd 22%)}
+.heat_22{background-color:#ffff8f}
+.bar_21{background-image:linear-gradient(90deg, #ffff94 21%, #ddd 21%)}
+.heat_21{background-color:#ffff94}
+.bar_20{background-image:linear-gradient(90deg, #ff9 20%, #ddd 20%)}
+.heat_20{background-color:#ff9}
+.bar_19{background-image:linear-gradient(90deg, #ffff9e 19%, #ddd 19%)}
+.heat_19{background-color:#ffff9e}
+.bar_18{background-image:linear-gradient(90deg, #ffffa3 18%, #ddd 18%)}
+.heat_18{background-color:#ffffa3}
+.bar_17{background-image:linear-gradient(90deg, #ffffa8 17%, #ddd 17%)}
+.heat_17{background-color:#ffffa8}
+.bar_16{background-image:linear-gradient(90deg, #ffffad 16%, #ddd 16%)}
+.heat_16{background-color:#ffffad}
+.bar_15{background-image:linear-gradient(90deg, #ffffb3 15%, #ddd 15%)}
+.heat_15{background-color:#ffffb3}
+.bar_14{background-image:linear-gradient(90deg, #ffffb8 14%, #ddd 14%)}
+.heat_14{background-color:#ffffb8}
+.bar_13{background-image:linear-gradient(90deg, #ffffbd 13%, #ddd 13%)}
+.heat_13{background-color:#ffffbd}
+.bar_12{background-image:linear-gradient(90deg, #ffffc2 12%, #ddd 12%)}
+.heat_12{background-color:#ffffc2}
+.bar_11{background-image:linear-gradient(90deg, #ffffc7 11%, #ddd 11%)}
+.heat_11{background-color:#ffffc7}
+.bar_10{background-image:linear-gradient(90deg, #ffc 10%, #ddd 10%)}
+.heat_10{background-color:#ffc}
+.bar_9{background-image:linear-gradient(90deg, #ffffd1 9%, #ddd 9%)}
+.heat_9{background-color:#ffffd1}
+.bar_8{background-image:linear-gradient(90deg, #ffffd6 8%, #ddd 8%)}
+.heat_8{background-color:#ffffd6}
+.bar_7{background-image:linear-gradient(90deg, #ffffdb 7%, #ddd 7%)}
+.heat_7{background-color:#ffffdb}
+.bar_6{background-image:linear-gradient(90deg, #ffffe0 6%, #ddd 6%)}
+.heat_6{background-color:#ffffe0}
+.bar_5{background-image:linear-gradient(90deg, #ffffe5 5%, #ddd 5%)}
+.heat_5{background-color:#ffffe5}
+.bar_4{background-image:linear-gradient(90deg, #ffffeb 4%, #ddd 4%)}
+.heat_4{background-color:#ffffeb}
+.bar_3{background-image:linear-gradient(90deg, #fffff0 3%, #ddd 3%)}
+.heat_3{background-color:#fffff0}
+.bar_2{background-image:linear-gradient(90deg, #fffff5 2%, #ddd 2%)}
+.heat_2{background-color:#fffff5}
+.bar_1{background-image:linear-gradient(90deg, #fffffa 1%, #ddd 1%)}
+.heat_1{background-color:#fffffa}
+.bar_0{background-image:linear-gradient(90deg, #fff 0%, #ddd 0%)}
+.heat_0{background-color:#fff}

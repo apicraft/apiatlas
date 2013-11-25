@@ -98,9 +98,34 @@ var express = require('express')
             {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
         ];
         
-        res.render('index', {
+        res.render(__dirname + '/views/grid.ejs', {
                 "resources": output,
-                "page": "home", 
+                "page": "grid", 
+                "user": getUser(req),
+                "name": "",
+                "data": JSON.stringify(output)
+            });
+        
+        
+      
+	  
+	});
+
+    /* remove this later - just for visualizing the grid */
+
+app.get('/grid', function(req, res) {
+        
+        //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
+        var output = [
+            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
+            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
+            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
+            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
+        ];
+        
+        res.render(__dirname + '/views/grid.ejs', {
+                "resources": output,
+                "page": "grid", 
                 "user": getUser(req),
                 "name": "",
                 "data": JSON.stringify(output)
@@ -109,6 +134,7 @@ var express = require('express')
       
 	  
 	});
+
 
     app.get('/logout', function(req, res){
             if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }

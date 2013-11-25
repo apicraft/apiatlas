@@ -1,1 +1,19 @@
-<tr id="<%= uid %>"><a name="<%= uid %>"></a><td class="name"><a href="<%= rel %>"><%= name %></a></td><td class="votes"><%= votes.up %>/<%= votes.total %></td></tr>
+<tr id="<%= uid %>">
+    <a name="<%= uid %>"></a>
+    <td class="name">
+        <a href="<%= rel %>"><%= name %></a>
+    </td>
+    <td class="controls vote_null">
+    <%  //logged in
+    if(typeof(user) == 'object' && user != null){ %>
+        <a href="<%= rel %>?vote=up" title="You use this in your apis!" class="vote_up"> 
+            <i class="fa fa-thumbs-o-up"></i>
+        </a> 
+        <a href="<%= rel %>?vote=down" title="You DON'T use this in your apis :(" class="vote_down"> 
+            <i class="fa fa-thumbs-o-down"></i>
+        </a>
+    <% } %>
+    </td>
+    <td class="votes bar_<%= percent %>"><%= votes.up %>/<%= votes.total %></td>
+</tr>
+

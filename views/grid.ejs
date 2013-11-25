@@ -1,0 +1,30 @@
+<% include header %>
+    <div>
+        <h1>http 1.1</h1>
+        <h2>&#8220;What can HTTP teach us about building APIs?&#8221;</h2>
+	   <div class="heatmap_wrapper">
+           <div id="heatmap"></div>
+           <div id="heatmap_focus">
+            <table></table>
+           </div>
+        
+        </div>
+        
+        <div class="home_description">
+            <p>We've asked developers from around the web how they serve HTTP codes in their APIs. <br/> Tell us if do or don't use these codes by voting on them. </p>
+        </div>
+        <a name="expanded"></a>
+        <a href="#expanded" class="expand_resources">Expand All Resources</a>
+        
+    <div id="bar_chart">
+        <% for(var i=0; i < resources.length; i++){ 
+           resource = resources[i];
+           %>
+          <h2><%= resource.title %></h2>
+          <table id="<%= resource.id %>" class="<%= resource.title.toLowerCase() %> table"></table>
+           
+        <% } %>
+        <a href="#expanded" class="expand_resources">Expand All Resources</a>
+    </div>
+<% include footer %>
+

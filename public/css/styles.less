@@ -20,19 +20,152 @@
     }
 }
 
+.grid {
+    
+    .row(12);
+    width: 640; 
+    margin-left: auto; margin-right: auto;
+    .home_description {
+        .column(12);
+    }
+    #bar_chart, #heatmap_focus{
+        
+        
+        
+        table{ 
+            .row(12);
+            
+            td {
+                .column(2);
+                &.controls{
+                    text-align: center;
+                    .column(1);
+                }
+            }
+            .votes {
+                .column(6);
+            }
+        }
+    }
+    
+    .heatmap_wrapper {
+        margin-top: 2em;
+        .column(12); 
+        #heatmap{
+            
+            height: 288px;
+            .resource {
+                cursor: pointer;
+                span {
+                    display: none;
+                }
+                float: left;
+                width: 31px; height: 31px;
+                border: 2px solid #fff;
+                border-radius: 18px;
+                
+                transition : border 200ms ease-out; 
+                  -webkit-transition : border 200ms ease-out; 
+                  -moz-transition : border 200ms ease-out;
+                  -o-transition : border 200ms ease-out;
+                &:hover {
+                    border-color: #aaa;
+                }
+            }
+        }
+    
+    }
+    
+}
+
+#footer {
+    margin-top: 1em;
+    padding-top: 1em;
+    padding-bottom: 10em;
+}
+.ui-tooltip, .arrow:after {
+    background: black;
+    border: 2px solid white;
+  }
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: bold 14px;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+  }
+  .arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+    &.top {
+        top: -16px;
+        bottom: auto;
+        &:after {
+            bottom: -20px;
+            top: auto;
+          }
+      }
+    &.left {
+        left: 20%;
+      }
+    &:after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: -20px;
+        width: 25px;
+        height: 25px;
+        box-shadow: 6px 5px 9px -9px black;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        tranform: rotate(45deg);
+      }
+  }
+
+
+
 @bar_color: #ddd;
 @bar_bg: #ddd;
 
 @iterations: 100;
-.loopingClass (@index, @bg) when (@index > -1) {
+.loopingClass (@index, @bg) when (@index > 50)  {
 	@hue: 360 * (@index /100);
+    @h: (1 - ((@index - 50) * .02)) * 60;
 	.bar_@{index}  {		
-		background-image: linear-gradient(90deg, hsla(@hue, 70%, 70%, 1) ~"@{index}%", @bg ~"@{index}%");
+		background-image: linear-gradient(90deg, hsl(@h, 100%, 50%) ~"@{index}%", @bg ~"@{index}%");
         //background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(@index/100, hsla(@hue, 70%, 70%, 1)), color-stop(@index/100, @bg));
        
 	}
+    .heat_@{index}{
+        
+        background-color: hsl(@h, 100%, 50%);
+    }
 	.loopingClass(@index - 1, @bg);
 }
+
+.loopingClass (@index, @bg) when (@index < 51) and (@index > -1){
+    @hue: 360 * (@index /100);
+    @l: 100% - @index;
+    .bar_@{index}  {        
+        background-image: linear-gradient(90deg, hsl(60, 100%, @l) ~"@{index}%", @bg ~"@{index}%");
+        //background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(@index/100, hsla(@hue, 70%, 70%, 1)), color-stop(@index/100, @bg));
+       
+    }
+    .heat_@{index}{
+        
+        background-color: hsl(60, 100%, @l);
+    }
+    .loopingClass(@index - 1, @bg);
+}
+
 .loopingClass (-1) {}
 .loopingClass (@iterations, @bar_bg);
 

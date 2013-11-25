@@ -5,7 +5,7 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
     <script type="text/javascript">
-        <% if(page == 'home' ){ %> var resources = <%- data %>; <% } %>
+        <% if(page == 'home' || page == 'grid'){ %> var resources = <%- data %>; <% } %>
         <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>
     </script>
     <!--
@@ -14,5 +14,19 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css" /><!-- the main stylesheet -->
 
 </head>
-<body class="<%= page %>" id="<%= page %>">
-<% if(page != 'home'){ %> <p><a href="/">Home</a></p> <% } %>
+    
+    <%  //logged in
+    var authorized = false;
+    if(typeof(user) == 'object' && user != null){ authorized = true;}
+    %>
+    
+<body class="<%= page %>" id="<%= page %>" data-auth="<%= authorized %>">
+    <p class="menu">
+    <% if(page != 'home'){ %> <a href="/">Home</a> <% } %>
+        
+        <% if(authorized){ %><a href="/logout?last=<%= name %>">Logout</a> 
+    <% } else { %><a href="/auth/github?last=<%= name %>">Login with github</a>
+    <% } %>
+    </p>
+    
+    
