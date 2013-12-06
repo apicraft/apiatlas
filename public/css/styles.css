@@ -3,6 +3,9 @@ body:after{clear:both}
 .resource .controls.vote_null .fa-thumbs-up,.resource .controls.vote_null .fa-thumbs-down,.resource .controls.vote_null .fa-trash-o{display:none}
 .resource .controls.vote_true .fa-thumbs-o-up,.resource .controls.vote_true .fa-thumbs-down{display:none}
 .resource .controls.vote_false .fa-thumbs-up,.resource .controls.vote_false .fa-thumbs-o-down{display:none}
+.test h2{display:none}
+.test table{margin-top:2em}
+.test table tr{float:left}
 .grid{display:block;width:100%;margin:0 0;*zoom:1;width:640;margin-left:auto;margin-right:auto}.grid:before,.grid:after{content:"";display:table}
 .grid:after{clear:both}
 .grid .home_description{display:inline;float:left;width:100%;margin:0 0}

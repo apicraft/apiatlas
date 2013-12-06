@@ -319,7 +319,7 @@ app.get('/grid', function(req, res) {
                 });
 	  		}else{
 	  			res.render(__dirname + '/views/' + req.params.page + ".ejs", {
-                    "page": "page",
+                    "page": "page " + req.params.page,
                     "user": user,
                     "name": "/" + req.params.page
                 });
