@@ -18,19 +18,19 @@ $(function(){
                 
                 title.source = t2;
                 title.render = function(x){ return ejs.render(this.source, x); }
-                
+                var max_p = 100;
                 //verbs
-                $(".col.verbs").append(title.render({"type": "red", "title": "verbs"}));
+                $(".col.verbs").append(title.render({"color": "blue", "title": "verbs"}));
                 for(i in http.verbs){
-                    var p = randomFromInterval(0,100);
-                    $(".col.verbs").append(template.render({"type": "red", "percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
+                    var p = randomFromInterval(0,max_p);
+                    $(".col.verbs").append(template.render({"type": "verb", "color": "blue", "percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
                     
                 }
                 //headers
-                $(".col.headers_0").append(title.render({"type": "green", "title": "headers"}));
+                $(".col.headers_0").append(title.render({"color": "green", "title": "headers"}));
                 for(i in http.headers){
-                    var p = randomFromInterval(0,100);
-                    var header = template.render({"type": "green", "percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
+                    var p = randomFromInterval(0,max_p);
+                    var header = template.render({"type": "header", "color": "green", "percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
                     if(i < 10){ $(".col.headers_0").append(header); }
                     else if(i < 21){ $(".col.headers_1").append(header); }
                     else{ $(".col.headers_2").append(header); }
@@ -38,15 +38,15 @@ $(function(){
                 }
                 
                 //codes
-                $(".col.codes_0").append(title.render({"type": "yellow", "title": "codes"}));
+                $(".col.codes_0").append(title.render({"color": "yellow", "title": "codes"}));
                 for(i in http.codes){
-                    var p = randomFromInterval(0,100);
-                    var code = template.render({"type": "yellow", "percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
-                    if(i < 11){ $(".col.codes_0").append(code); }
-                    else if(i < 23){ $(".col.codes_1").append(code); }
-                    else if(i < 35){ $(".col.codes_2").append(code); }
-                    else if(i < 47){ $(".col.codes_3").append(code); }
-                    else if(i < 59){ $(".col.codes_4").append(code); }
+                    var p = randomFromInterval(0,max_p);
+                    var code = template.render({"type": "code", "color": "yellow", "percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
+                    if(i < 10){ $(".col.codes_0").append(code); }
+                    else if(i < 22){ $(".col.codes_1").append(code); }
+                    else if(i < 34){ $(".col.codes_2").append(code); }
+                    else if(i < 46){ $(".col.codes_3").append(code); }
+                    else if(i < 58){ $(".col.codes_4").append(code); }
                     else{ $(".col.codes_5").append(code); }
                     
                 }
