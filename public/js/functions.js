@@ -7,6 +7,45 @@ $(function(){
         'vis': function(){
             var http = {"verbs":["GET","POST","PUT","DELETE","OPTIONS","TRACE","CONNECT","PATCH","HEAD"],"headers":["Accept","Accept-Charset","Accept-Datetime","Accept-Encoding","Accept-Language","Authorization","Cache-Control","Connection","Content-Length","Content-MD5","Content-Type","Cookie","Date","Expect","From","Host","If-Match","If-Modified-Since","If-None-Match","If-Range","If-Unmodified-Since","Max-Forwards","Origin","Pragma","Proxy-Authorization","Range","Referer","Upgrade","User-Agent","Warning","Via","TE"],"codes":["100","101","102","200","201","202","203","204","205","206","207","208","226","300","301","302","303","304","305","307","308","400","401","402","403","404","405","406","407","408","409","410","411","412","413","414","415","416","417","419","420","422","423","424","425","426","428","429","431","444","449","450","451","494","495","496","497","499","500","501","502","503","504","505","506","507","508","509","510","511"]}
             console.log(http);
+            
+            //load template
+            var template = {};
+            $.get("./templates/vis_resource.ejs", function(t){
+                console.log(t);
+                template.source = t;
+                template.render = function(x){ return ejs.render(this.source, x); }
+                
+                //verbs
+                for(i in http.verbs){
+                    var p = randomFromInterval(0,100);
+                    $(".col.verbs").append(template.render({"percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
+                    
+                }
+                //headers
+                for(i in http.headers){
+                    var p = randomFromInterval(0,100);
+                    var header = template.render({"percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
+                    if(i < 11){ $(".col.headers_0").append(header); }
+                    else if(i < 22){ $(".col.headers_1").append(header); }
+                    else{ $(".col.headers_2").append(header); }
+                    
+                }
+                
+                //codes
+                for(i in http.codes){
+                    var p = randomFromInterval(0,100);
+                    var code = template.render({"percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
+                    if(i < 12){ $(".col.codes_0").append(code); }
+                    else if(i < 24){ $(".col.codes_1").append(code); }
+                    else if(i < 36){ $(".col.codes_2").append(code); }
+                    else if(i < 48){ $(".col.codes_3").append(code); }
+                    else if(i < 60){ $(".col.codes_4").append(code); }
+                    else{ $(".col.codes_5").append(code); }
+                    
+                }
+
+            });
+            
         },
         'home': function(){
         var template = {};
