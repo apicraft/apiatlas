@@ -1,6 +1,6 @@
-<div class="resource greenbar_<%- percent %> resource_<%- name %>">
+<div class="resource <%- type %>bar_<%- percent %> resource_<%- name %>">
     <h3 class="name"><%- name %><h3>
     <div class="stats">
-        <span class="percent"><%- percent_display %></span> Usage. <span class="votes"><%- votes %></span> Votes.
+        <span class="percent"><%- percent_display %></span> Usage.<% if(type == "yellow"){%><br/><%} %> <span class="votes"><%- votes %></span> Votes.
     </stats>
 </div>

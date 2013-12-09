@@ -10,40 +10,48 @@ $(function(){
             
             //load template
             var template = {};
+            var title = {};
             $.get("./templates/vis_resource.ejs", function(t){
-                console.log(t);
+                $.get("./templates/vis_title.ejs", function(t2){
                 template.source = t;
                 template.render = function(x){ return ejs.render(this.source, x); }
                 
+                title.source = t2;
+                title.render = function(x){ return ejs.render(this.source, x); }
+                
                 //verbs
+                $(".col.verbs").append(title.render({"type": "red", "title": "verbs"}));
                 for(i in http.verbs){
                     var p = randomFromInterval(0,100);
-                    $(".col.verbs").append(template.render({"percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
+                    $(".col.verbs").append(template.render({"type": "red", "percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
                     
                 }
                 //headers
+                $(".col.headers_0").append(title.render({"type": "green", "title": "headers"}));
                 for(i in http.headers){
                     var p = randomFromInterval(0,100);
-                    var header = template.render({"percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
-                    if(i < 11){ $(".col.headers_0").append(header); }
-                    else if(i < 22){ $(".col.headers_1").append(header); }
+                    var header = template.render({"type": "green", "percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
+                    if(i < 10){ $(".col.headers_0").append(header); }
+                    else if(i < 21){ $(".col.headers_1").append(header); }
                     else{ $(".col.headers_2").append(header); }
                     
                 }
                 
                 //codes
+                $(".col.codes_0").append(title.render({"type": "yellow", "title": "codes"}));
                 for(i in http.codes){
                     var p = randomFromInterval(0,100);
-                    var code = template.render({"percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
-                    if(i < 12){ $(".col.codes_0").append(code); }
-                    else if(i < 24){ $(".col.codes_1").append(code); }
-                    else if(i < 36){ $(".col.codes_2").append(code); }
-                    else if(i < 48){ $(".col.codes_3").append(code); }
-                    else if(i < 60){ $(".col.codes_4").append(code); }
+                    var code = template.render({"type": "yellow", "percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
+                    if(i < 11){ $(".col.codes_0").append(code); }
+                    else if(i < 23){ $(".col.codes_1").append(code); }
+                    else if(i < 35){ $(".col.codes_2").append(code); }
+                    else if(i < 47){ $(".col.codes_3").append(code); }
+                    else if(i < 59){ $(".col.codes_4").append(code); }
                     else{ $(".col.codes_5").append(code); }
                     
                 }
 
+                });
             });
             
         },
