@@ -1,6 +1,6 @@
 @import 'grid.less';
 
-@columns: 10;
+@columns: 12;
 @light_gray: #eee;
 @medium_gray: #939597;
 
@@ -104,66 +104,83 @@
 
 
 .vis {
-
+    margin: 0; padding: 0;
     .title_bar {
         background: #465639 url('../images/map_header.jpg') no-repeat;
-        .row(10);
-        width: 1000px;
-        margin-left: auto; margin-right: auto;
-        padding: 0 1em;
+        padding: 1em 0;
+        .row(12);
+        .logo {
+            .column(10);
+            img {
+                width: 90%;
+                max-width: 327px;
+            }
+        }
+        a {
+            text-decoration: none;
+            text-align: right;
+            .column(2);
+            .fa {
+                font-size: 2.7em; 
+                color: white;
+                padding: .2em .4em 0 0;
+                text-shadow: 0px -1px 0px hsla(0,0,0,.5);
+            }
+        }
         }
     
     font-size: .8em;
-    .rows {
+    #resources {
         background-color: #ddd;
-        padding: 0 1em;
-        &.top {padding-top: 1em;}
-        &.bottom {padding-bottom: 1em;}
-        .row(10);
-        width: 1000px;
-        margin-left: auto; margin-right: auto;
+        
+        .row(12);
         
         
-        .col {
-            .column(2);
-        
-            
-            &.headers {.name {color: @green-text} }
-            &.verbs {.name {color: @red-text} }
-            .resource {
-                border: 1px solid #bbb;
-                padding: .3em 0 .3em .8em;
-                margin-bottom: 5px;
-                height: 38px;
-                h3 {
-                    margin: 0;
-                    text-shadow: 0px 1px 0px hsla(0,0,100,.5);
-                }
-                .stats {
-                    font-size: .8em;
-                    font-weight: 200;
-                    color: #666;
-                }
-                
-                &.title {
-                    text-transform: uppercase;
-                    .content {font-size:2em;}
-                    font-weight: bold;
-                    color: #fff;
-                    
-                }
-            
-            }
-            &.codes {
-                .name {
-                    font-size: 2em;
-                    float: left;
-                    margin-right: .5em;
-                    color: @yellow-text
-                }
 
+            .resource {
+                .column(6);
+                margin-bottom: .5em;
+                .content{ 
+                    border: 1px solid #bbb;
+                    padding: .3em 0 .3em .8em;
+                    margin: .5em .5em 0 .5em;
+                    height: 38px;
+                    .name {
+                        color: @yellow-text;
+                        margin: 0;
+                        text-shadow: 0px 1px 0px hsla(0,0,100,.5);
+                    }
+                    .stats {
+                        font-size: .8em;
+                        font-weight: 200;
+                        color: #666;
+                    }
+                }
+                &.header {.name {color: @green-text;} }
+                &.verb {.name {color: @blue-text;} }
+                &.code {
+                    .name {
+                        font-size: 2em;
+                        float: left;
+                        margin-right: .5em;
+                    }
+    
+                }
+                &.title {
+                        
+                        h3 {
+                            text-transform: uppercase;
+                            color: #fff;
+                            margin: 0;
+                            padding: 0;
+                            font-size: 2em;
+                            text-shadow: 0px -1px 0px hsla(0,0,0,.5);
+                        }
+                        
+                    }
             }
-        }
+           
+        
     }
 }
 
