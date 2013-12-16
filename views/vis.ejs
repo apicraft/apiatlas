@@ -1,16 +1,14 @@
 <% include header %>
-<div class="title_bar">
-        <div class="content">
-            <div class="logo">
-                <img src="images/logo.png" alt="API Atlas"/>
-            </div>
-            <a href="#" title="menu"><i class="fa fa-bars" title="menu"></i></a>
-        </div>    
-</div>
-
-<div id="resources">
-    
-    
-</div>
+    <div id="atlas-intro" class="pure-g-r">
+        <div class="content pure-u">
+            <h1>Mapping the specs that run the web.</h1>
+            <p>Here are the resources for the HTTP spec:</p>
+        </div>
+    </div>
+    <div id="resources" class="pure-g-r">
+        <% for(var i = 0; i<10; i++){ %>
+             <div class="reflow pure-u-1-5 reflow_<%- i %>"></div>
+        <% } %>
+    </div>
 
 <% include footer %>

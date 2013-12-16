@@ -9,9 +9,9 @@
         <% if(page == 'home' || page == 'grid' || page == 'vis'){ %> var resources = <%- JSON.stringify(data) %>; <% } %>
         <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>
     </script>
-    <!--
-    <link rel="stylesheet" type="text/css" href="/css/reset.css" /> <!-- normalize browser styles -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> <!-- icons, yo -->
     <link rel="stylesheet" type="text/css" href="/css/styles.css" /><!-- the main stylesheet -->
 
 </head>
@@ -22,12 +22,33 @@
     %>
     
 <body class="<%= page %>" id="<%= page %>" data-auth="<%= authorized %>">
-    <p class="menu">
-    <% if(page != 'home'){ %> <a href="/">Home</a> <% } %>
-        
-        <% if(authorized){ %><a href="/logout?last=<%= name %>">Logout</a> 
-    <% } else { %><a href="/auth/github?last=<%= name %>">Login with github</a>
-    <% } %>
-    </p>
     
+    <!--
+    <div class="title_bar">
+        <div class="content">
+            <div class="logo">
+                <img src="images/logo.png" alt="API Atlas"/>
+            </div>
+            <a href="#" title="menu" class="menu_icon"><i class="fa fa-bars" title="menu"></i></a>
+        </div> 
+        <nav class="menu">
+            <ul>
+                <% if(page != 'home'){ %> <li><a href="/">Home</a></li> <% } %>
+                <% if(authorized){ %><li><a href="/logout?last=<%= name %>">Logout</a> </li> <% }
+                else { %><li><a href="/auth/github?last=<%= name %>">Login with github</a><li> <% } %>
+            </ul>
+        </nav>
+    </div>
+    -->
     
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <a href="#" class="pure-menu-heading"><img src="images/logo.png" alt="API Atlas"/></a>
+    
+        <ul>
+            
+                <% if(page != 'home'){ %> <li><a href="/">Home</a></li> <% } %>
+                <% if(authorized){ %><li><a href="/logout?last=<%= name %>">Logout</a> </li> <% }
+                else { %><li><a href="/auth/github?last=<%= name %>">Login with github</a><li> <% } %>
+            
+        </ul>
+    </div>

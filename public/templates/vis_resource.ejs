@@ -1,6 +1,6 @@
-<div class="resource resource_<%- name %> <%- type %>">
+<div class="resource resource_<%- name %> <%- type %>" data-link="">
     <div class="content <%- color %>bar_<%- percent %>">
-        <h3 class="name"><%- name %></h3>
+        <h3 class="name"><a href="<%- rel %>"><%- name %></a></h3>
         <div class="stats">
             <span class="percent"><%- percent_display %></span> Usage.<% if(color == "yellow"){%><br/><%} %> <span class="votes"><%- votes %></span> Votes.
         </stats>

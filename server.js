@@ -21,12 +21,11 @@ var express = require('express')
 
 var fbURL = config['FIREBASE_FORGE']; //firebase endpoint
 
-var resources = [
-            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
-            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
-            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
-            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
-        ];
+var resources = {
+            "headers":  {"title": "Headers", "type": "header", "updateURL": fbURL + "/resources/headers", "id": "headers", "rel": "/headers", "color": "blue"},
+            "verbs":    {"title": "Verbs", "type": "verb", "updateURL": fbURL + "/resources/verbs", "id": "verbs", "rel": "/verbs", "color": "green"},
+            "codes":    {"title": "Codes", "type": "code", "updateURL": fbURL + "/resources/codes", "id": "codes", "rel": "/codes", "color": "yellow"}
+        };
     
 
     
@@ -101,12 +100,12 @@ var resources = [
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
         
         
-        res.render(__dirname + '/views/grid.ejs', {
+        res.render(__dirname + '/views/vis.ejs', {
                 "resources": resources,
-                "page": "grid", 
+                "page": "home", 
                 "user": getUser(req),
                 "name": "",
-                "data": JSON.stringify(output)
+                "data": resources //JSON.stringify(output)
             });
         
         
@@ -114,29 +113,6 @@ var resources = [
 	  
 	});
 
-    /* remove this later - just for visualizing the grid */
-
-app.get('/grid', function(req, res) {
-        
-        //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
-        var output = [
-            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
-            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
-            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
-            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
-        ];
-        
-        res.render(__dirname + '/views/grid.ejs', {
-                "resources": output,
-                "page": "grid", 
-                "user": getUser(req),
-                "name": "",
-                "data": JSON.stringify(output)
-            });
-        
-      
-	  
-	});
 
 
     app.get('/logout', function(req, res){
@@ -177,13 +153,12 @@ app.get('/grid', function(req, res) {
       });
 
 
-    app.get('/:direction/:type/:title', function(req, res){
+    app.get('/:type/:title', function(req, res){
         user = null;
         var full_user = getUser(req);
         if(full_user !== null){user = full_user.id;}
         
         var d = {
-            "dir": req.params.direction,
             "type": req.params.type,
             "title": req.params.title,
             "uid": "",
@@ -191,15 +166,17 @@ app.get('/grid', function(req, res) {
             
         }
         //var user = req.user.id;
-        d.uid =  d.dir + d.type + d.title;
-        d.name = d.dir + "/" + d.type + "/" + d.title;
+        d.uid =  d.type + d.title;
+        d.name = "resources/" + d.type + "/" + d.title;
         var resource = new Firebase(fbURL + '/' + d.name);
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
-            var data = snap_r.val();            
+            var data = snap_r.val();   
+            console.log("GET ", d.name);
             var v = req.query.vote;
             
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
+            
             
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
@@ -299,7 +276,7 @@ app.get('/grid', function(req, res) {
                             "r": data,
                             "page": "resource",
                             "user": full_user,
-                            "name": "/" + d.dir +"/"+ d.type +"/"+ d.title,
+                            "name": "/"+ d.type +"/"+ d.title,
                             "updateURL": resource
                         });
                     }
