@@ -42,7 +42,7 @@ var resources = {
     passport.use(new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
-        callbackURL: "http://localhost:3000/auth/github/callback" //change for production
+        callbackURL: "http://apiatlas.herokuapp.com/auth/github/callback" //change for production
       },
       function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
