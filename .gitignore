@@ -13,5 +13,6 @@ logs
 results
 
 env.sh
+config.js
 npm-debug.log
 node_modules
