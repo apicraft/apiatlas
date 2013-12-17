@@ -42,7 +42,7 @@ var resources = {
     passport.use(new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
-        callbackURL: "http://apiatlas.herokuapp.com/auth/github/callback" //change for production
+        callbackURL: config['REDIRECT'] //change for production
       },
       function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -118,10 +118,13 @@ var resources = {
     app.get('/logout', function(req, res){
             if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
             else{ req.session.last = req.query.last }
-        
-            req.logout();
-            req.session['auth'] = false;
-            res.redirect(req.session.last);
+            req.session.destroy(function (err) {
+                //res.redirect('/'); //Inside a callback… bulletproof!
+                req.session['auth'] = false;
+                res.redirect(req.session.last);
+              });
+            //req.logout();
+            
         });
 
     //Simple login
@@ -148,7 +151,7 @@ var resources = {
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
           req.session['auth'] = true;
-        res.redirect(req.session.last);
+            res.redirect(req.session.last);
         
       });
 
@@ -177,7 +180,7 @@ var resources = {
             var v = req.query.vote;
                         
             if(user == null){
-                render_resource()
+                render_resource();
             }else {
             console.log(fbURL, user, d.name);
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
