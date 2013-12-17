@@ -1,10 +1,10 @@
 <% include header %>
 <div class="resource pure-g-r">
 
-	<div  class="title pure-u"><h1><%= r.name %></h1></div>
-    <div class="votes pure-u"><%= r.votes.up %>/<%= r.votes.total %></div>
+	<div  class="title pure-u-1"><h1><%= r.name %></h1></div>
+    <div class="votes pure-u-1"><%= r.votes.up %>/<%= r.votes.total %></div>
     
-    <p class="controls vote_<%= r.your_vote %> pure-u">
+    <div class="controls vote_<%= r.your_vote %> pure-u-3-4">
         <%  //logged in
         if(typeof(user) == 'object' && user != null){ %>
             <a href="?vote=up" title="You use this in your apis!" class="vote_up"> 
@@ -20,14 +20,16 @@
         <% } else { /*not logged in*/  %>
             <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>
         <% } %>
-    </p>
+    </div>
+    <div class="pure-u-1-8"><p>previous</p></div>
+    <div class="pure-u-1-8"><p>next</p></div>
 
-    <p class="pure-u-1-6">previous</h2>
-    <p class="pure-u-1-3"><%= r.description %></h2>
-    <p class="pure-u-1-3"><%= r.example %></p>
-    <p class="pure-u-1-6">next</h2>
     
-    <div class="pure-u">Comments</div>
+    <div class="pure-u-1-2"><p><%= r.description %></p></div>
+    <div class="pure-u-1-2"><p><%= r.example %></p></div>
+    
+    
+    <div class="pure-u-1">Comments</div>
     
 </div>
 <% include footer %>

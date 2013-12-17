@@ -1,7 +1,7 @@
 body{width:100%;*zoom:1}body:before,body:after{content:"";display:table}
 body:after{clear:both}
-.home{padding:0;font-size:.8em}.home .pure-menu{background:#465639 url('../images/map_header.jpg')}
-.home #atlas-intro .content{padding:1em}
+.pure-menu{background:#465639 url('../images/map_header.jpg')}
+.home{padding:0;font-size:.8em}.home #atlas-intro .content{padding:1em}
 .home #resources{background-color:#ddd}.home #resources .resource{overflow-y:hidden;margin-bottom:.5em}.home #resources .resource .content{border:1px solid #bbb;padding:.3em 0 .3em .8em;margin:.5em .5em 0 .5em;min-height:34px}.home #resources .resource .content .name{color:#7e5220;margin:0;text-shadow:0 1px 0 rgba(255,255,255,0.5)}.home #resources .resource .content .name a{text-decoration:none;color:inherit}
 .home #resources .resource .content .stats{font-size:.8em;font-weight:200;color:#666}
 .home #resources .resource .content.clearbar_100{visibility:hidden}
