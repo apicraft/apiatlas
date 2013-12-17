@@ -179,7 +179,7 @@ var resources = {
             if(user == null){
                 render_resource()
             }else {
-            
+            console.log(fbURL, user, d.name);
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
