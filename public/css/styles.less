@@ -1,6 +1,6 @@
 @import 'grid.less';
 
-@columns: 10;
+@columns: 12;
 @light_gray: #eee;
 @medium_gray: #939597;
 
@@ -19,253 +19,178 @@
 @yellow-text: #7E5220;
 @blue-text: #286595;
 
-.resource {
-    .controls{
-        &.vote_null {
-            .fa-thumbs-up, .fa-thumbs-down, .fa-trash-o {display: none;}
-        }
-        &.vote_true {
-            .fa-thumbs-o-up, .fa-thumbs-down {display: none;}
-        }
-        &.vote_false {
-            .fa-thumbs-up, .fa-thumbs-o-down {display: none;}
-        }
-    }
+body,
+.pure-g [class *= "pure-u"],
+.pure-g-r [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: "source-sans-pro", Helvetica, Arial, sans-serif;
 }
-.test {
-    
-    h2{display: none;}
-    table{
-    margin-top: 2em;
-        &#response_codes{
-            
-        }
-       tr{float: left;} 
-    }
 
-}
-.grid {
-    
-    .row(12);
-    width: 640; 
-    margin-left: auto; margin-right: auto;
-    .home_description {
-        .column(12);
-    }
-    #bar_chart, #heatmap_focus{
-        
-        
-        
-        table{ 
-            .row(12);
-            
-            td {
-                .column(2);
-                &.controls{
-                    text-align: center;
-                    .column(1);
-                }
-            }
-            .votes {
-                .column(6);
+.pure-button-success,
+        .pure-button-error,
+        .pure-button-warning,
+        .pure-button-secondary {
+            color: white;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .pure-button-success { background: rgb(28, 184, 65); /* this is a green */ }
+        .pure-button-error { background: rgb(202, 60, 60); /* this is a maroon */ }
+        .pure-button-warning { background: rgb(223, 117, 20); /* this is an orange */ }
+        .pure-button-secondary { background: rgb(66, 184, 221); /* this is a light blue */ }
+
+
+#header.pure-menu{
+        background: #465639 url('../images/map_header.jpg');
+        .pure-menu-heading {
+            padding-left: 0;
+            img{
+                width: 90%; max-width: 334px;
             }
         }
     }
+
+.home {
+     padding: 0;
     
-    .heatmap_wrapper {
-        margin-top: 2em;
-        .column(12); 
-        #heatmap{
-            
-            height: 288px;
-            .resource {
-                cursor: pointer;
-                span {
-                    display: none;
-                }
-                float: left;
-                width: 31px; height: 31px;
-                border: 2px solid #fff;
-                border-radius: 18px;
-                
-                transition : border 200ms ease-out; 
-                  -webkit-transition : border 200ms ease-out; 
-                  -moz-transition : border 200ms ease-out;
-                  -o-transition : border 200ms ease-out;
-                &:hover {
-                    border-color: #aaa;
-                }
-            }
-        }
     
+    #atlas-intro .content {
+        padding: 1em;
     }
-    
-}
 
-
-.vis {
-
-    .title_bar {
-        background: #465639 url('../images/map_header.jpg') no-repeat;
-        .row(10);
-        width: 1000px;
-        margin-left: auto; margin-right: auto;
-        padding: 0 1em;
-        }
-    
     font-size: .8em;
-    .rows {
+    #resources {
         background-color: #ddd;
-        padding: 0 1em;
-        &.top {padding-top: 1em;}
-        &.bottom {padding-bottom: 1em;}
-        .row(10);
-        width: 1000px;
-        margin-left: auto; margin-right: auto;
-        
-        
-        .col {
-            .column(2);
-        
             
-            &.headers {.name {color: @green-text} }
-            &.verbs {.name {color: @red-text} }
             .resource {
-                border: 1px solid #bbb;
-                padding: .3em 0 .3em .8em;
-                margin-bottom: 5px;
-                height: 38px;
-                h3 {
-                    margin: 0;
-                    text-shadow: 0px 1px 0px hsla(0,0,100,.5);
-                }
-                .stats {
-                    font-size: .8em;
-                    font-weight: 200;
-                    color: #666;
-                }
-                
-                &.title {
-                    text-transform: uppercase;
-                    .content {font-size:2em;}
-                    font-weight: bold;
-                    color: #fff;
+                overflow-y: hidden;
+                &.header, &.verb, &.code {cursor: pointer;}
+                margin-bottom: .5em;
+                .content{ 
+                    border: 1px solid #bbb;
+                    padding: .6em 0 .3em .8em;
+                    margin: .5em .5em 0 .5em;
+                    min-height: 44px;
                     
+                    .name {
+                        a {text-decoration: none; color: inherit;}
+                        color: @yellow-text;
+                        margin: 0;
+                        text-shadow: 0px 1px 0px hsla(0,0,100,.5);
+                    }
+                    .stats {
+                        font-size: .8em;
+                        font-weight: 200;
+                        color: #666;
+                    }
+                    &.clearbar_100 {visibility: hidden;}
                 }
-            
+                &.header {.name {color: @blue-text;} }
+                &.verb {.name {color: @green-text;} }
+                &.code {
+                    .name {
+                        font-size: 2em;
+                        float: left;
+                        margin-right: .5em;
+                    }
+    
+                }
+                &.title {
+                        
+                        h3 {
+                            text-transform: uppercase;
+                            color: #fff;
+                            margin: 0;
+                            padding: 0;
+                            font-size: 2em;
+                            text-shadow: 0px -1px 0px hsla(0,0,0,.5);
+                        }
+                        
+                    }
             }
-            &.codes {
-                .name {
-                    font-size: 2em;
-                    float: left;
-                    margin-right: .5em;
-                    color: @yellow-text
-                }
-
+           
+        
+    }
+}
+body.resource {
+    .resource {
+        &.color_blue { color: @blue-text; }
+        &.color_green { color: @green-text; }
+        &.color_yellow { color: @yellow-text; }
+        
+        padding: 0 2em;
+        h1 { font-size: 2em; padding: 0; margin: 1em 0 .25em 0;}
+        .votes div {
+            padding: .5em 1em;
+            font-weight: 200;
+            font-size: 2em;
+            border: 1px solid @blue-text
+        }
+        
+        
+        .controls {
+            margin: 1em 0 0 0;
+            font-size: 1em;
+            p {margin-top: 0;}
+            a {
+                text-decoration: none;
+                color: #fff;
+                
+            }
+            &.vote_null {
+                .fa-thumbs-up, .fa-thumbs-down, .fa-trash-o, .question.yes, .question.no {display: none;}
+            }
+            &.vote_true {
+                .fa-thumbs-o-up, .fa-thumbs-down, .question.no, .question.ask {display: none;}
+            }
+            &.vote_false {
+                .fa-thumbs-up, .fa-thumbs-o-down, .question.ask, .question.yes {display: none;}
+            }
+        }
+        #comments {
+            margin: 2em 1em 0 0;
+        }
+        .pure-u-1-2 { 
+            margin-top: 1em;
+            h3 { margin: 0 1em 0 0; }
+            p {
+                padding: 1em; 
+                border: 1px solid #ccc;
+                background-color: #eee;
+                margin: .25em 1em 0 0;
             }
         }
     }
 }
-
 #footer {
     margin-top: 1em;
     padding-top: 1em;
-    padding-bottom: 10em;
-}
-.ui-tooltip, .arrow:after {
-    background: black;
-    border: 2px solid white;
-  }
-  .ui-tooltip {
-    padding: 10px 20px;
-    color: white;
-    border-radius: 20px;
-    font: bold 14px;
-    text-transform: uppercase;
-    box-shadow: 0 0 7px black;
-  }
-  .arrow {
-    width: 70px;
-    height: 16px;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
-    &.top {
-        top: -16px;
-        bottom: auto;
-        &:after {
-            bottom: -20px;
-            top: auto;
-          }
-      }
-    &.left {
-        left: 20%;
-      }
-    &:after {
-        content: "";
-        position: absolute;
-        left: 20px;
-        top: -20px;
-        width: 25px;
-        height: 25px;
-        box-shadow: 6px 5px 9px -9px black;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
-        tranform: rotate(45deg);
-      }
-  }
-
-
-
-@bar_color: #ddd;
-@bar_bg: #fff;
-
-@iterations: 100;
-.loopingClass (@index, @bg) when (@index > 50)  {
-	@hue: 360 * (@index /100);
-    @h: (1 - ((@index - 50) * .02)) * 60;
-	.bar_@{index}  {		
-		background-image: linear-gradient(90deg, hsl(@h, 100%, 50%) ~"@{index}%", @bg ~"@{index}%");
-        //background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(@index/100, hsla(@hue, 70%, 70%, 1)), color-stop(@index/100, @bg));
-       
-	}
-    .greenbar_@{index} { background-image: linear-gradient(90deg, @green ~"@{index}%", @green-light ~"@{index}%"); }
-    .redbar_@{index} { background-image: linear-gradient(90deg, @red ~"@{index}%", @red-light ~"@{index}%"); }
-    .yellowbar_@{index} { background-image: linear-gradient(90deg, @yellow ~"@{index}%", @yellow-light ~"@{index}%"); }
-    .bluebar_@{index} { background-image: linear-gradient(90deg, @blue ~"@{index}%", @blue-light ~"@{index}%"); }
+    padding: 1em 2em 10em 2em;
     
-    .heat_@{index}{
-        
-        background-color: hsl(@h, 100%, 50%);
-    }
-	.loopingClass(@index - 1, @bg);
 }
 
-.loopingClass (@index, @bg) when (@index < 51) and (@index > -1){
-    @hue: 360 * (@index /100);
-    @l: 100% - @index;
-    .bar_@{index}  {        
-        background-image: linear-gradient(90deg, hsl(60, 100%, @l) ~"@{index}%", @bg ~"@{index}%");
-        //background-image: -webkit-gradient(linear, left bottom, right bottom, color-stop(@index/100, hsla(@hue, 70%, 70%, 1)), color-stop(@index/100, @bg));
-       
-    }
-    .greenbar_@{index} { background-image: linear-gradient(90deg, @green ~"@{index}%", @green-light ~"@{index}%"); }
-    .redbar_@{index} { background-image: linear-gradient(90deg, @red ~"@{index}%", @red-light ~"@{index}%"); }
-    .yellowbar_@{index} { background-image: linear-gradient(90deg, @yellow ~"@{index}%", @yellow-light ~"@{index}%"); }
-    .bluebar_@{index} { background-image: linear-gradient(90deg, @blue ~"@{index}%", @blue-light ~"@{index}%"); }
+//yes, this pre-renders a ton of css rules (300 progress bar backrounds * versions for prowser compatiability). 
+//How to optimize? 
+
+@iterations: 100; //number of gradient steps. 100 models 0-100%
+
+.loopingClass (@index) when (@index > -1){
+   
+    .greenbar_@{index} { .grad(@green-light, @green, @index); }
+    .yellowbar_@{index}{ .grad(@yellow-light, @yellow, @index); }
+    .bluebar_@{index} { .grad(@blue-light, @blue, @index); }
     
-    .heat_@{index}{
-        
-        background-color: hsl(60, 100%, @l);
-    }
-    .loopingClass(@index - 1, @bg);
+    .loopingClass(@index - 1); //must be recursive
 }
 
-.loopingClass (-1) {}
-.loopingClass (@iterations, @bar_bg);
+.loopingClass (@iterations);
+
+.grad(@bg, @fill, @stop){
+    background: -moz-linear-gradient(left,  @fill ~"@{stop}%", @bg ~"@{stop}%"); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(~"@{stop}%",@fill), color-stop(~"@{stop}%",@bg)); /* Chrome,Safari4+ */
+    background: -ms-linear-gradient(left,  @fill ~"@{stop}%",@bg ~"@{stop}%"); /* IE10+ */
+    background: linear-gradient(90deg,  @fill ~"@{stop}%",@bg ~"@{stop}%"); /* W3C */
+}
+
 
 

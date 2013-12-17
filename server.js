@@ -21,12 +21,11 @@ var express = require('express')
 
 var fbURL = config['FIREBASE_FORGE']; //firebase endpoint
 
-var resources = [
-            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
-            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
-            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
-            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
-        ];
+var resources = {
+            "headers":  {"title": "Headers", "type": "header", "updateURL": fbURL + "/resources/headers", "id": "headers", "rel": "/headers", "color": "blue"},
+            "verbs":    {"title": "Verbs", "type": "verb", "updateURL": fbURL + "/resources/verbs", "id": "verbs", "rel": "/verbs", "color": "green"},
+            "codes":    {"title": "Codes", "type": "code", "updateURL": fbURL + "/resources/codes", "id": "codes", "rel": "/codes", "color": "yellow"}
+        };
     
 
     
@@ -43,7 +42,7 @@ var resources = [
     passport.use(new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
-        callbackURL: "http://localhost:3000/auth/github/callback" //change for production
+        callbackURL: config['REDIRECT'] //change for production
       },
       function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -101,12 +100,12 @@ var resources = [
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
         
         
-        res.render(__dirname + '/views/grid.ejs', {
+        res.render(__dirname + '/views/vis.ejs', {
                 "resources": resources,
-                "page": "grid", 
+                "page": "home", 
                 "user": getUser(req),
                 "name": "",
-                "data": JSON.stringify(output)
+                "data": resources //JSON.stringify(output)
             });
         
         
@@ -114,38 +113,18 @@ var resources = [
 	  
 	});
 
-    /* remove this later - just for visualizing the grid */
-
-app.get('/grid', function(req, res) {
-        
-        //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
-        var output = [
-            {"title": "Request Headers", "updateURL": fbURL + "/request/headers", "id": "request_headers", "rel": "/request/headers"},
-            {"title": "Request Verbs", "updateURL": fbURL + "/request/verbs", "id": "request_verbs", "rel": "/request/verbs"},
-            {"title": "Response Headers", "updateURL": fbURL + "/response/headers", "id": "response_headers", "rel": "/response/headers"},
-            {"title": "Response Codes", "updateURL": fbURL + "/response/codes", "id": "response_codes", "rel": "/response/codes"}
-        ];
-        
-        res.render(__dirname + '/views/grid.ejs', {
-                "resources": output,
-                "page": "grid", 
-                "user": getUser(req),
-                "name": "",
-                "data": JSON.stringify(output)
-            });
-        
-      
-	  
-	});
 
 
     app.get('/logout', function(req, res){
             if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
             else{ req.session.last = req.query.last }
-        
-            req.logout();
-            req.session['auth'] = false;
-            res.redirect(req.session.last);
+            req.session.destroy(function (err) {
+                //res.redirect('/'); //Inside a callback… bulletproof!
+                req.session['auth'] = false;
+                res.redirect(req.session.last);
+              });
+            //req.logout();
+            
         });
 
     //Simple login
@@ -153,7 +132,7 @@ app.get('/grid', function(req, res) {
 
     //Handle "?last=x if available
     app.get('/auth/github', function(req, res, next) {
-        if(typeof(req.query.last) == "undefined"){ req.session.last = '/login'; }
+        if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
         else{ req.session.last = req.query.last }
         
           passport.authenticate('github', function(err, user, info) {
@@ -172,18 +151,17 @@ app.get('/grid', function(req, res) {
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
           req.session['auth'] = true;
-        res.redirect(req.session.last);
+            res.redirect(req.session.last);
         
       });
 
 
-    app.get('/:direction/:type/:title', function(req, res){
+    app.get('/:type/:title', function(req, res){
         user = null;
         var full_user = getUser(req);
         if(full_user !== null){user = full_user.id;}
         
         var d = {
-            "dir": req.params.direction,
             "type": req.params.type,
             "title": req.params.title,
             "uid": "",
@@ -191,16 +169,21 @@ app.get('/grid', function(req, res) {
             
         }
         //var user = req.user.id;
-        d.uid =  d.dir + d.type + d.title;
-        d.name = d.dir + "/" + d.type + "/" + d.title;
+        d.uid =  d.type + d.title;
+        d.name = "resources/" + d.type + "/" + d.title;
         var resource = new Firebase(fbURL + '/' + d.name);
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
-            var data = snap_r.val();            
+            var data = snap_r.val(); 
+            data.priority = snap_r.getPriority();
+            console.log("GET ", d.name);
             var v = req.query.vote;
-            
+                        
+            if(user == null){
+                render_resource();
+            }else {
+            console.log(fbURL, user, d.name);
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
-            
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
                     
@@ -293,19 +276,36 @@ app.get('/grid', function(req, res) {
                             vote(false);           
                         }
                         //res.redirect(req._parsedUrl.pathname);
+                        res.send();
                         
                     }else {
-                        res.render(__dirname + '/views/resource_show.ejs', {
-                            "r": data,
-                            "page": "resource",
-                            "user": full_user,
-                            "name": "/" + d.dir +"/"+ d.type +"/"+ d.title,
-                            "updateURL": resource
-                        });
+                        render_resource();
                     }
                     
                     
             });
+            
+            }
+            
+            function render_resource(){
+                        data.votes.percent = 0;
+                        if(data.votes.total > 0){ data.votes.percent = Math.round((data.votes.up/data.votes.total) * 100); }
+                        data.votes.percent_display = data.votes.percent + "%";
+                        
+                        data = extend(data, resources[d.type]);
+                        
+                        console.log(data);
+                        
+                        res.render(__dirname + '/views/resource_show.ejs', {
+                            "r": data,
+                            "page": "resource",
+                            "user": full_user,
+                            "name": "/"+ d.type +"/"+ d.title,
+                            "updateURL": resource
+                        });
+            
+            }
+            
             
         });   
        

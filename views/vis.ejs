@@ -1,25 +1,14 @@
 <% include header %>
-<div class="title_bar">
-        <div class="content">
-            <img src="images/logo_01.png" alt="API Atlas"/>
-            <img src="images/logo_02.png" alt="API Atlas"/>
-        </div>    
-</div>
-<div class="rows top">
-    <div class="col verbs"></div>
-    <div class="col headers headers_0"></div>
-    <div class="col headers headers_1"></div>
-    <div class="col headers headers_2"></div>
-    <div class="col codes codes_0"></div>
-</div>
-
-<div class="rows bottom">
-    
-    <div class="col codes codes_1"></div>
-    <div class="col codes codes_2"></div>
-    <div class="col codes codes_3"></div>
-    <div class="col codes codes_4"></div>
-    <div class="col codes codes_5"></div>
-</div>
+    <div id="atlas-intro" class="pure-g-r">
+        <div class="content pure-u">
+            <h1>Mapping the specs that run the web.</h1>
+            <p>Here are the resources for the HTTP spec:</p>
+        </div>
+    </div>
+    <div id="resources" class="pure-g-r">
+        <% for(var i = 0; i<10; i++){ %>
+             <div class="reflow pure-u-1-5 reflow_<%- i %>"></div>
+        <% } %>
+    </div>
 
 <% include footer %>

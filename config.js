@@ -7,6 +7,8 @@ function Config() {
   this.FIREBASE_FORGE = process.env.FIREBASE_FORGE;
   
   this.SESSION_SECRET = process.env.SESSION_SECRET;
+  this.REDIRECT=process.env.REDIRECT
+
 }
 
 module.exports = new Config();
