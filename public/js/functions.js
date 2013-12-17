@@ -47,6 +47,11 @@ $(function(){
                                this.refs[name] = new Firebase(this.updateURL + "/" + resource.name.toLowerCase());
                                 this.refs[name].on('value', function(snap){
                                     this.current = snap.val();
+                                    this.self.percent = 0;
+                                    if(this.current.votes.total > 0){
+                                        this.self.percent = Math.round((this.current.votes.up/this.current.votes.total) * 100);
+                                    }
+                                    
                                     this.self.rel = this.parent.rel + "/" + this.self.name.toLowerCase();
                                     this.self.uid = this.self.rel.replace(/\//g, "");
                                     this.target = $("#" + this.self.uid);
@@ -59,7 +64,7 @@ $(function(){
                                         //render!
                                         if($('body').data("auth")){this.user = {"authorized": true}}
                                         var p = randomFromInterval(0, 100);
-                                        var render_data = $.extend({}, this.parent, this.self, {"percent": p, "percent_display": p + "%","votes": randomFromInterval(0,200)});
+                                        var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total});
                                         $t.append(template.render(render_data));
                                         this.parent.progress += 1;
                                         try_reflow();

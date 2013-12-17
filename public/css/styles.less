@@ -111,7 +111,7 @@
     font-size: .8em;
     #resources {
         background-color: #ddd;
-        
+            
             .resource {
                 overflow-y: hidden;
                 
@@ -121,7 +121,9 @@
                     padding: .3em 0 .3em .8em;
                     margin: .5em .5em 0 .5em;
             min-height: 34px;
+                    
                     .name {
+                        a {text-decoration: none; color: inherit;}
                         color: @yellow-text;
                         margin: 0;
                         text-shadow: 0px 1px 0px hsla(0,0,100,.5);
@@ -133,8 +135,8 @@
                     }
                     &.clearbar_100 {visibility: hidden;}
                 }
-                &.header {.name {color: @green-text;} }
-                &.verb {.name {color: @blue-text;} }
+                &.header {.name {color: @blue-text;} }
+                &.verb {.name {color: @green-text;} }
                 &.code {
                     .name {
                         font-size: 2em;

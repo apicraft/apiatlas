@@ -1,26 +1,33 @@
 <% include header %>
-	<h1><%= r.name %></h1>
-    <h2><%= r.description %></h2>
-    <p><%= r.example %></p>
+<div class="resource pure-g-r">
+
+	<div  class="title pure-u"><h1><%= r.name %></h1></div>
+    <div class="votes pure-u"><%= r.votes.up %>/<%= r.votes.total %></div>
     
-    <p class="controls vote_<%= r.your_vote %>">
-    <%  //logged in
-    if(typeof(user) == 'object' && user != null){ %>
-        <a href="?vote=up" title="You use this in your apis!" class="vote_up"> 
-            <i class="fa fa-thumbs-up"></i>
-            <i class="fa fa-thumbs-o-up"></i>
-        </a> 
-        <a href="?vote=down" title="You DON'T use this in your apis :(" class="vote_down"> 
-            <i class="fa fa-thumbs-down"></i>
-            <i class="fa fa-thumbs-o-down"></i>
-        </a>
-        <a href="?vote=remove" title="Remove my vote." class="vote_remove"><i class="fa fa-trash-o"></i></a>
-        
-    <% } else { /*not logged in*/  %>
-        <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>
-    <% } %>
+    <p class="controls vote_<%= r.your_vote %> pure-u">
+        <%  //logged in
+        if(typeof(user) == 'object' && user != null){ %>
+            <a href="?vote=up" title="You use this in your apis!" class="vote_up"> 
+                <i class="fa fa-thumbs-up"></i>
+                <i class="fa fa-thumbs-o-up"></i>
+            </a> 
+            <a href="?vote=down" title="You DON'T use this in your apis :(" class="vote_down"> 
+                <i class="fa fa-thumbs-down"></i>
+                <i class="fa fa-thumbs-o-down"></i>
+            </a>
+            <a href="?vote=remove" title="Remove my vote." class="vote_remove"><i class="fa fa-trash-o"></i></a>
+            
+        <% } else { /*not logged in*/  %>
+            <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>
+        <% } %>
     </p>
 
-    <p class="votes"><%= r.votes.up %>/<%= r.votes.total %></p>
-    <p><a href=""></a></p>
+    <p class="pure-u-1-6">previous</h2>
+    <p class="pure-u-1-3"><%= r.description %></h2>
+    <p class="pure-u-1-3"><%= r.example %></p>
+    <p class="pure-u-1-6">next</h2>
+    
+    <div class="pure-u">Comments</div>
+    
+</div>
 <% include footer %>
