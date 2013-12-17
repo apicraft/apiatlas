@@ -1,5 +1,6 @@
 body{width:100%;*zoom:1}body:before,body:after{content:"";display:table}
 body:after{clear:both}
+body,.pure-g [class*="pure-u"],.pure-g-r [class*="pure-u"]{font-family:"source-sans-pro",Helvetica,Arial,sans-serif}
 #header.pure-menu{background:#465639 url('../images/map_header.jpg')}#header.pure-menu .pure-menu-heading{padding-left:0}#header.pure-menu .pure-menu-heading img{width:90%;max-width:334px}
 .home{padding:0;font-size:.8em}.home #atlas-intro .content{padding:1em}
 .home #resources{background-color:#ddd}.home #resources .resource{overflow-y:hidden;margin-bottom:.5em}.home #resources .resource .content{border:1px solid #bbb;padding:.3em 0 .3em .8em;margin:.5em .5em 0 .5em;min-height:34px}.home #resources .resource .content .name{color:#7e5220;margin:0;text-shadow:0 1px 0 rgba(255,255,255,0.5)}.home #resources .resource .content .name a{text-decoration:none;color:inherit}
@@ -9,6 +10,7 @@ body:after{clear:both}
 .home #resources .resource.verb .name{color:#5c7048}
 .home #resources .resource.code .name{font-size:2em;float:left;margin-right:.5em}
 .home #resources .resource.title h3{text-transform:uppercase;color:#fff;margin:0;padding:0;font-size:2em;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
+body.resource .resource{padding:0 2em}
 #footer{margin-top:1em;padding-top:1em;padding-bottom:10em}
 .greenbar_100{background:-moz-linear-gradient(left, #c1dfa6 100%, #f0f7ea 100%);background:-webkit-gradient(linear, left top, right top, color-stop(100%, #c1dfa6), color-stop(100%, #f0f7ea));background:-ms-linear-gradient(left, #c1dfa6 100%, #f0f7ea 100%);background:linear-gradient(90deg, #c1dfa6 100%, #f0f7ea 100%);}
 .yellowbar_100{background:-moz-linear-gradient(left, #f1e190 100%, #fbf6e4 100%);background:-webkit-gradient(linear, left top, right top, color-stop(100%, #f1e190), color-stop(100%, #fbf6e4));background:-ms-linear-gradient(left, #f1e190 100%, #fbf6e4 100%);background:linear-gradient(90deg, #f1e190 100%, #fbf6e4 100%);}

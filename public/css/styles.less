@@ -18,6 +18,16 @@
 @red-text: #7B3018;
 @yellow-text: #7E5220;
 @blue-text: #286595;
+
+body,
+.pure-g [class *= "pure-u"],
+.pure-g-r [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: "source-sans-pro", Helvetica, Arial, sans-serif;
+}
+
+
+
 #header.pure-menu{
         background: #465639 url('../images/map_header.jpg');
         .pure-menu-heading {
@@ -168,7 +178,11 @@
         
     }
 }
-
+body.resource {
+    .resource {
+        padding: 0 2em;
+    }
+}
 #footer {
     margin-top: 1em;
     padding-top: 1em;

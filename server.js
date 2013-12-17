@@ -272,6 +272,14 @@ var resources = {
                         //res.redirect(req._parsedUrl.pathname);
                         
                     }else {
+                        data.votes.percent = 0;
+                        if(data.votes.total > 0){ data.votes.percent = Math.round((data.votes.up/data.votes.total) * 100); }
+                        data.votes.percent_display = data.votes.percent + "%";
+                        
+                        extend(data, resources[d.type]);
+                        
+                        console.log(data);
+                        
                         res.render(__dirname + '/views/resource_show.ejs', {
                             "r": data,
                             "page": "resource",

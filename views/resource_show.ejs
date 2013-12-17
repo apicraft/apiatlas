@@ -1,8 +1,10 @@
 <% include header %>
-<div class="resource pure-g-r">
+<div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>">
 
 	<div  class="title pure-u-1"><h1><%= r.name %></h1></div>
-    <div class="votes pure-u-1"><%= r.votes.up %>/<%= r.votes.total %></div>
+    <div class="votes pure-u-1" data-color="<%- r.color %>">
+        <div><%= r.votes.total %> votes. <%= r.votes.percent_display %> usage.</div>
+    </div>
     
     <div class="controls vote_<%= r.your_vote %> pure-u-3-4">
         <%  //logged in

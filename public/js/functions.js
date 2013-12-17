@@ -156,7 +156,14 @@ $(function(){
         'resource': function(){
             var resource = new Firebase(updateURL);
             resource.on('value', function(snapshot){
-                $('.votes').html(snapshot.val().votes.up + "/" + snapshot.val().votes.total);
+                
+                var percent = 0;
+                if(snapshot.val().votes.total > 0){ percent = Math.round((snapshot.val().votes.up/snapshot.val().votes.total) * 100); }
+                var percent_display = percent + "%";
+                var barclass = $('.votes').data('color') + "bar_" + percent;
+                $('.votes div').html(snapshot.val().votes.total + " votes. " + percent_display + " usage.");
+                $('.votes div').removeClass().addClass(barclass);
+                
             });
              $(".controls a").click(function(){
                 $(".controls").removeClass("vote_true vote_false vote_null")
