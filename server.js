@@ -171,7 +171,8 @@ var resources = {
         var resource = new Firebase(fbURL + '/' + d.name);
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
-            var data = snap_r.val();   
+            var data = snap_r.val(); 
+            data.priority = snap_r.getPriority();
             console.log("GET ", d.name);
             var v = req.query.vote;
             
@@ -270,13 +271,14 @@ var resources = {
                             vote(false);           
                         }
                         //res.redirect(req._parsedUrl.pathname);
+                        res.send();
                         
                     }else {
                         data.votes.percent = 0;
                         if(data.votes.total > 0){ data.votes.percent = Math.round((data.votes.up/data.votes.total) * 100); }
                         data.votes.percent_display = data.votes.percent + "%";
                         
-                        extend(data, resources[d.type]);
+                        data = extend(data, resources[d.type]);
                         
                         console.log(data);
                         

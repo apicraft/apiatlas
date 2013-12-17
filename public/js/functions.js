@@ -47,6 +47,7 @@ $(function(){
                                this.refs[name] = new Firebase(this.updateURL + "/" + resource.name.toLowerCase());
                                 this.refs[name].on('value', function(snap){
                                     this.current = snap.val();
+                                    
                                     this.self.percent = 0;
                                     if(this.current.votes.total > 0){
                                         this.self.percent = Math.round((this.current.votes.up/this.current.votes.total) * 100);
@@ -55,17 +56,26 @@ $(function(){
                                     this.self.rel = this.parent.rel + "/" + this.self.name.toLowerCase();
                                     this.self.uid = this.self.rel.replace(/\//g, "");
                                     this.target = $("#" + this.self.uid);
+                                    
                                     if(this.target.length != 0){
                                         //update!
                                         console.log("update!");
-                                        console.log(this.target.find(".votes"));
-                                        this.target.find(".votes").html(this.current.votes.up + "/" + this.current.votes.total);
+                                        var remove_class = this.target.data('color') + "bar_" + this.target.data('percent');
+                                        var add_class = this.target.data('color') + "bar_" + this.self.percent;
+                                        this.target.data('percent', this.self.percent);
+                                        
+                                        this.target.find(".votes").html(this.current.votes.total);
+                                        this.target.find(".percent").html(this.self.percent + "%");
+                                        this.target.find(".content").removeClass(remove_class).addClass(add_class);
+                                        
+                                        
                                     } else {
                                         //render!
                                         if($('body').data("auth")){this.user = {"authorized": true}}
                                         var p = randomFromInterval(0, 100);
                                         var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total});
                                         $t.append(template.render(render_data));
+                                        
                                         this.parent.progress += 1;
                                         try_reflow();
                                     }
@@ -75,44 +85,7 @@ $(function(){
                 }
                 }); //t2
             }); //t
-                
-                    
-                    
-                /*   
-                for(i in http.verbs){
-                    var p = randomFromInterval(0,max_p);
-                    $("#resources .reflow_0").append(template.render({"type": "verb", "color": "blue", "percent": p, "percent_display": p + "%", "name": http.verbs[i],"votes": randomFromInterval(0,200) }) );
-                    
-                }
-                    
-                //headers
-                $("#resources .reflow_0").append(title.render({"color": "pure-hidden-phone clear", "title": "blank"}));
-                $("#resources .reflow_0").append(title.render({"color": "green", "title": "headers"}));
-                for(i in http.headers){
-                    var p = randomFromInterval(0,max_p);
-                    var header = template.render({"type": "header", "color": "green", "percent": p, "percent_display": p + "%", "name": http.headers[i],"votes": randomFromInterval(0,200) });
-                    
-                    $("#resources .reflow_0").append(header);
-                    
-                    
-                }
-                
-                //codes
-                $("#resources .reflow_0").append(title.render({"color": "yellow", "title": "codes"}));
-                for(i in http.codes){
-                    var p = randomFromInterval(0,max_p);
-                    var code = template.render({"type": "code", "color": "yellow", "percent": p, "percent_display": p + "%", "name": http.codes[i],"votes": randomFromInterval(0,200) });
-                    
-                    $("#resources .reflow_0").append(code);
-                    
-                }
-                
-                reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
-                reflow($("#resources .reflow"),12);
-                });
-            });
-            */
-                    
+                   
             $(".title_bar a.menu_icon").click(function(){
                 //menu show
                 if($(".title_bar").hasClass("open_menu")){
@@ -133,6 +106,9 @@ $(function(){
                     console.log("reflow!");
                     reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
                     reflow($("#resources .reflow"),12);
+                    $(".resource").click(function(){
+                        window.location.href = $(this).data('link');
+                    });
                 }
             }
     
@@ -165,8 +141,13 @@ $(function(){
                 $('.votes div').removeClass().addClass(barclass);
                 
             });
-             $(".controls a").click(function(){
-                $(".controls").removeClass("vote_true vote_false vote_null")
+             $(".controls a.vote").click(function(){
+                event.preventDefault();
+                console.log($(this).attr('href'));
+                 $.get($(this).attr('href'), function(){
+                    console.log('voted');
+                 });
+                 $(".controls").removeClass("vote_true vote_false vote_null")
                 if($(this).hasClass("vote_up")){            $(".controls").addClass("vote_true");
                 }else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");
                 }else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");

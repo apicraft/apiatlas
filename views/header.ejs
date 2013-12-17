@@ -42,13 +42,7 @@
     -->
     
     <div id="header" class="pure-menu pure-menu-open pure-menu-horizontal">
-        <a href="#" class="pure-menu-heading"><img src="/images/logo.png" alt="API Atlas"/></a>
+        <a href="/" class="pure-menu-heading"><img src="/images/logo.png" alt="API Atlas"/></a>
     
-        <ul>
-            
-                <% if(page != 'home'){ %> <li><a href="/">Home</a></li> <% } %>
-                <% if(authorized){ %><li><a href="/logout?last=<%= name %>">Logout</a> </li> <% }
-                else { %><li><a href="/auth/github?last=<%= name %>">Login with github</a><li> <% } %>
-            
-        </ul>
+       
     </div>

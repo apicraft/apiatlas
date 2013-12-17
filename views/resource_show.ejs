@@ -1,38 +1,55 @@
 <% include header %>
-<div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>">
+<div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
 
 	<div  class="title pure-u-1"><h1><%= r.name %></h1></div>
     <div class="votes pure-u-1" data-color="<%- r.color %>">
-        <div><%= r.votes.total %> votes. <%= r.votes.percent_display %> usage.</div>
+        <div class="<%- r.color %>bar_<%- r.votes.percent %>"><%= r.votes.total %> votes. <%= r.votes.percent_display %> usage.</div>
     </div>
     
     <div class="controls vote_<%= r.your_vote %> pure-u-3-4">
         <%  //logged in
         if(typeof(user) == 'object' && user != null){ %>
-            <a href="?vote=up" title="You use this in your apis!" class="vote_up"> 
-                <i class="fa fa-thumbs-up"></i>
-                <i class="fa fa-thumbs-o-up"></i>
+            <p class="question ask">Do you use this in your apis?</p>
+            <p class="question yes">You use this in your apis.</p>
+            <p class="question no">You don't use this in your apis.</p>
+            
+            <a href="?vote=up" title="Yes" class="vote_up vote"> 
+                <i class="fa fa-thumbs-up pure-button pure-button-success"></i>
+                <i class="fa fa-thumbs-o-up pure-button"></i>
             </a> 
-            <a href="?vote=down" title="You DON'T use this in your apis :(" class="vote_down"> 
-                <i class="fa fa-thumbs-down"></i>
-                <i class="fa fa-thumbs-o-down"></i>
+            <a href="?vote=down" title="No" class="vote_down vote"> 
+                <i class="fa fa-thumbs-down pure-button pure-button-error"></i>
+                <i class="fa fa-thumbs-o-down pure-button"></i>
             </a>
-            <a href="?vote=remove" title="Remove my vote." class="vote_remove"><i class="fa fa-trash-o"></i></a>
+            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote "><i class="fa fa-trash-o pure-button pure-button-primary"></i></a>
             
         <% } else { /*not logged in*/  %>
-            <a href="/auth/github?last=<%= name %>">Login</a> to vote.<br/>
+            <a href="/auth/github?last=<%= name %>" class="pure-button pure-button-primary">Login with github to vote.</a> <br/>
         <% } %>
     </div>
     
 
     
-    <div class="pure-u-1-2"><p><%= r.description %></p></div>
-    <div class="pure-u-1-2"><p><%= r.example %></p></div>
-    
+    <div class="pure-u-1-2 description">
+        <h3>Description</h3>
+        <p><%= r.description %></p>
+    </div>
+    <div class="pure-u-1-2 example">
+        <h3>Example</h3>
+        <p><%= r.example %></p>
+    </div>
+    <!-- 
     <div class="pure-u-1-8"><p>previous</p></div>
     <div class="pure-u-1-8"><p>next</p></div>
+    -->
+    <div class="pure-u-1" id="comments">
     
-    <div class="pure-u-1">Comments</div>
+          <div id="disqus_thread"></div>
+    
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div>
     
 </div>
 <% include footer %>
