@@ -175,10 +175,12 @@ var resources = {
             data.priority = snap_r.getPriority();
             console.log("GET ", d.name);
             var v = req.query.vote;
+                        
+            if(user == null){
+                render_resource()
+            }else {
             
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
-            
-            
             didVote.once('value', function(snap_d){
                     data.your_vote = snap_d.val();
                     
@@ -274,6 +276,15 @@ var resources = {
                         res.send();
                         
                     }else {
+                        render_resource();
+                    }
+                    
+                    
+            });
+            
+            }
+            
+            function render_resource(){
                         data.votes.percent = 0;
                         if(data.votes.total > 0){ data.votes.percent = Math.round((data.votes.up/data.votes.total) * 100); }
                         data.votes.percent_display = data.votes.percent + "%";
@@ -289,10 +300,9 @@ var resources = {
                             "name": "/"+ d.type +"/"+ d.title,
                             "updateURL": resource
                         });
-                    }
-                    
-                    
-            });
+            
+            }
+            
             
         });   
        
