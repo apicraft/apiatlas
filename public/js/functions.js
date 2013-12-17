@@ -106,7 +106,7 @@ $(function(){
                     console.log("reflow!");
                     reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
                     reflow($("#resources .reflow"),12);
-                    $(".resource").click(function(){
+                    $(".resource:not(.title)").click(function(){
                         window.location.href = $(this).data('link');
                     });
                 }

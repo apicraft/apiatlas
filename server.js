@@ -132,7 +132,7 @@ var resources = {
 
     //Handle "?last=x if available
     app.get('/auth/github', function(req, res, next) {
-        if(typeof(req.query.last) == "undefined"){ req.session.last = '/login'; }
+        if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
         else{ req.session.last = req.query.last }
         
           passport.authenticate('github', function(err, user, info) {
