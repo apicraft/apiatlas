@@ -185,7 +185,7 @@ passport.deserializeUser(function(id, done) {
                 res.statusCode = 404;
                 return res.render('404', {
                     "page":  "not_found",
-                    "user": user,
+                    "user": full_user,
                     "name": "/404"
                 });
             }
