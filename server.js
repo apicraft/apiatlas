@@ -132,12 +132,12 @@ passport.deserializeUser(function(id, done) {
     });
 
     app.get('/logout', function(req, res){
-        if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
-        else{ req.session.last = req.query.last }
+
+        var last = req.session.last || req.query.last || '/';
         req.session.destroy(function (err) {
             //res.redirect('/'); //Inside a callback… bulletproof!
             //req.session['auth'] = false;
-            res.redirect(req.session.last);
+            res.redirect(last);
         });
         //req.logout();            
     });
