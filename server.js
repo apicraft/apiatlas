@@ -136,7 +136,7 @@ passport.deserializeUser(function(id, done) {
         else{ req.session.last = req.query.last }
         req.session.destroy(function (err) {
             //res.redirect('/'); //Inside a callback… bulletproof!
-            req.session['auth'] = false;
+            //req.session['auth'] = false;
             res.redirect(req.session.last);
         });
         //req.logout();            
