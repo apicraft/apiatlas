@@ -1,17 +1,15 @@
 <% include header %>
-<% console.log(r) %>
 <div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
 
 	<div  class="title pure-u-1"><h1><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1></div>
     <div class="votes pure-u-1" data-color="<%- r.color %>">
         <div class="<%- r.color %>bar_<%- r.votes.percent %>"><%= r.votes.total %> votes. <%= r.votes.percent_display %> usage.</div>
     </div>
-    
-    <div class="controls vote_<%= r.your_vote %> pure-u-1">
+    <% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
+    <div class="controls vote_<%= v %> pure-u-1">
 		<div class="pure-g-r">
 			<p class="question ask pure-u-1">Do you use this in your apis?</p>
-        <%  //logged in
-        if(typeof(user) == 'object' && user != null){ %>
+        
             
             <p class="question yes pure-u-1">You use this in your apis.</p>
             <p class="question no pure-u-1">You don't use this in your apis.</p>
@@ -29,15 +27,15 @@
             <a href="?vote=down" title="No" class="vote_down vote pure-button inactive pure-u-1-4">
 				<i class="fa fa-times-circle-o"> No, I don't use this</i>
 			</a>
-            
-            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-primary pure-u-1-4">
+         </div>   
+            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-primary">
 				<i class="fa fa-trash-o"> Remove Vote</i>
 			</a>
-            
-        <% } else { /*not logged in*/  %>
-            <a href="/auth/github?last=<%= name %>" class="pure-button pure-button-primary pure-u-1-3">Login with github to vote.</a> <br/>
-        <% } %>
-		</div>
+            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-inactive">
+				<i class="fa fa-trash-o"> Remove Vote</i>
+			</a>
+        
+		
     </div>
     
 	    

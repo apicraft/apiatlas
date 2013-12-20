@@ -49,16 +49,22 @@ body,
             }
         }
     }
-
+#login-confirm {
+		.pure-button {
+			margin-right: 1em !important;
+			margin-bottom: 1em;
+		}
+	}
 .home {
      padding: 0;
     
     
     #atlas-intro .content {
         padding: 1em;
+		
     }
 
-    font-size: .8em;
+    
     #resources {
         background-color: #ddd;
             
@@ -148,10 +154,10 @@ body.resource {
                  .pure-button-success, .pure-button-error, .pure-button-primary, .question.yes, .question.no {display: none;}
             }
             &.vote_true {
-                .vote_up.inactive, .pure-button-error, .question.no, .question.ask {display: none;}
+                .vote_up.inactive, .pure-button-error, .question.no, .question.ask, .pure-button-inactive {display: none;}
             }
             &.vote_false {
-                .vote_down.inactive, .pure-button-success, .question.ask, .question.yes {display: none;}
+                .vote_down.inactive, .pure-button-success, .question.ask, .question.yes, .pure-button-inactive {display: none;}
             }
         }
 		.scrub {

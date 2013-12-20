@@ -9,7 +9,7 @@
     <% } else { 
         //not logged in 
     %>
-        <a href="/auth/github?last=<%= name %>" class="pure-button pure-button-primary">Login with github </a><br/>
+        <a href="#login-confirm" class="call-modal login-with-github pure-button pure-button-primary">Login with github </a><br/>
     <% } %>
     </p>
 </div>
@@ -28,10 +28,11 @@
 
 
 <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
-<script type="text/javascript" src="/js/ejs.js"></script>
+<script type="text/javascript" src="/js/ejs.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery.ejs.js"></script>
+<script type="text/javascript" src="/js/modal.js"></script>
 
 <script type="text/javascript" src="/js/functions.js"></script>
 

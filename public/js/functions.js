@@ -152,15 +152,22 @@ $(function(){
             });
              $(".controls a.vote").click(function(){
                 event.preventDefault();
-                console.log($(this).attr('href'));
-                 $.get($(this).attr('href'), function(){
+				 if($('body').data('auth')){
+					console.log($(this).attr('href'));
+				 	$.get($(this).attr('href'), function(){
                     console.log('voted');
-                 });
-                 $(".controls").removeClass("vote_true vote_false vote_null")
-                if($(this).hasClass("vote_up")){            $(".controls").addClass("vote_true");
-                }else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");
-                }else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");
-                }
+					 });
+					 $(".controls").removeClass("vote_true vote_false vote_null")
+					if($(this).hasClass("vote_up")){            $(".controls").addClass("vote_true");
+					}else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");
+					}else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");
+					}
+				 }else {
+					 console.log('modal');
+				 	window.location.href="#login-confirm";
+				 }
+                
+                 
              });
             
         },
@@ -171,7 +178,8 @@ $(function(){
     }
 	preloads['*'](); //helper function for the every-page
     
-    
+   
+
     $.each(alts, function(i, val){
         if($('body').hasClass(val)){ preloads[val](); }
     });

@@ -228,7 +228,7 @@ passport.deserializeUser(function(id, done) {
 		});
 		
 		d.index = resource_cache.lookup[d.lookup];
-		console.log(d);
+		//console.log(d);
 		
         console.log("GET ", d.name);
 
@@ -246,7 +246,7 @@ passport.deserializeUser(function(id, done) {
                     "name": "/404"
                 });
             }
-			console.log('index', d.index + 1);
+			//console.log('index', d.index + 1);
 			data.prev = resource_cache.cache[parseInt(d.index) - 1];
 			data.next = resource_cache.cache[parseInt(d.index) + 1];
 			
@@ -256,7 +256,7 @@ passport.deserializeUser(function(id, done) {
             if(user == null)
                 return render_resource();
 
-            console.log(fbURL + '/users/' + user + '/votes/' + d.name);
+            //console.log(fbURL + '/users/' + user + '/votes/' + d.name);
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
 
             didVote.once('value', function(snap_d){
