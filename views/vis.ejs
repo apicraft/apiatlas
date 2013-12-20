@@ -1,14 +1,27 @@
 <% include header %>
     <div id="atlas-intro" class="pure-g-r">
-        <div class="content pure-u">
-            <h1>Mapping the specs that run the web.</h1>
-            <p>Here are the resources for the HTTP spec:</p>
+        <div class="pure-u-1">
+			<div class="content">
+            	<h1>HTTP 1.1</h1>
+				<p>The http spec is made up of verbs, headers, and codes. </p>
+			</div>
         </div>
+		<div class="pure-u-1-2">
+			<div class="content">
+				<h2>Explore</h2>
+				<p>Click on individual componenets of the HTTP spec to learn more about them.</p>
+			</div>
+		</div>
+		<div class="pure-u-1-2">
+			<div class="content">
+				<h2>Vote</h2>
+				<p>Login with github and tell us which components of the HTTP spec you use or serve when building APIs</p>
+			</div>
+			
+		</div>
     </div>
     <div id="resources" class="pure-g-r">
-        <% for(var i = 0; i<10; i++){ %>
-             <div class="reflow pure-u-1-5 reflow_<%- i %>"></div>
-        <% } %>
+        
     </div>
 
 <% include footer %>

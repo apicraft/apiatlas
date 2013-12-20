@@ -27,6 +27,60 @@ var resources = {
     "codes":    {"title": "Codes", "type": "code", "updateURL": fbURL + "/resources/codes", "id": "codes", "rel": "/codes", "color": "yellow"}
 };
 
+/* next prev cache */
+/* Build a chache from firebase resources to keep in memory. Rebuild every so often */
+/* it hurts to have to do this with a realtime db, but not having next/prev sibling filtering demands drastic measures */
+var resource_cache = {
+	cache: [],
+	lookup: {},
+	keep_alive: 1000 * 60 * 10, /* in miliseconds, 0 to only build on startup */
+	rebuild: function(){
+		console.log("rebuilding cache...");
+		var context = this;
+		var tmp_cache = {
+			counts: 0,
+			content: [],
+			index: []
+		};
+		//walk the "resources" object and keep a reference to each anticipated URL for the resources in question
+		for(type in resources){
+			tmp_cache.index.push(type);
+			var n = new Firebase(resources[type].updateURL);
+			n.once('value', function(s){
+				for(r in s.val()){
+					var a = {
+						'resource': r,
+						'url': tmp_cache.index[tmp_cache.counts] + "/" + r
+					}
+					
+					tmp_cache.content.push(a);
+				}
+				tmp_cache.counts ++;
+				try_save_cache(tmp_cache.counts);
+			});
+		}
+		
+		function try_save_cache(x){
+			//only move local tmp_cache into parent this.cache if we've recieved every expected reponse from firebase
+			if(x >= Object.keys(resources).length){
+				context.cache = tmp_cache.content;
+				for(i in tmp_cache.content){
+					context.lookup[tmp_cache.content[i].url] = i;
+				}
+				//console.log(context.lookup);
+				console.log('cache rebuilt');
+			}
+			
+		}
+	},
+	init: function(){
+		this.rebuild();
+		if(this.keep_alive > 0){
+			setInterval(this.rebuild.bind(this), this.keep_alive);
+		}
+	}
+}
+resource_cache.init();
 
 var gitHubStrategy = new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
@@ -155,7 +209,7 @@ passport.deserializeUser(function(id, done) {
 	});
 
     app.get('/:type/:title', function(req, res){
-
+		
         var user = null;
         var full_user = getUser(req);
         if(full_user !== null){
@@ -164,15 +218,18 @@ passport.deserializeUser(function(id, done) {
         
         var d = {
             "type": req.params.type,
-            "title": req.params.title,
-            "uid": "",
-            "name": ""
+            "title": req.params.title
         };
-
-        //var user = req.user.id;
-        d.uid =  d.type + d.title;
-        d.name = "resources/" + d.type + "/" + d.title;
-
+		
+		d = extend(d, {
+			uid:  d.type + d.title,
+			name: "resources/" + d.type + "/" + d.title,
+			lookup: d.type + "/" + d.title
+		});
+		
+		d.index = resource_cache.lookup[d.lookup];
+		console.log(d);
+		
         console.log("GET ", d.name);
 
         var resource = new Firebase(fbURL + '/' + d.name);
@@ -189,7 +246,10 @@ passport.deserializeUser(function(id, done) {
                     "name": "/404"
                 });
             }
-
+			console.log('index', d.index + 1);
+			data.prev = resource_cache.cache[parseInt(d.index) - 1];
+			data.next = resource_cache.cache[parseInt(d.index) + 1];
+			
             data.priority = snap_r.getPriority();
             var v = req.query.vote;
 

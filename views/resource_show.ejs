@@ -1,47 +1,70 @@
 <% include header %>
+<% console.log(r) %>
 <div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
 
-	<div  class="title pure-u-1"><h1><%= r.name %></h1></div>
+	<div  class="title pure-u-1"><h1><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1></div>
     <div class="votes pure-u-1" data-color="<%- r.color %>">
         <div class="<%- r.color %>bar_<%- r.votes.percent %>"><%= r.votes.total %> votes. <%= r.votes.percent_display %> usage.</div>
     </div>
     
-    <div class="controls vote_<%= r.your_vote %> pure-u-3-4">
+    <div class="controls vote_<%= r.your_vote %> pure-u-1">
+		<div class="pure-g-r">
+			<p class="question ask pure-u-1">Do you use this in your apis?</p>
         <%  //logged in
         if(typeof(user) == 'object' && user != null){ %>
-            <p class="question ask">Do you use this in your apis?</p>
-            <p class="question yes">You use this in your apis.</p>
-            <p class="question no">You don't use this in your apis.</p>
             
-            <a href="?vote=up" title="Yes" class="vote_up vote"> 
-                <i class="fa fa-thumbs-up pure-button pure-button-success"></i>
-                <i class="fa fa-thumbs-o-up pure-button"></i>
-            </a> 
-            <a href="?vote=down" title="No" class="vote_down vote"> 
-                <i class="fa fa-thumbs-down pure-button pure-button-error"></i>
-                <i class="fa fa-thumbs-o-down pure-button"></i>
-            </a>
-            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote "><i class="fa fa-trash-o pure-button pure-button-primary"></i></a>
+            <p class="question yes pure-u-1">You use this in your apis.</p>
+            <p class="question no pure-u-1">You don't use this in your apis.</p>
+            
+            <a href="?vote=up" title="Yes" class="vote_up vote pure-button pure-button-success pure-u-1-4">
+				<i class="fa fa-check-circle"> Yes! I use this</i>
+			</a> 
+            <a href="?vote=up" title="Yes" class="vote_up vote pure-button inactive pure-u-1-4">
+				<i class="fa fa-check-circle-o"> Yes! I use this</i>
+			</a> 
+            
+            <a href="?vote=down" title="No" class="vote_down vote pure-button pure-button-error pure-u-1-4">
+				<i class="fa fa-times-circle"> No, I don't use this</i>
+			</a>
+            <a href="?vote=down" title="No" class="vote_down vote pure-button inactive pure-u-1-4">
+				<i class="fa fa-times-circle-o"> No, I don't use this</i>
+			</a>
+            
+            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-primary pure-u-1-4">
+				<i class="fa fa-trash-o"> Remove Vote</i>
+			</a>
             
         <% } else { /*not logged in*/  %>
-            <a href="/auth/github?last=<%= name %>" class="pure-button pure-button-primary">Login with github to vote.</a> <br/>
+            <a href="/auth/github?last=<%= name %>" class="pure-button pure-button-primary pure-u-1-3">Login with github to vote.</a> <br/>
         <% } %>
+		</div>
     </div>
     
-
+	    
     
+    <% if(r.type != "code"){%>
     <div class="pure-u-1-2 description">
         <h3>Description</h3>
         <p><%= r.description %></p>
     </div>
+	<% } %>
+	<% if(r.type == "code" || r.type == "header"){%>
     <div class="pure-u-1-2 example">
-        <h3>Example</h3>
+        <h3><% if(r.type == "code"){%>Description<%}else{%>Example<%}%></h3>
         <p><%= r.example %></p>
     </div>
-    <!-- 
-    <div class="pure-u-1-8"><p>previous</p></div>
-    <div class="pure-u-1-8"><p>next</p></div>
-    -->
+    <% } %>
+	<div class="scrub pure-u-1">
+		<h3>Explore</h3>
+		<% if(r.prev != undefined){%> 
+		<a href="/<%= r.prev.url %>" class="scrub_prev pure-button"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp;<%= r.prev.resource %></a>
+		<%}%>
+		<% if(r.next != undefined){%> 
+		<a href="/<%= r.next.url %>" class="scrub_next pure-button "><%= r.next.resource %> &nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+		<%}%>
+				
+	</div>
+    
     <div class="pure-u-1" id="comments">
     
           <div id="disqus_thread"></div>

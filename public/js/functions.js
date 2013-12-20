@@ -19,8 +19,9 @@ $(function(){
                 title.render = function(x){ return ejs.render(this.source, x); }
                 //Got both templates. Now go back to firebase: 
                 
-                $target = $("#resources .reflow_0");
-                
+                //$target = $("#resources .reflow_0");
+                $target = $("#resources");
+					
                 for(key in http){
                     var name = http[key];
                     resources[name].refs = {}
@@ -29,24 +30,32 @@ $(function(){
                     resources[name].progress = 0;
                 }
                     
-                //verbs
-                add_group(resources.verbs, $("#resources .reflow_0"));
+                
+                /*
+				add_group(resources.verbs, $("#resources .reflow_0"));
                 add_group(resources.headers,$("#resources .reflow_1"));
                 add_group(resources.codes,$("#resources .reflow_2"));
+				*/
+					
+				add_group(resources.verbs, $("#resources"));
+                add_group(resources.headers,$("#resources"));
+                add_group(resources.codes,$("#resources"));
+					
+					
                 
-                    //reflow once all has been loaded
                     
                 function add_group(r, $t){
  
                     r.source.once('value', function(snapshot){
-                           $t.append(title.render(r));
+                           
                            r.counter = Object.keys(snapshot.val()).length;
                            for(name in snapshot.val()){
                                resource = snapshot.val()[name];
                                //console.log(resource);
                                this.refs[name] = new Firebase(this.updateURL + "/" + resource.name.toLowerCase());
                                 this.refs[name].on('value', function(snap){
-                                    this.current = snap.val();
+                                    if(this.parent.progress == 0){$t.append(title.render(r));}
+									this.current = snap.val();
                                     
                                     this.self.percent = 0;
                                     if(this.current.votes.total > 0){
@@ -104,8 +113,8 @@ $(function(){
                 if(flag == true){
                     console.log(resources);
                     console.log("reflow!");
-                    reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
-                    reflow($("#resources .reflow"),12);
+                    //reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
+                    //reflow($("#resources .reflow"),12);
                     $(".resource:not(.title)").click(function(){
                         window.location.href = $(this).data('link');
                     });

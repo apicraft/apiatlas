@@ -33,11 +33,11 @@ body,
             color: white;
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
         }
-
-        .pure-button-success { background: rgb(28, 184, 65); /* this is a green */ }
-        .pure-button-error { background: rgb(202, 60, 60); /* this is a maroon */ }
-        .pure-button-warning { background: rgb(223, 117, 20); /* this is an orange */ }
-        .pure-button-secondary { background: rgb(66, 184, 221); /* this is a light blue */ }
+		a.pure-button-primary {background-color: @blue-text !important;}
+        .pure-button-success { background: @green-text; /* this is a green */ }
+        .pure-button-error { background: @red-text; /* this is a maroon */ }
+        .pure-button-warning { background: @yellow; /* this is an orange */ }
+        .pure-button-secondary { background: @blue-light; /* this is a light blue */ }
 
 
 #header.pure-menu{
@@ -130,23 +130,36 @@ body.resource {
         
         .controls {
             margin: 1em 0 0 0;
-            font-size: 1em;
+            font-size: 1.4em;
             p {margin-top: 0;}
             a {
                 text-decoration: none;
                 color: #fff;
-                
-            }
-            &.vote_null {
-                .fa-thumbs-up, .fa-thumbs-down, .fa-trash-o, .question.yes, .question.no {display: none;}
+                padding-right: 1em;
+				margin-bottom: 1em;
+				margin-right: 1em;
+            	&.inactive {
+					color: #333;
+					}
+			}
+			.pure-button {
+			}
+			&.vote_null {
+                 .pure-button-success, .pure-button-error, .pure-button-primary, .question.yes, .question.no {display: none;}
             }
             &.vote_true {
-                .fa-thumbs-o-up, .fa-thumbs-down, .question.no, .question.ask {display: none;}
+                .vote_up.inactive, .pure-button-error, .question.no, .question.ask {display: none;}
             }
             &.vote_false {
-                .fa-thumbs-up, .fa-thumbs-o-down, .question.ask, .question.yes {display: none;}
+                .vote_down.inactive, .pure-button-success, .question.ask, .question.yes {display: none;}
             }
         }
+		.scrub {
+			margin-top: 1em;
+			a {
+				margin-right: 1em;
+			}
+		}
         #comments {
             margin: 2em 1em 0 0;
         }
