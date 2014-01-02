@@ -208,7 +208,43 @@ passport.deserializeUser(function(id, done) {
                 "data": resources //JSON.stringify(output)
         });
 	});
-
+	app.get('/reindex', function(req, res){
+		//index a user's votes into their user object for faster homepage voting
+		/*
+		user needs a "votes" object that look slike 
+		votes: {
+			"resourceID": "votetype",
+			...
+		}
+		
+		To do it, iterate on the top level 'votes' (3 resources), and all the children. Use the key to get
+		[top level][name]: [vote info]
+		
+		*/
+		
+		for(v in resources){ //the top level resource groups
+			console.log("reindexing...");
+			var group = resources[v].id;
+			var collection = new Firebase(fbURL + "/votes/resources/" + group);
+			collection.once('value', function(snapshot){
+				var components = snapshot.val();
+				for(component in components){ //an individual resource that's been voted on
+					var uid = this.parentGroup + component;
+					for(user in components[component]){ //each user of that resource
+						var update = {};
+						update[uid] =  components[component][user];
+						var indexedVote = new Firebase(fbURL + "/users/" + user + "/votes/raw/");
+													   
+						indexedVote.update(update);
+					}
+				}
+			},function(){}, {'parentGroup': group});
+		}
+		res.render(__dirname + '/views/reindex.ejs',{
+			'page': 'reindex',
+			'name': 'Action Complete'
+		});
+	});
     app.get('/:type/:title', function(req, res){
 		
         var user = null;
