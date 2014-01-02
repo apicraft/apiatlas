@@ -55,6 +55,7 @@ body,
 			margin-bottom: 1em;
 		}
 	}
+.auth_false .resource .grid_vote {display: none;}
 .home {
      padding: 0;
     
@@ -70,7 +71,7 @@ body,
             
             .resource {
                 overflow-y: hidden;
-                &.header, &.verb, &.code {cursor: pointer;}
+                //&.header, &.verb, &.code {cursor: pointer;}
                 margin-bottom: .5em;
                 .content{ 
                     border: 1px solid #bbb;
@@ -79,10 +80,18 @@ body,
                     min-height: 44px;
                     
                     .name {
-                        a {text-decoration: none; color: inherit;}
+                        a {
+						text-decoration: none; color: inherit;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
                         color: @yellow-text;
                         margin: 0;
                         text-shadow: 0px 1px 0px hsla(0,0,100,.5);
+						white-space: nowrap;
+					  	overflow: hidden;
+					  	text-overflow: ellipsis;
                     }
                     .stats {
                         font-size: .8em;
@@ -94,11 +103,7 @@ body,
                 &.header {.name {color: @blue-text;} }
                 &.verb {.name {color: @green-text;} }
                 &.code {
-                    .name {
-                        font-size: 2em;
-                        float: left;
-                        margin-right: .5em;
-                    }
+                    
     
                 }
                 &.title {
@@ -140,26 +145,64 @@ body.resource {
             p {margin-top: 0;}
             a {
                 text-decoration: none;
-                color: #fff;
-                padding-right: 1em;
-				margin-bottom: 1em;
-				margin-right: 1em;
+                
+                
             	&.inactive {
 					color: #333;
 					}
 			}
 			.pure-button {
 			}
+			.pure-menu a.vote_remove {
+				padding: 11px 0 10px 0; margin: 0;
+				text-align: right;
+				i {
+					padding-right: 10px;
+				}
+			}
+			.pure-menu a {padding-right: 0;}
+			
+			.pure-menu li {
+				margin: .25em 0;
+			}
+			
 			&.vote_null {
-                 .pure-button-success, .pure-button-error, .pure-button-primary, .question.yes, .question.no {display: none;}
+                 .clarify_group, .vote_remove, .fa-check-circle, .fa-times-circle, .vote_remove {display: none;}
             }
             &.vote_true {
-                .vote_up.inactive, .pure-button-error, .question.no, .question.ask, .pure-button-inactive {display: none;}
+				
+                .clarify_group, .fa-check-circle-o, .fa-times-circle, .fa-check-square-o, .vote_no .vote_remove {display: none;}
+				.vote_yes a {
+					background-color: @green-text;
+					color: @light_gray;
+				}
+				
+				&.vote_clarify {
+					
+				}
+				
+				&.vote_request {
+					.clarify_response .fa-check-square-o {display: inline-block;}
+					.clarify_response .fa-check-square {display: none;}
+				}
+				&.vote_response {
+					.clarify_request .fa-check-square-o {display: inline-block;}
+					.clarify_request .fa-check-square {display: none;}
+				}
             }
             &.vote_false {
-                .vote_down.inactive, .pure-button-success, .question.ask, .question.yes, .pure-button-inactive {display: none;}
+                .clarify_group, .fa-check-circle, .fa-times-circle-o, .vote_yes .vote_remove {display: none;}
+				.vote_no a {
+					background-color: @red-text;
+					color: @light_gray;
+				}
             }
+			.clarify_group {
+				padding-left: 2em;
+			}
+			i {font-size: 1em;}
         }
+		&.resource_header .controls.vote_true .clarify_group  {display: block;}
 		.scrub {
 			margin-top: 1em;
 			a {

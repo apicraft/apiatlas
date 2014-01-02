@@ -1,5 +1,5 @@
 <% include header %>
-<div class="resource pure-g-r color_<%- r.color %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
+<div class="resource pure-g-r color_<%- r.color %> resource_<%= r.type %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
 
 	<div  class="title pure-u-1"><h1><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1></div>
     <div class="votes pure-u-1" data-color="<%- r.color %>">
@@ -7,38 +7,32 @@
     </div>
     <% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
     <div class="controls vote_<%= v %> pure-u-1">
-		<div class="pure-g-r">
-			<p class="question ask pure-u-1">Do you use this in your apis?</p>
-        
-            
-            <p class="question yes pure-u-1">You use this in your apis.</p>
-            <p class="question no pure-u-1">You don't use this in your apis.</p>
-            
-            <a href="?vote=up" title="Yes" class="vote_up vote pure-button pure-button-success pure-u-1-4">
-				<i class="fa fa-check-circle"> Yes! I use this</i>
-			</a> 
-            <a href="?vote=up" title="Yes" class="vote_up vote pure-button inactive pure-u-1-4">
-				<i class="fa fa-check-circle-o"> Yes! I use this</i>
-			</a> 
-            
-            <a href="?vote=down" title="No" class="vote_down vote pure-button pure-button-error pure-u-1-4">
-				<i class="fa fa-times-circle"> No, I don't use this</i>
-			</a>
-            <a href="?vote=down" title="No" class="vote_down vote pure-button inactive pure-u-1-4">
-				<i class="fa fa-times-circle-o"> No, I don't use this</i>
-			</a>
-         </div>   
-            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-primary">
-				<i class="fa fa-trash-o"> Remove Vote</i>
-			</a>
-            <a href="?vote=remove" title="Remove my vote." class="vote_remove vote pure-button pure-button-inactive">
-				<i class="fa fa-trash-o"> Remove Vote</i>
-			</a>
-        
 		
+			<div class="pure-menu pure-menu-open">
+				<span class="pure-menu-heading">Do you use this in your APIs?</span>
+			
+				<ul>
+					<li class="vote_yes pure-g">
+						<div class="pure-u-7-8">
+						<a href="?vote=up" class=" vote_up"><i class="fa fa-check-circle-o"></i><i class="fa fa-check-circle"></i> Yes I do!</a> </div>
+						<div class="pure-u-1-8"><a href="?vote=remove" class="vote_remove"><i class="fa fa-ban"></i></a></div>
+					</li>	
+					<div class="clarify_group">
+						<li class="pure-menu-separator"></li>
+						<li class="clarify"><a href="#request" class="clarify_request"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Requests &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a></li>
+						<li class="clarify"><a href="#response" class="clarify_response"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Responses &nbsp;<i class="fa fa-arrow-left"></i></a></li>
+						<li class="pure-menu-separator"></li>
+					</div>
+					<li class="vote_no pure-g">
+						<div class="pure-u-7-8">
+						<a href="?vote=down" class="vote_down"><i class="fa fa-times-circle-o"></i><i class="fa fa-times-circle"></i> Nope</a> </div>
+						<div class="pure-u-1-8"><a href="?vote=remove" class="vote_remove"><i class="fa fa-ban"></i></a></div>
+					</li>
+				
+		</div>   
+            			
     </div>
-    
-	    
+       
     
     <% if(r.type != "code"){%>
     <div class="pure-u-1-2 description">

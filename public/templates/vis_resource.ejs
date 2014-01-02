@@ -1,8 +1,11 @@
 <div class="resource resource_<%- name %> <%- type %> pure-u-1-5" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
     <div class="content <%- color %>bar_<%- percent %>">
-        <h3 class="name"><a href="<%- rel %>"><%- name %></a></h3>
+        <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> - <%= desc %><%} %></a></h3>
         <div class="stats">
-            <span class="percent"><%- percent_display %></span> Usage.<% if(color == "yellow"){%><br/><%} %> <span class="votes"><%- votes %></span> Votes.
+			<a href="<%- rel %>?vote=up" class="grid_vote vote_up"><i class="fa fa-check-circle-o"></i></a>
+			<a href="<%- rel %>?vote=down" class="grid_vote vote_down"><i class="fa fa-times-circle-o"></i></a>
+            <span class="percent"><%- percent_display %></span> Usage.
+			<span class="votes"><%- votes %></span> Votes.
         </stats>
     </div>
 </div>

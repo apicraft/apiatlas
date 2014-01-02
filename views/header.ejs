@@ -20,17 +20,21 @@
     
     <%  //logged in
     var authorized = false;
-    if(typeof(user) == 'object' && user != null){ authorized = true;}
+    if(typeof(user) == 'object' && user != null){ 
+		authorized = true;
+	}
     %>
     
-<body class="<%= page %>" id="<%= page %>" data-auth="<%= authorized %>">
+<body class="<%= page %> auth_<%= authorized %>" id="<%= page %>" data-auth="<%= authorized %>" <%
+		
+		if(authorized){ %>data-authID="<%= user.id %>" <%}%>>
     
     
     
     <div id="header" class="pure-menu pure-menu-open pure-menu-horizontal">
         <a href="/" class="pure-menu-heading"><img src="/images/logo.png" alt="API Atlas"/></a>
 		<ul>
-        	<li><a href="#login-confirm" class="call-modal pure-button"><%  if(typeof(user) == 'object' && user != null){  %>Logout<% }else{%>Login<%}%></a></li>
+        	<li><a href="#login-confirm" class="call-modal pure-button"><%  if(authorized){  %>Logout<% }else{%>Login<%}%></a></li>
 		</ul>
     </div>
 	

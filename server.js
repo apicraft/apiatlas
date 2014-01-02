@@ -76,10 +76,11 @@ var resource_cache = {
 	init: function(){
 		this.rebuild();
 		if(this.keep_alive > 0){
-			setInterval(this.rebuild.bind(this), this.keep_alive);
+			this.repeater = setInterval(this.rebuild.bind(this), this.keep_alive);
 		}
 	}
 }
+
 resource_cache.init();
 
 var gitHubStrategy = new GitHubStrategy({

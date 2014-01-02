@@ -82,7 +82,7 @@ $(function(){
                                         //render!
                                         if($('body').data("auth")){this.user = {"authorized": true}}
                                         var p = randomFromInterval(0, 100);
-                                        var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total});
+                                        var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total, "desc": this.current.description });
                                         $t.append(template.render(render_data));
                                         
                                         this.parent.progress += 1;
@@ -116,7 +116,7 @@ $(function(){
                     //reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
                     //reflow($("#resources .reflow"),12);
                     $(".resource:not(.title)").click(function(){
-                        window.location.href = $(this).data('link');
+                       // window.location.href = $(this).data('link');
                     });
                 }
             }
@@ -150,20 +150,42 @@ $(function(){
                 $('.votes div').removeClass().addClass(barclass);
                 
             });
-             $(".controls a.vote").click(function(){
+             $(".controls a").click(function(){
                 event.preventDefault();
 				 if($('body').data('auth')){
 					console.log($(this).attr('href'));
 				 	$.get($(this).attr('href'), function(){
                     console.log('voted');
 					 });
-					 $(".controls").removeClass("vote_true vote_false vote_null")
-					if($(this).hasClass("vote_up")){            $(".controls").addClass("vote_true");
-					}else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");
-					}else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");
+					
+					console.log("controls clarify: ", !$(".controls").is(".vote_request, .vote_response"));
+					
+					if($(this).hasClass("clarify_request")){
+						//toggle
+						if(!$(".controls").is(".vote_request, .vote_response")){
+							//both true, so toggle req off
+							$(".controls").addClass("vote_response");
+						}else if( $(".controls").hasClass("vote_response") ){
+							$(".controls").removeClass("vote_response");
+						}
+					}
+					else if($(this).hasClass("clarify_response")){
+						//toggle
+						if(!$(".controls").is(".vote_request, .vote_response")){
+							//both true, so toggle res off
+							$(".controls").addClass("vote_request");
+						}else if( $(".controls").hasClass("vote_request") ){
+							$(".controls").removeClass("vote_request");
+						}
+					} 
+					else {
+						$(".controls").removeClass("vote_true vote_false vote_null")
+						if($(this).hasClass("vote_up")){           $(".controls").addClass("vote_true");	}
+						else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");	}
+						else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");	}
 					}
 				 }else {
-					 console.log('modal');
+					console.log('modal');
 				 	window.location.href="#login-confirm";
 				 }
                 
