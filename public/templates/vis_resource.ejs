@@ -2,9 +2,9 @@
     <div class="content <%- color %>bar_<%- percent %>">
         <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> - <%= desc %><%} %></a></h3>
         <div class="stats">
-			<a href="<%- rel %>?vote=up" class="grid_vote vote_up"><i class="fa fa-check-circle-o"></i></a>
-			<a href="<%- rel %>?vote=down" class="grid_vote vote_down"><i class="fa fa-times-circle-o"></i></a>
-            <span class="percent"><%- percent_display %></span> Usage.
+			<a href="<%- rel %>?vote=up" class="grid_vote vote_up"><i class="fa fa-check"></i></a>
+			<a href="<%- rel %>?vote=down" class="grid_vote vote_down"><i class="fa fa-times"></i></a>
+            <span class="percent"><%- percent_display %></span> of 
 			<span class="votes"><%- votes %></span> Votes.
         </stats>
     </div>

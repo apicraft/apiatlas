@@ -264,9 +264,7 @@ passport.deserializeUser(function(id, done) {
 			lookup: d.type + "/" + d.title
 		});
 		
-		d.index = resource_cache.lookup[d.lookup];
-		//console.log(d);
-		
+		d.index = resource_cache.lookup[d.lookup];		
         console.log("GET ", d.name);
 
         var resource = new Firebase(fbURL + '/' + d.name);
@@ -302,13 +300,15 @@ passport.deserializeUser(function(id, done) {
                     //this if block actually does the voting!
                     if(typeof(v) != "undefined" && user !== null){
     
-                        //voting! Yup, that's 12 possible references to update
+                        //voting! Yup, that's 13 possible references to update
                         var update = {
                             resource: {
                                 self: new Firebase(fbURL + '/' + d.name + '/votes/raw'),
                                 down: new Firebase(fbURL + '/' + d.name + '/votes/down'),
                                 up: new Firebase(fbURL + '/' + d.name + '/votes/up'),
                                 total: new Firebase(fbURL + '/' + d.name + '/votes/total'),
+								request: new Firebase(fbURL + '/' + d.name + '/votes/request'),
+								response: new Firebase(fbURL + '/' + d.name + '/votes/response'),
                                 user: new Firebase(fbURL + '/' + d.name + '/votes/raw/' + user)
                             },
                             user: {
@@ -316,7 +316,10 @@ passport.deserializeUser(function(id, done) {
                                 down: new Firebase(fbURL + '/users/' + user + '/votes/down'),
                                 up: new Firebase(fbURL + '/users/' + user + '/votes/up'),
                                 total: new Firebase(fbURL + '/users/' + user + '/votes/total'),
-                                resource: new Firebase(fbURL + '/users/' + user + '/votes/' + d.name)
+								request: new Firebase(fbURL + '/users/' + user + '/votes/request'),
+								response: new Firebase(fbURL + '/users/' + user + '/votes/response'),
+                                resource: new Firebase(fbURL + '/users/' + user + '/votes/' + d.name),
+								raw: new Firebase(fbURL + '/users/' + user + '/votes/raw/' + d.uid),
                             },
                             raw: {
                                 self: new Firebase(fbURL + '/votes'),
@@ -325,48 +328,71 @@ passport.deserializeUser(function(id, done) {
                             }      
                         };
 
-                        function vote(boolean){
+                        function vote(v){
+							console.log('voting: ', v);
                             var targetResourceName = d.name;
-                            update.resource.self.child(user).set(boolean);
-                            update.user.self.child(targetResourceName).set(boolean);
-                            update.raw.self.child(d.name).child(user).set(boolean);
+                            update.resource.self.child(user).set(v);
+                            update.user.self.child(targetResourceName).set(v);
+                            update.raw.self.child(d.name).child(user).set(v);
                             
                             //update vote for resource
-                            update.resource.total.transaction(function(c) { return c + 1; });
-                            update.user.total.transaction(function(c) { return c + 1; });
-                            update.raw.total.transaction(function(c) { return c + 1; });
+                            update.resource.total.transaction(inc);
+                            update.user.total.transaction(inc);
+                            update.raw.total.transaction(inc);
                             
-                            if(boolean){
-                                update.resource.up.transaction(function(c) { return c + 1; });
-                                update.user.up.transaction(function(c) { return c + 1; });
-                            }else{
-                                update.resource.down.transaction(function(c) { return c + 1; });
-                                update.user.down.transaction(function(c) { return c + 1; });
+                            if(v == true){
+                                update.resource.up.transaction(inc);
+                                update.user.up.transaction(inc);
+							}else if(v == 'request'){
+								update.resource.up.transaction(inc);
+                                update.user.up.transaction(inc);
+								update.user.request.transaction(inc);
+							}else if(v == 'response'){
+								update.resource.up.transaction(inc);
+                                update.user.up.transaction(inc);
+								update.user.response.transaction(inc);
+							
+							}else{
+                                update.resource.down.transaction(inc);
+                                update.user.down.transaction(inc);
                             }
-
+							
                         }
 
                         function reduceTotals(x){
+								console.log('reduce totals');
                                 //remove previous votes 
                                 update.resource.user.remove();
                                 update.user.resource.remove();
+								update.user.raw.remove();
                                 update.raw.user.remove();
                                 
                                 //decrement total counters
-                                update.resource.total.transaction(function(c) { return c - 1; });
-                                update.user.total.transaction(function(c) { return c - 1; });
-                                update.raw.total.transaction(function(c) { return c - 1; });
+                                update.resource.total.transaction(dec);
+                                update.user.total.transaction(dec);
+                                update.raw.total.transaction(dec);
                                 
+							
                                 if(data.your_vote === false || data.your_vote === null){
-                                    update.resource.down.transaction(function(c) { return c - 1; });
-                                    update.user.down.transaction(function(c) { return c - 1; });
+                                    update.resource.down.transaction(dec);
+                                    update.user.down.transaction(dec);
                                 }
                                 
-                                if(data.your_vote === true || data.your_vote === null){
-                                    update.resource.up.transaction(function(c) { return c - 1; });
-                                    update.user.up.transaction(function(c) { return c - 1; });
+                                if(data.your_vote === true || data.your_vote === null || data.your_vote === 'request' || data.your_vote === 'response'){
+                                    update.resource.up.transaction(dec);
+                                    update.user.up.transaction(dec);
                                 }
-                            
+                            	
+								if(data.your_vote === 'request' || data.your_vote === null){
+									update.resource.request.transaction(dec);
+									update.user.request.transaction(dec);
+								}
+							
+								if(data.your_vote === 'response' || data.your_vote === null){
+									update.resource.response.transaction(dec);
+									update.user.response.transaction(dec);
+								}
+							
                         }
 
                         if(v == "remove" && data.your_vote !== null){
@@ -391,7 +417,29 @@ passport.deserializeUser(function(id, done) {
                             }
                             vote(false);           
                         }
-
+						
+						if(v == "request" && data.your_vote !== "request") {
+							if(data.your_vote === 'response'){
+								render_resource(data.your_vote);
+								vote(true);
+							}else {
+								render_resource(data.your_vote);
+								vote('request'); 
+							}  
+						}
+						
+						if(v == "response" && data.your_vote !== "response") {
+							if(data.your_vote === "request"){
+								render_resource(data.your_vote);
+								vote(true);
+							}else {
+								render_resource(data.your_vote);
+								vote('response'); 
+							}  
+						}
+						
+						function dec(c){return c-1;}
+						function inc(c){return c+1;}
                         //res.redirect(req._parsedUrl.pathname);
                         res.send();
                         

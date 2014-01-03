@@ -30,7 +30,10 @@ $(function(){
                     resources[name].progress = 0;
                 }
                     
-                
+                $("#resources").on('click', '.resource:not(.title) .name', function(){
+						//console.log($(this));
+                       window.location.href = $(this).find('a').attr('href');
+                    });
                 /*
 				add_group(resources.verbs, $("#resources .reflow_0"));
                 add_group(resources.headers,$("#resources .reflow_1"));
@@ -115,9 +118,7 @@ $(function(){
                     console.log("reflow!");
                     //reflow($("#resources").find(".reflow_0,  .reflow_1 ,  .reflow_2,  .reflow_3,  .reflow_4"),11);
                     //reflow($("#resources .reflow"),12);
-                    $(".resource:not(.title)").click(function(){
-                       // window.location.href = $(this).data('link');
-                    });
+                    
                 }
             }
     

@@ -30,13 +30,30 @@
 		if(authorized){ %>data-authID="<%= user.id %>" <%}%>>
     
     
-    
+    <% if(page != 'home'){ %> 
+
     <div id="header" class="pure-menu pure-menu-open pure-menu-horizontal">
         <a href="/" class="pure-menu-heading"><img src="/images/logo.png" alt="API Atlas"/></a>
 		<ul>
-        	<li><a href="#login-confirm" class="call-modal pure-button"><%  if(authorized){  %>Logout<% }else{%>Login<%}%></a></li>
+        	<li><a href="#login-confirm" class="call-modal pure-button pure-button-primary"><%  if(authorized){  %>Logout<% }else{%>Login<%}%></a></li>
 		</ul>
     </div>
+	
+	<% } else { %>
+	<div id="atlas-intro" class="pure-g">
+		
+		<div class="atlas-intro pure-u-1 pure-hidden-phone">
+		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Explore Below<% }else{%>Be Heard!<%}%></h1></a>
+		<h2>Tells us what parts of HTTP you use in your APIs, or just explore this site to learn about the components of HTTP.</h2>
+	
+    </div>
+	<div class="atlas-intro pure-u-1 pure-hidden-desktop pure-hidden-tablet">
+		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Explore Below<% }else{%>Be Heard!<%}%></h1></a>
+		<h2>Tells us what parts of HTTP you use in your APIs, or just explore this site to learn about the components of HTTP.</h2>
+	
+    </div>
+	</div>
+	<% } %>
 	
 	<!-- A modal with its content -->
 		<section class="semantic-content" id="login-confirm"
@@ -52,18 +69,21 @@
         				<p  class="pure-u-1">Currently logged into github as <%= user.displayName %></p>
 						<a href="/logout?last=<%= name %>" class="pure-button pure-button-error pure-u-1-3">Log out from github</a> 
     				<% } else { %>
-						<p class="pure-u-1">Please login with github to weigh in on API Atlas.</p>
-						<a href="/auth/github?last=<%= name %>" class="login-with-github pure-button pure-button-primary pure-u-1-3"><i class="fa fa-github"></i> Login with github </a>
-						<a href="/#!" class="nevermind pure-button pure-u-1-3">Nevermind</a>
+						<h2 class="pure-u-1">Let your voice be heard!</h2>
+					<a href="/auth/github?last=<%= name %>" class="login-with-github pure-button pure-button-primary pure-u-1-2"><i class="fa fa-github"></i> Login with github </a>
+						<a href="/#!" class="nevermind pure-u-1-3">Nevermind</a>	
+					<p class="pure-u-1">Use your github account to vote on API Atlas. You'll be taken to the github website to authenticate (or confirm if you're already logged in).</p>
+						
     				<% } %>
+						
 				</div>
 
 				<footer>
-					
+					<p class="fineprint">We only save your name and github ID so we can keep track of your responses on API Atlas. We won't keep or sell any type of sensetive information or spam you in any way.</p>
 				</footer>
 			</div>
 
 			<!-- Use Hash-Bang to maintain scroll position when closing modal -->
-			<a href="#!" class="modal-close" title="Close this modal"
+			<a href="#!" class="modal-close" title="Close the login window"
 					data-dismiss="modal">&times;</a>
 		</section>
