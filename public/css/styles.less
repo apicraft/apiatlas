@@ -38,7 +38,13 @@ body,
         .pure-button-error { background: @red-text; /* this is a maroon */ }
         .pure-button-warning { background: @yellow; /* this is an orange */ }
         .pure-button-secondary { background: @blue-light; /* this is a light blue */ }
-
+#loading {
+	text-align: center;
+	padding: 1em;
+	img  {
+		max-width: 100px;
+	}
+}
 
 #header.pure-menu{
         background: #465639 url('../images/map_header.jpg');
@@ -83,6 +89,7 @@ body,
 		text-align: center;
 		color: #fff;
 		padding: 14em 0 2em 0;
+		border-bottom: 3px solid @green;
 		.pure-button-primary {
 			font-size: 1.5em;
 			h1 {
@@ -103,8 +110,11 @@ body,
 			background-image: url('../images/hero-mobile.jpg');
 			padding-top: 10em;
 			.pure-button-primary {
-				font-size: 1.1em;
+				font-size: 1em;
 				border-radius: 1em;
+				h1 {
+					margin: 0;
+				}
 			}
 			h2 {
 				font-size: 1.3em;

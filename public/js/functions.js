@@ -87,7 +87,7 @@ $(function(){
                                         var p = randomFromInterval(0, 100);
                                         var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total, "desc": this.current.description });
                                         $t.append(template.render(render_data));
-                                        
+                                        $('#loading').hide();
                                         this.parent.progress += 1;
                                         try_reflow();
                                     }
