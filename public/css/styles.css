@@ -12,7 +12,7 @@ a.pure-button-primary{background-color:#286595 !important;color:#fff}
 #login-confirm .nevermind{text-align:center;padding-top:.8em}
 .auth_false .resource .grid_vote{display:none}
 .fineprint{font-size:.8em;color:#888}
-.modal-close{color:#888}
+.modal-inner footer .pure-button{margin-top:1em}
 .home{padding:0}.home .atlas-intro{background:#495a39 url('../images/hero-1440.jpg') top center repeat-x;text-shadow:0 -3px 0 rgba(0,0,0,0.5);text-align:center;color:#fff;padding:14em 0 2em 0}.home .atlas-intro .pure-button-primary{font-size:1.5em;border:2px solid #abcde9;box-shadow:0 5px 0 #abcde9;border-radius:.5em}.home .atlas-intro .pure-button-primary h1{margin:0 1em}
 .home .atlas-intro h2{font-weight:200;max-width:640px;margin:1em auto;padding:0 1em}
 .home .atlas-intro.pure-hidden-desktop{background-image:url('../images/hero-mobile.jpg');padding-top:10em}.home .atlas-intro.pure-hidden-desktop .pure-button-primary{font-size:1.1em;border-radius:1em}
@@ -27,12 +27,12 @@ body.resource .resource{padding:0 2em}body.resource .resource.color_blue{color:#
 body.resource .resource.color_green{color:#5c7048}
 body.resource .resource.color_yellow{color:#7e5220}
 body.resource .resource h1{font-size:2em;padding:0;margin:1em 0 .25em 0}
-body.resource .resource .votes div{padding:.5em 1em;font-weight:200;font-size:2em;border:1px solid #286595}
-body.resource .resource .controls{margin:1em 0 0 0;font-size:1.4em}body.resource .resource .controls p{margin-top:0}
+body.resource .resource .votes div{padding:.5em 1em;font-weight:200;font-size:2em;border:1px solid #286595;margin-bottom:.5em}
+body.resource .resource .controls{margin:.5em 0 .5em 0;font-size:1.4em}body.resource .resource .controls p{margin-top:0}
 body.resource .resource .controls a{text-decoration:none}body.resource .resource .controls a.inactive{color:#333}
-body.resource .resource .controls .pure-menu a.vote_remove{padding:11px 0 10px 0;margin:0;text-align:right}body.resource .resource .controls .pure-menu a.vote_remove i{padding-right:10px}
-body.resource .resource .controls .pure-menu a{padding-right:0}
 body.resource .resource .controls .pure-menu li{margin:.25em 0}
+body.resource .resource .controls .pure-menu a{padding-right:0}body.resource .resource .controls .pure-menu a.vote_remove{padding:11px 0 10px 0;margin:0;text-align:right}body.resource .resource .controls .pure-menu a.vote_remove i{padding-right:10px}
+body.resource .resource .controls .pure-menu .pure-menu-heading{white-space:inherit}
 body.resource .resource .controls.vote_null .clarify_group,body.resource .resource .controls.vote_null .vote_remove,body.resource .resource .controls.vote_null .fa-check-circle,body.resource .resource .controls.vote_null .fa-times-circle,body.resource .resource .controls.vote_null .vote_remove{display:none}
 body.resource .resource .controls.vote_true .clarify_group,body.resource .resource .controls.vote_true .fa-check-circle-o,body.resource .resource .controls.vote_true .fa-times-circle,body.resource .resource .controls.vote_true .fa-check-square-o,body.resource .resource .controls.vote_true .vote_no .vote_remove{display:none}
 body.resource .resource .controls.vote_true .vote_yes a{background-color:#5c7048;color:#eee}

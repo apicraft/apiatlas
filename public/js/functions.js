@@ -147,7 +147,8 @@ $(function(){
                 if(snapshot.val().votes.total > 0){ percent = Math.round((snapshot.val().votes.up/snapshot.val().votes.total) * 100); }
                 var percent_display = percent + "%";
                 var barclass = $('.votes').data('color') + "bar_" + percent;
-                $('.votes div').html(snapshot.val().votes.total + " votes. " + percent_display + " usage.");
+                $('.votes div').html(percent_display + " use this");
+				$('.vote_count').html(snapshot.val().votes.total + " votes.");
                 $('.votes div').removeClass().addClass(barclass);
                 
             });
