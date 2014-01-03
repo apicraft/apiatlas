@@ -33,7 +33,7 @@ var resources = {
 var resource_cache = {
 	cache: [],
 	lookup: {},
-	keep_alive: 1000 * 60 * 10, /* in miliseconds, 0 to only build on startup */
+	keep_alive: 1000 * 60 * 30, /* in miliseconds, 0 to only build on startup */
 	rebuild: function(){
 		console.log("rebuilding cache...");
 		var context = this;
@@ -373,22 +373,22 @@ passport.deserializeUser(function(id, done) {
                                 update.raw.total.transaction(dec);
                                 
 							
-                                if(data.your_vote === false || data.your_vote === null){
+                                if(data.your_vote === false){
                                     update.resource.down.transaction(dec);
                                     update.user.down.transaction(dec);
                                 }
                                 
-                                if(data.your_vote === true || data.your_vote === null || data.your_vote === 'request' || data.your_vote === 'response'){
+                                if(data.your_vote === true || data.your_vote === 'request' || data.your_vote === 'response'){
                                     update.resource.up.transaction(dec);
                                     update.user.up.transaction(dec);
                                 }
                             	
-								if(data.your_vote === 'request' || data.your_vote === null){
+								if(data.your_vote === 'request'){
 									update.resource.request.transaction(dec);
 									update.user.request.transaction(dec);
 								}
 							
-								if(data.your_vote === 'response' || data.your_vote === null){
+								if(data.your_vote === 'response'){
 									update.resource.response.transaction(dec);
 									update.user.response.transaction(dec);
 								}
