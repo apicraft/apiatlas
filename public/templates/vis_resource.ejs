@@ -1,7 +1,7 @@
 <div class="resource resource_<%- name %> <%- type %> pure-u-1-4" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
     <div class="content <%- color %>bar_<%- percent %>">
 		<div class="mobile_voting ">
-			<div class="vote_up vote"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
+			<div class="vote_up vote" data-parent_resource="resource_<%- name %>"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
 			<div class="vote_remove vote"><a href="<%- rel %>?vote=remove"><i class="fa fa-ban"></i></a></div>
 			<div class="vote_down vote"><a href="<%- rel %>?vote=down"><i class="fa fa-times"></i></a></div>
 			

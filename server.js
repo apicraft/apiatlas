@@ -200,6 +200,12 @@ passport.deserializeUser(function(id, done) {
     //default page
     app.get('/', function(req, res) {
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
+		
+		
+		
+		if(getUser(req) !== null){
+			console.log('user id', getUser(req).id);
+		}
         res.render(__dirname + '/views/vis.ejs', {
                 "resources": resources,
                 "page": "home", 

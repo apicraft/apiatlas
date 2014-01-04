@@ -10,7 +10,33 @@ $(function(){
             //load template
             var template = {};
             var title = {};
-            $.get("./templates/vis_resource.ejs", function(t){
+			//a bunch of future listeners
+			$("#resources").on('click', '.mobile_voting .vote a', function(){
+				 event.preventDefault();
+				 
+            });
+            
+			$("#resources").on('click', '.mobile_voting .vote', function(){
+				
+				if($('body').data('auth')){
+					$context = { 
+						'link': 	$(this).find('a').attr('href'),
+						'id':	 	$(this).data('parent_resource')
+					}
+					
+				 	$.get(context.link, function(){
+                    	console.log('voted on: ', $context.id);
+						//update the UI!
+					});
+				 }
+			});
+			 
+			$("#resources").on('click', '.resource:not(.title) .name', function(){
+						//console.log($(this));
+                       window.location.href = $(this).find('a').attr('href');
+                    });
+	
+			$.get("./templates/vis_resource.ejs", function(t){
                 $.get("./templates/vis_title.ejs", function(t2){
                 template.source = t;
                 template.render = function(x){ return ejs.render(this.source, x); }
@@ -30,10 +56,6 @@ $(function(){
                     resources[name].progress = 0;
                 }
                     
-                $("#resources").on('click', '.resource:not(.title) .name', function(){
-						//console.log($(this));
-                       window.location.href = $(this).find('a').attr('href');
-                    });
                 /*
 				add_group(resources.verbs, $("#resources .reflow_0"));
                 add_group(resources.headers,$("#resources .reflow_1"));
@@ -44,11 +66,9 @@ $(function(){
                 add_group(resources.headers,$("#resources"));
                 add_group(resources.codes,$("#resources"));
 					
-					
-                
-                    
+
                 function add_group(r, $t){
- 
+ 					
                     r.source.once('value', function(snapshot){
                            
                            r.counter = Object.keys(snapshot.val()).length;
@@ -64,11 +84,15 @@ $(function(){
                                     if(this.current.votes.total > 0){
                                         this.self.percent = Math.round((this.current.votes.up/this.current.votes.total) * 100);
                                     }
-                                    
+                                    //did the user vote on this? 
+									//this.self.didVote = user_votes[this.parent.rel][this.self.name.toLowerCase()];
+									
                                     this.self.rel = this.parent.rel + "/" + this.self.name.toLowerCase();
                                     this.self.uid = this.self.rel.replace(/\//g, "");
                                     this.target = $("#" + this.self.uid);
                                     
+									console.log(this.self.rel, this.self.didVote);
+									
                                     if(this.target.length != 0){
                                         //update!
                                         console.log("update!");
