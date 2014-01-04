@@ -1,17 +1,15 @@
-<div class="resource resource_<%- name %> <%- type %> pure-u-1-5" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
+<div class="resource resource_<%- name %> <%- type %> pure-u-1-4" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
     <div class="content <%- color %>bar_<%- percent %>">
-        <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> - <%= desc %><%} %></a></h3>
-        <div class="stats pure-g">
-			<div class="pure-u-1 pure-hidden-phone">
-				<a href="<%- rel %>?vote=up" class="grid_vote vote_up"><i class="fa fa-check"></i></a>
-				<a href="<%- rel %>?vote=down" class="grid_vote vote_down"><i class="fa fa-times"></i></a>
+		<div class="mobile_voting ">
+			<div class="vote_up vote"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
+			<div class="vote_remove vote"><a href="<%- rel %>?vote=remove"><i class="fa fa-ban"></i></a></div>
+			<div class="vote_down vote"><a href="<%- rel %>?vote=down"><i class="fa fa-times"></i></a></div>
+			
+		</div>
+        <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> <span class="code_name"><%= desc %><%} %></span></a></h3>
+        <div class="stats">
             	<span class="percent"><%- percent_display %></span> of 
 				<span class="votes"><%- votes %></span> Votes.
-			</div>
-			<div class="pure-u-1 pure-hidden-desktop pure-hidden-tablet">
-            	<span class="percent"><%- percent_display %></span> of 
-				<span class="votes"><%- votes %></span> Votes.
-			</div>
         </div>
     </div>
 </div>
