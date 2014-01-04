@@ -19,6 +19,8 @@
 @yellow-text: #7E5220;
 @blue-text: #286595;
 
+@mobile: ~"only screen and (max-width: 768px)";
+
 body,
 .pure-g [class *= "pure-u"],
 .pure-g-r [class *= "pure-u"] {
@@ -136,7 +138,7 @@ body,
     #resources {
         background-color: transparent;
 		padding: 0 2em; margin: 2em auto;
-        @media only screen and (max-width: 768px) { 
+        @media @mobile { 
 			padding: 0 1em; margin: 1em auto;
 		} 
             .resource {
@@ -165,7 +167,7 @@ body,
 						margin-right: 1em;
 						overflow-x: hidden;
 						width: 0px;
-						@media only screen and (max-width: 768px) { 
+						@media @mobile { 
 							width: 32px;
 						} 
 						transition: width .2s linear;
@@ -283,7 +285,12 @@ body.resource {
         &.color_yellow { color: @yellow-text; }
         
         padding: 0 2em;
-        h1 { font-size: 2em; padding: 0; margin: 1em 0 .25em 0;}
+		@media @mobile {  padding: 0 1em; } 
+		
+        h1 { 
+			font-size: 2em; padding: 0; margin: 1em 0 .25em 0;
+			@media @mobile { margin-top: .5em; }
+		}
         .votes div {
             padding: .5em 1em;
             font-weight: 200;
