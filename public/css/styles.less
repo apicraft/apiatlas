@@ -40,6 +40,13 @@ body,
         .pure-button-error { background: @red-text; /* this is a maroon */ }
         .pure-button-warning { background: @yellow; /* this is an orange */ }
         .pure-button-secondary { background: @blue-light; /* this is a light blue */ }
+		.pure-button-menu {
+		
+			color: #666; 
+			padding: .6em; 
+			font-size: 1.4em;
+			margin: .5em;
+		}
 #loading {
 	text-align: center;
 	padding: 1em;
@@ -48,15 +55,24 @@ body,
 	}
 }
 
-#header.pure-menu{
-        background: #465639 url('../images/map_header.jpg');
-        .pure-menu-heading {
-            padding-left: 0;
-            img{
-                width: 90%; max-width: 334px;
-            }
-        }
+#header{
+	background: #465639 url('../images/map_header.jpg');
+	img{
+	   padding: 5%;
+       width: 90%; max-width: 334px;
     }
+	.pure-menu{
+		background-color: transparent;
+        .pure-menu-heading {
+            padding: 5px 10px 10px 10px;
+			img {padding: none;}
+            
+        }
+		li a {background-color: #eee; &:hover {background-color: #fff;}}
+		
+	}
+	.pure-u-1-3 {text-align: right;}
+}
 #login-confirm {
 		.pure-button {
 			margin-right: 1em !important;
@@ -83,14 +99,19 @@ body,
 }
 .home {
      padding: 0;
-    
+    #atlas-intro {
+		background: #495a39 url('../images/hero-1440.jpg') top center repeat-x;	
+		@media @mobile {background-image: url('../images/hero-mobile.jpg');}
+		text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+		.pure-u-1-3 {text-align: right;}
+	}
     
     .atlas-intro {
-        background: #495a39 url('../images/hero-1440.jpg') top center repeat-x;
-		text-shadow: 0 -3px 0 rgba(0,0,0,.5);
+        
+		
 		text-align: center;
 		color: #fff;
-		padding: 14em 0 2em 0;
+		padding: 10em 0 2em 0;
 		border-bottom: 3px solid @green;
 		.pure-button-primary {
 			font-size: 1.5em;
@@ -109,8 +130,7 @@ body,
 		}
 		
 		&.pure-hidden-desktop {
-			background-image: url('../images/hero-mobile.jpg');
-			padding-top: 10em;
+			padding-top: 6em;
 			.pure-button-primary {
 				font-size: 1em;
 				border-radius: 1em;
@@ -317,6 +337,7 @@ body.resource {
 			.pure-menu{
 				li {
 					margin: .25em 0;
+					
 				}
 				a { 
 					padding-right: 0; 
@@ -327,6 +348,7 @@ body.resource {
 							padding-right: 10px;
 						}
 					}
+					
 				}
 				.pure-menu-heading {
 					font-weight: 800;
@@ -403,6 +425,7 @@ body.resource {
     padding-top: 1em;
     padding: 1em 2em 10em 2em;
     
+	background-color: rgba(0,0,0,.5);
 }
 
 //yes, this pre-renders a ton of css rules (300 progress bar backrounds * versions for prowser compatiability). 
