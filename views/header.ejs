@@ -36,20 +36,11 @@
     
     <% if(page != 'home'){ %> 
 	<div id="header" class="pure-g">
-    <div class="pure-menu pure-menu-open pure-menu-horizontal pure-u-1 pure-hidden-phone">
-        <a href="/" class="pure-menu-heading"><img src="/images/logo.png" alt="API Atlas"/></a>
-		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="#">Why?</a></li>
-			<li><a href="#">Github Page</a></li>
-        	<li><a href="#login-confirm" class="call-modal pure-button pure-button-primary"><%  if(authorized){  %>Logout<% }else{%>Login<%}%></a></li>
-		</ul>
-    </div>
 	
-	<div class="pure-u-2-3 pure-hidden-desktop pure-hidden-tablet">
+	<div class="pure-u-2-3">
         <a href="/" class="pure-menu-heading"><img src="/images/logo_mobile.png" alt="API Atlas"/></a>
     </div>
-	<div class="pure-u-1-3 pure-hidden-desktop pure-hidden-tablet">
+	<div class="pure-u-1-3">
 		<a href="#mobile_menu" class="call-modal pure-button pure-button-menu"><i class="fa fa-bars fa-lg"></i></a>
 	</div>
 	</div>

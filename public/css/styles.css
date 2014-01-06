@@ -10,6 +10,7 @@ a.pure-button-primary{background-color:#286595 !important;color:#fff}
 .pure-button-menu{color:#666;padding:.6em;font-size:1.4em;margin:.5em}
 #loading{text-align:center;padding:1em}#loading img{max-width:100px}
 #mobile_menu .pure-menu{margin:0;padding:0}#mobile_menu .pure-menu .pure-button{margin:1em;font-size:1.4em}
+#about #content,#not_found #content{background-color:#fff;margin:1em 1em 2em 1em;padding:0 1em 1em 1em;border:1px solid #939597}
 #header{background:#465639 url('../images/map_header.jpg')}#header img{padding:5%;width:90%;max-width:334px}
 #header .pure-menu{background-color:transparent}#header .pure-menu .pure-menu-heading{padding:5px 10px 10px 10px}#header .pure-menu .pure-menu-heading img{padding:none}
 #header .pure-menu li a{background-color:#eee}#header .pure-menu li a:hover{background-color:#fff}
