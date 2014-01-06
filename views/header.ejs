@@ -6,7 +6,11 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
     <script type="text/javascript">
-        <% if(page == 'home' || page == 'grid' || page == 'vis'){ %> var resources = <%- JSON.stringify(data) %>; <% } %>
+        <% if(page == 'home' || page == 'grid' || page == 'vis'){ %> 
+			var resources = <%- JSON.stringify(data) %>; 
+			var user_votes = <%- JSON.stringify(votes) %>; 
+			
+		<% } %>
         <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>
     </script>
 	

@@ -1,9 +1,10 @@
 <div class="resource resource_<%- name %> <%- type %> pure-u-1-4" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
-    <div class="content <%- color %>bar_<%- percent %>">
-		<div class="mobile_voting ">
-			<div class="vote_up vote" data-parent_resource="resource_<%- name %>"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
-			<div class="vote_remove vote"><a href="<%- rel %>?vote=remove"><i class="fa fa-ban"></i></a></div>
-			<div class="vote_down vote"><a href="<%- rel %>?vote=down"><i class="fa fa-times"></i></a></div>
+    <div class="content <%- color %>bar_<%- percent %> <%= vote_class %>">
+		
+		<div class="mobile_voting">
+			<div class="vote_up vote" data-parent_resource="resource_<%- name %>" data-vtype="vote_yes"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
+			<div class="vote_remove vote"  data-parent_resource="resource_<%- name %>" data-vtype="vote_remove"><a href="<%- rel %>?vote=remove"><i class="fa fa-ban"></i></a></div>
+			<div class="vote_down vote"  data-parent_resource="resource_<%- name %>" data-vtype="vote_no"><a href="<%- rel %>?vote=down"><i class="fa fa-times"></i></a></div>
 			
 		</div>
         <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> <span class="code_name"><%= desc %><%} %></span></a></h3>

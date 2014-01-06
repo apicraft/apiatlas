@@ -15,21 +15,32 @@ $(function(){
 				 event.preventDefault();
 				 
             });
-            
+            if($('body').data('auth')){
 			$("#resources").on('click', '.mobile_voting .vote', function(){
 				
-				if($('body').data('auth')){
-					$context = { 
+				
+					var $context = { 
 						'link': 	$(this).find('a').attr('href'),
-						'id':	 	$(this).data('parent_resource')
-					}
-					
-				 	$.get(context.link, function(){
+						'id':	 	$(this).data('parent_resource'),
+						'method':   $(this).data('vtype')
+					}					
+				 	
+					$.get($context.link, function(){
                     	console.log('voted on: ', $context.id);
+						$('.' + $context.id + ' .content').removeClass('vote_yes');
+						$('.' + $context.id + ' .content').removeClass('vote_no');
+						if($context.method !== 'vote_remove'){
+							$('.' + $context.id + ' .content').addClass($context.method);
+						}
 						//update the UI!
 					});
-				 }
-			});
+					
+					
+						
+					
+				
+				 });
+			};
 			 
 			$("#resources").on('click', '.resource:not(.title) .name', function(){
 						//console.log($(this));
@@ -65,7 +76,7 @@ $(function(){
 				add_group(resources.verbs, $("#resources"));
                 add_group(resources.headers,$("#resources"));
                 add_group(resources.codes,$("#resources"));
-					
+				
 
                 function add_group(r, $t){
  					
@@ -91,7 +102,13 @@ $(function(){
                                     this.self.uid = this.self.rel.replace(/\//g, "");
                                     this.target = $("#" + this.self.uid);
                                     
-									console.log(this.self.rel, this.self.didVote);
+									this.self.your_vote = user_votes[r.id][this.self.name.toLowerCase()];
+									if(this.self.your_vote == undefined){
+										this.self.vote_class = "";
+									}else if (this.self.your_vote == false){
+										this.self.vote_class = "vote_no";
+									}else {this.self.vote_class = "vote_yes"; }
+									//console.log(user_votes[this.parent.rel][this.self.name.toLowerCase()]);
 									
                                     if(this.target.length != 0){
                                         //update!
@@ -109,7 +126,7 @@ $(function(){
                                         //render!
                                         if($('body').data("auth")){this.user = {"authorized": true}}
                                         var p = randomFromInterval(0, 100);
-                                        var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total, "desc": this.current.description });
+                                        var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total, "desc": this.current.description, "your_vote": this.self.your_vote, "vote_class": this.self.vote_class });
                                         $t.append(template.render(render_data));
                                         $('#loading').hide();
                                         this.parent.progress += 1;

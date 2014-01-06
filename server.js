@@ -200,19 +200,37 @@ passport.deserializeUser(function(id, done) {
     //default page
     app.get('/', function(req, res) {
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
-		
-		
-		
-		if(getUser(req) !== null){
-			console.log('user id', getUser(req).id);
+		var user_votes = {};
+		for(n in resources){
+			user_votes[n] = {}
 		}
-        res.render(__dirname + '/views/vis.ejs', {
+
+		if(getUser(req) !== null){
+				var getUserVotes = new Firebase(fbURL + '/users/' + getUser(req).id + '/votes/resources');
+				getUserVotes.once('value', function(snap){
+					user_votes = snap.val();
+					res.render(__dirname + '/views/vis.ejs', {
+						"resources": resources,
+						"page": "home", 
+						"user": getUser(req),
+						"name": "",
+						"votes": user_votes,
+						"data": resources //JSON.stringify(output)
+					});
+				});
+
+		}else {
+			res.render(__dirname + '/views/vis.ejs', {
                 "resources": resources,
                 "page": "home", 
                 "user": getUser(req),
                 "name": "",
+				"votes": user_votes,
                 "data": resources //JSON.stringify(output)
-        });
+        	});
+		
+		}
+        
 	});
 	app.get('/reindex', function(req, res){
 		//index a user's votes into their user object for faster homepage voting
