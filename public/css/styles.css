@@ -46,7 +46,7 @@ a.pure-button-primary{background-color:#286595 !important;color:#fff}
 .home #resources .resource.verb .name{color:#5c7048}
 .home #resources .resource.title h3{text-transform:uppercase;color:#fff;margin:.3em 0 .25em .4em;padding:0;font-size:2em;text-shadow:0 -1px 0 rgba(0,0,0,0.5);cursor:default}
 body{background:url('../images/accent_bg.png')}
-body.resource .resource{padding:0 2em}body.resource .resource.color_blue{color:#286595}
+body.resource .resource{padding:0 2em;}body.resource .resource.color_blue{color:#286595}
 body.resource .resource.color_green{color:#5c7048}
 body.resource .resource.color_yellow{color:#7e5220}
 @media only screen and (max-width: 768px){body.resource .resource{padding:0 1em}}body.resource .resource h1{font-size:2em;padding:0;margin:1em 0 .25em 0}@media only screen and (max-width: 768px){body.resource .resource h1{margin-top:.5em}}
@@ -58,16 +58,15 @@ body.resource .resource .controls .pure-menu a{padding-right:0}body.resource .re
 body.resource .resource .controls .pure-menu .pure-menu-heading{font-weight:800;margin-top:0;padding-top:.5em;white-space:inherit}
 body.resource .resource .controls.vote_null .clarify_group,body.resource .resource .controls.vote_null .vote_remove,body.resource .resource .controls.vote_null .fa-check-circle,body.resource .resource .controls.vote_null .fa-times-circle,body.resource .resource .controls.vote_null .vote_remove{display:none}
 body.resource .resource .controls.vote_true .clarify_group,body.resource .resource .controls.vote_true .fa-check-circle-o,body.resource .resource .controls.vote_true .fa-times-circle,body.resource .resource .controls.vote_true .fa-check-square-o,body.resource .resource .controls.vote_true .vote_no .vote_remove{display:none}
-body.resource .resource .controls.vote_true .vote_yes a{background-color:#5c7048;color:#eee}
+body.resource .resource .controls.vote_true .vote_yes a{background:-moz-linear-gradient(bottom, #c1dfa6 0%, #5c7048 100%);background:-webkit-gradient(linear, left bottom, left top, color-stop(0%, #c1dfa6), color-stop(100%, #5c7048));background:-ms-linear-gradient(bottom, #c1dfa6 0%, #5c7048 10%);background:linear-gradient(180deg, #c1dfa6 0%, #5c7048 100%);color:#eee}
 body.resource .resource .controls.vote_true.vote_request .clarify_response .fa-check-square-o{display:inline-block}
 body.resource .resource .controls.vote_true.vote_request .clarify_response .fa-check-square{display:none}
 body.resource .resource .controls.vote_true.vote_response .clarify_request .fa-check-square-o{display:inline-block}
 body.resource .resource .controls.vote_true.vote_response .clarify_request .fa-check-square{display:none}
 body.resource .resource .controls.vote_false .clarify_group,body.resource .resource .controls.vote_false .fa-check-circle,body.resource .resource .controls.vote_false .fa-times-circle-o,body.resource .resource .controls.vote_false .vote_yes .vote_remove{display:none}
-body.resource .resource .controls.vote_false .vote_no a{background-color:#7b3018;color:#eee}
+body.resource .resource .controls.vote_false .vote_no a{background:-moz-linear-gradient(bottom, #e09ba2 0%, #7b3018 100%);background:-webkit-gradient(linear, left bottom, left top, color-stop(0%, #e09ba2), color-stop(100%, #7b3018));background:-ms-linear-gradient(bottom, #e09ba2 0%, #7b3018 10%);background:linear-gradient(180deg, #e09ba2 0%, #7b3018 100%);color:#eee}
 body.resource .resource .controls .clarify_group{padding-left:2em}
 body.resource .resource .controls i{font-size:1em}
-body.resource .resource.resource_header .controls.vote_true .clarify_group{display:block}
 body.resource .resource .scrub{margin-top:1em}body.resource .resource .scrub a{margin-right:1em;margin-bottom:1em}
 body.resource .resource #comments{margin:2em 1em 0 0}
 body.resource .resource .pure-u-1-2{margin-top:1em}body.resource .resource .pure-u-1-2 h3{margin:0 1em 0 0}
