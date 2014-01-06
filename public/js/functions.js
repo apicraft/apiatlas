@@ -13,7 +13,6 @@ $(function(){
 			//a bunch of future listeners
 			$("#resources").on('click', '.mobile_voting .vote a', function(evt){
 				evt.preventDefault(); 
-				return false;
             });
             if($('body').data('auth')){
 			$("#resources").on('click', '.mobile_voting .vote', function(){
