@@ -11,9 +11,9 @@ $(function(){
             var template = {};
             var title = {};
 			//a bunch of future listeners
-			$("#resources").on('click', '.mobile_voting .vote a', function(){
-				 event.preventDefault();
-				 
+			$("#resources").on('click', '.mobile_voting .vote a', function(evt){
+				evt.preventDefault(); 
+				return false;
             });
             if($('body').data('auth')){
 			$("#resources").on('click', '.mobile_voting .vote', function(){
@@ -193,15 +193,16 @@ $(function(){
                 $('.votes div').removeClass().addClass(barclass);
                 
             });
-             $(".controls a").click(function(){
-                event.preventDefault();
+             $(".controls a").click(function(evt){
+                 evt.preventDefault();
+				 
 				 if($('body').data('auth')){
 					console.log($(this).attr('href'));
 				 	$.get($(this).attr('href'), function(){
                     console.log('voted');
 					 });
 					
-					console.log("controls clarify: ", !$(".controls").is(".vote_request, .vote_response"));
+					//console.log("controls clarify: ", !$(".controls").is(".vote_request, .vote_response"));
 					
 					if($(this).hasClass("clarify_request")){
 						//toggle
@@ -232,7 +233,7 @@ $(function(){
 				 	window.location.href="#login-confirm";
 				 }
                 
-                 
+                 return false;
              });
             
         },
