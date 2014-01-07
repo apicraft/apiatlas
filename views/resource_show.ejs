@@ -3,7 +3,11 @@
 
 	<div  class="title pure-u-1"><h1><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1></div>
     <div class="votes pure-u-1" data-color="<%- r.color %>">
-        <div class="<%- r.color %>bar_<%- r.votes.percent %>"><%= r.votes.percent_display %></div>
+        <div class="<%- r.color %>bar_<%- r.votes.percent %> total_bar"><%= r.votes.percent_display %> use this</div>
+		<% if(r.type == 'header'){%>
+			<div class="<%- r.color %>bar_<%- r.votes.request %> request_bar"><%= r.votes.request_display %> Only use in request</div>
+			<div class="<%- r.color %>bar_<%- r.votes.response %> response_bar"><%= r.votes.response_display %> Only use in response</div>
+		<%}%>
     </div>
 	<div class="pure-u-1 vote_count"><%= r.votes.total %> people voted. </div>
     <% v = (r.your_vote == undefined ? "null" : r.your_vote); %>

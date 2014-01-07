@@ -233,18 +233,6 @@ passport.deserializeUser(function(id, done) {
         
 	});
 	app.get('/reindex', function(req, res){
-		//index a user's votes into their user object for faster homepage voting
-		/*
-		user needs a "votes" object that look slike 
-		votes: {
-			"resourceID": "votetype",
-			...
-		}
-		
-		To do it, iterate on the top level 'votes' (3 resources), and all the children. Use the key to get
-		[top level][name]: [vote info]
-		
-		*/
 		
 		for(v in resources){ //the top level resource groups
 			console.log("reindexing...");
@@ -269,6 +257,46 @@ passport.deserializeUser(function(id, done) {
 			'name': 'Action Complete'
 		});
 	});
+	
+	app.get('/dbscrub', function(req, res){
+		var scrub = {
+			resources: {
+				s : new Firebase(fbURL + "/resources")
+				},
+			users : new Firebase(fbURL + "/users"),
+			votes : new Firebase(fbURL + "/votes"),
+			update: {}
+		};
+
+		var votes =  
+		   { down: 0,
+			 raw: {},
+			 request_only: 0,
+			 response_only: 0,
+			 total: 0,
+			 up: 0 
+		   } 
+		
+		//iterate through resources and remove totals and votes
+		scrub.resources.s.once('value', function(snapshot){
+			scrub.resources.update = snapshot.val();
+			for(i in snapshot.val()){
+				for(r in snapshot.val()[i]){
+					scrub.resources.update[i][r].url = new Firebase(fbURL + "/resources/" + i + "/" + r);
+					scrub.resources.update[i][r].url.child('votes').set(votes);
+				}
+			}
+		});
+		
+		scrub.users.set({});
+		scrub.votes.set({});
+		
+		res.render(__dirname + '/views/database_reset.ejs',{
+			'page': 'database_reset',
+			'name': 'Action Complete'
+		});
+	});
+
     app.get('/:type/:title', function(req, res){
 		
         var user = null;
@@ -296,7 +324,6 @@ passport.deserializeUser(function(id, done) {
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
             var data = snap_r.val();
-
             if(data === null){
                 res.statusCode = 404;
                 return res.render('404', {
@@ -313,7 +340,7 @@ passport.deserializeUser(function(id, done) {
             var v = req.query.vote;
 
             if(user == null)
-                return render_resource();
+ 				return render_resource();
 
             //console.log(fbURL + '/users/' + user + '/votes/' + d.name);
             var didVote = new Firebase(fbURL + '/users/' + user + '/votes/' + d.name);
@@ -449,7 +476,13 @@ passport.deserializeUser(function(id, done) {
                             if(data.your_vote === true){
                                 console.log('changing up to down');
                                 reduceTotals(data.your_vote);
-                            }
+                            }else if(data.your_vote === 'response'){
+								console.log('changing response to false');
+                                reduceTotals(data.your_vote);
+							}else if(data.your_vote === 'request'){
+								console.log('changing request to false');
+                                reduceTotals(data.your_vote);
+							}
                             vote(false);           
                         }
 						
@@ -488,12 +521,39 @@ passport.deserializeUser(function(id, done) {
             });
             
             function render_resource(){
-                data.votes.percent = 0;
-                if(data.votes.total > 0){ data.votes.percent = Math.round((data.votes.up/data.votes.total) * 100); }
-                data.votes.percent_display = data.votes.percent + "%";
                 
+				var votes_meta = {
+					percent: 0,
+					percent_display: "0%",
+					request: 0,
+					request_display: "0%",
+					response: 0,
+					response_display: "0%"
+				}
+				
+				
+				if(data.votes.total > 0){ 
+					votes_meta.percent = Math.round((data.votes.up/data.votes.total) * 100); 
+					votes_meta.percent_display = votes_meta.percent + "%";
+					
+					 if(d.type == 'headers'){
+						if(data.votes.request > 0){
+							votes_meta.request = Math.round((data.votes.request/data.votes.total) * 100); 
+							votes_meta.request_display = votes_meta.request + "%";
+						}
+						if(data.votes.response > 0){
+							votes_meta.response = Math.round((data.votes.response/data.votes.total) * 100); 
+							votes_meta.response_display = votes_meta.response + "%";
+						}
+					}
+				}
+                
+               
+				data.votes = extend(data.votes, votes_meta);
                 data = extend(data, resources[d.type]);
                 
+				console.log('vote data: ', data.votes);
+				
                 res.render(__dirname + '/views/resource_show.ejs', {
                     "r": data,
                     "page": "resource",
@@ -501,7 +561,8 @@ passport.deserializeUser(function(id, done) {
                     "name": "/"+ d.type +"/"+ d.title,
                     "updateURL": resource
                 });
-            
+            	
+				
             }
             
             

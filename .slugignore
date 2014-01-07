@@ -2,3 +2,6 @@
 *.ai
 *.pdf
 /art
+
+/views/database_reset.ejs
+/views/db_reset.js

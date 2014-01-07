@@ -8,7 +8,7 @@
     <script type="text/javascript">
         <% if(page == 'home' || page == 'grid' || page == 'vis'){ %> 
 			var resources = <%- JSON.stringify(data) %>; 
-			var user_votes = <%- JSON.stringify(votes) %>; 
+			var user_votes = <% if(votes !== null){ %><%- JSON.stringify(votes) %><% } else { %>{}<% } %>; 
 			
 		<% } %>
         <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>

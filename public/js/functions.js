@@ -101,7 +101,13 @@ $(function(){
                                     this.self.uid = this.self.rel.replace(/\//g, "");
                                     this.target = $("#" + this.self.uid);
                                     
-									this.self.your_vote = user_votes[r.id][this.self.name.toLowerCase()];
+									
+									if(typeof(user_votes[r.id]) == 'object'){
+										this.self.your_vote = user_votes[r.id][this.self.name.toLowerCase()];
+									}else {
+										this.self.your_vote = undefined;
+									}
+									
 									if(this.self.your_vote == undefined){
 										this.self.vote_class = "";
 									}else if (this.self.your_vote == false){
@@ -184,12 +190,39 @@ $(function(){
             resource.on('value', function(snapshot){
                 
                 var percent = 0;
-                if(snapshot.val().votes.total > 0){ percent = Math.round((snapshot.val().votes.up/snapshot.val().votes.total) * 100); }
+				var req_percent = 0;
+				var res_percent = 0;
+                if(snapshot.val().votes.total > 0){ 
+					percent = Math.round((snapshot.val().votes.up/snapshot.val().votes.total) * 100); 
+					if($(".resource").hasClass('resource_header')){ 
+						if(snapshot.val().votes.request > 0){
+							req_percent = Math.round((snapshot.val().votes.request/snapshot.val().votes.total) * 100);
+						}
+						if(snapshot.val().votes.response > 0){
+							res_percent = Math.round((snapshot.val().votes.response/snapshot.val().votes.total) * 100); 
+						}
+					}
+				}
                 var percent_display = percent + "%";
                 var barclass = $('.votes').data('color') + "bar_" + percent;
-                $('.votes div').html(percent_display + " use this");
-				$('.vote_count').html(snapshot.val().votes.total + " votes.");
-                $('.votes div').removeClass().addClass(barclass);
+				
+                $('.votes  div.total_bar').html(percent_display + " use this");
+				$('.vote_count').html(snapshot.val().votes.total + " people voted.");
+                $('.votes div.total_bar').removeClass().addClass("total_bar"); 
+				$('.votes div.total_bar').addClass(barclass); 
+				//update req/res here
+				if($(".resource").hasClass('resource_header')){
+					var request_class = $('.votes').data('color') + "bar_" + req_percent;
+					var response_class = $('.votes').data('color') + "bar_" + res_percent;
+					
+					$('.votes div.request_bar').removeClass().addClass('request_bar');
+					$('.votes div.response_bar').removeClass().addClass('response_bar');
+					
+					$('.votes div.request_bar').html(req_percent + "% Only use in request").addClass(request_class);
+					$('.votes div.response_bar').html(res_percent + "% Only use in response").addClass(response_class);
+					
+				}
+				
                 
             });
              $(".controls a").click(function(evt){
@@ -198,7 +231,7 @@ $(function(){
 				 if($('body').data('auth')){
 					console.log($(this).attr('href'));
 				 	$.get($(this).attr('href'), function(){
-                    console.log('voted');
+                    	console.log('voted');
 					 });
 					
 					//console.log("controls clarify: ", !$(".controls").is(".vote_request, .vote_response"));
@@ -210,6 +243,7 @@ $(function(){
 							$(".controls").addClass("vote_response");
 						}else if( $(".controls").hasClass("vote_response") ){
 							$(".controls").removeClass("vote_response");
+							$(".controls").addClass("vote_true");
 						}
 					}
 					else if($(this).hasClass("clarify_response")){
@@ -219,6 +253,7 @@ $(function(){
 							$(".controls").addClass("vote_request");
 						}else if( $(".controls").hasClass("vote_request") ){
 							$(".controls").removeClass("vote_request");
+							$(".controls").addClass("vote_true");
 						}
 					} 
 					else {
