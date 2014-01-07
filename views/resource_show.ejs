@@ -5,7 +5,7 @@
     <div class="votes pure-u-1" data-color="<%- r.color %>">
         <div class="<%- r.color %>bar_<%- r.votes.percent %>"><%= r.votes.percent_display %></div>
     </div>
-	<div class="pure-u-1 vote_count"><%= r.votes.total %> votes. </div>
+	<div class="pure-u-1 vote_count"><%= r.votes.total %> people voted. </div>
     <% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
     <div class="controls vote_<%= v %> pure-u-1">
 		
@@ -20,8 +20,8 @@
 					</li>	
 					<div class="clarify_group">
 						<li class="pure-menu-separator"></li>
-						<li class="clarify"><a href="#request" class="clarify_request"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Requests &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a></li>
-						<li class="clarify"><a href="#response" class="clarify_response"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Responses &nbsp;<i class="fa fa-arrow-left"></i></a></li>
+						<li class="clarify"><a href="?vote=request" class="clarify_request"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Requests &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a></li>
+						<li class="clarify"><a href="?vote=response" class="clarify_response"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Responses &nbsp;<i class="fa fa-arrow-left"></i></a></li>
 						<li class="pure-menu-separator"></li>
 					</div>
 					<li class="vote_no pure-g">

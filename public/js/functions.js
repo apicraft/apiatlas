@@ -222,7 +222,7 @@ $(function(){
 						}
 					} 
 					else {
-						$(".controls").removeClass("vote_true vote_false vote_null")
+						$(".controls").removeClass("vote_true vote_false vote_null vote_request vote_response")
 						if($(this).hasClass("vote_up")){           $(".controls").addClass("vote_true");	}
 						else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");	}
 						else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");	}

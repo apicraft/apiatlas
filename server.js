@@ -324,7 +324,7 @@ passport.deserializeUser(function(id, done) {
                     //this if block actually does the voting!
                     if(typeof(v) != "undefined" && user !== null){
     
-                        //voting! Yup, that's 13 possible references to update
+                        //voting! Yup, that's 18 possible references to update
                         var update = {
                             resource: {
                                 self: new Firebase(fbURL + '/' + d.name + '/votes/raw'),
@@ -369,11 +369,16 @@ passport.deserializeUser(function(id, done) {
                                 update.user.up.transaction(inc);
 							}else if(v == 'request'){
 								update.resource.up.transaction(inc);
+								update.resource.request.transaction(inc);
+								
                                 update.user.up.transaction(inc);
 								update.user.request.transaction(inc);
+							
 							}else if(v == 'response'){
 								update.resource.up.transaction(inc);
-                                update.user.up.transaction(inc);
+								update.resource.response.transaction(inc);
+                            
+								update.user.up.transaction(inc);
 								update.user.response.transaction(inc);
 							
 							}else{
@@ -402,18 +407,24 @@ passport.deserializeUser(function(id, done) {
                                     update.user.down.transaction(dec);
                                 }
                                 
-                                if(data.your_vote === true || data.your_vote === 'request' || data.your_vote === 'response'){
+                                if(data.your_vote === true){
                                     update.resource.up.transaction(dec);
                                     update.user.up.transaction(dec);
                                 }
                             	
 								if(data.your_vote === 'request'){
+									update.resource.up.transaction(dec);
 									update.resource.request.transaction(dec);
+									
+                                    update.user.up.transaction(dec);
 									update.user.request.transaction(dec);
 								}
 							
 								if(data.your_vote === 'response'){
+									update.resource.up.transaction(dec);
 									update.resource.response.transaction(dec);
+									
+                                    update.user.up.transaction(dec);
 									update.user.response.transaction(dec);
 								}
 							
@@ -442,30 +453,34 @@ passport.deserializeUser(function(id, done) {
                             vote(false);           
                         }
 						
-						if(v == "request" && data.your_vote !== "request") {
+						if(v == "request") {
 							if(data.your_vote === 'response'){
-								render_resource(data.your_vote);
+								console.log('changing response to true');
+                                reduceTotals(data.your_vote);
 								vote(true);
-							}else {
-								render_resource(data.your_vote);
-								vote('request'); 
+							}else if (data.your_vote === true){
+								console.log('changing true to response');
+                                reduceTotals(data.your_vote);
+								vote('response');
 							}  
 						}
 						
-						if(v == "response" && data.your_vote !== "response") {
-							if(data.your_vote === "request"){
-								render_resource(data.your_vote);
+						if(v == "response") {
+							if(data.your_vote === 'request'){
+								console.log('changing request to true');
+                                reduceTotals(data.your_vote);
 								vote(true);
-							}else {
-								render_resource(data.your_vote);
-								vote('response'); 
+							}else if (data.your_vote === true){
+								console.log('changing true to request');
+                                reduceTotals(data.your_vote);
+								vote('request');
 							}  
 						}
 						
 						function dec(c){return c-1;}
 						function inc(c){return c+1;}
                         //res.redirect(req._parsedUrl.pathname);
-                        res.send();
+                        res.send(); //dont return anything. should add helpful message for ajax client?
                         
                     }else {
                         render_resource();
