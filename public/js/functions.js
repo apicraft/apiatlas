@@ -40,11 +40,12 @@ $(function(){
 				
 				 });
 			};
-			 
-			$("#resources").on('click', '.resource:not(.title) .name', function(){
-						//console.log($(this));
-                       window.location.href = $(this).find('a').attr('href');
-                    });
+			
+			$("#resources").on('click', '.resource:not(.title) .name', function(e){
+				//console.log($(this));
+				window.location.href = $(this).find('a').attr('href');
+				
+            });
 	
 			$.get("./templates/vis_resource.ejs", function(t){
                 $.get("./templates/vis_title.ejs", function(t2){
@@ -133,6 +134,30 @@ $(function(){
                                         var p = randomFromInterval(0, 100);
                                         var render_data = $.extend({}, this.parent, this.self, {"percent": this.self.percent, "percent_display": this.self.percent + "%","votes": this.current.votes.total, "desc": this.current.description, "your_vote": this.self.your_vote, "vote_class": this.self.vote_class });
                                         $t.append(template.render(render_data));
+										
+										
+										
+										$("#" + this.self.uid)
+				
+										.on('swipeleft', function(e) {
+											$(this).removeClass('swipe_open');
+										})
+						
+										.on('swiperight', function(e) {
+											$(this).addClass('swipe_open');
+										})
+										
+										.on('movestart', function(e) {
+											// If the movestart heads off in a upwards or downwards
+											// direction, prevent it so that the browser scrolls normally.
+											if ((e.distX > e.distY && e.distX < -e.distY) ||
+												(e.distX < e.distY && e.distX > -e.distY)) {
+												e.preventDefault();
+												return;
+											}
+										});
+										
+										
                                         $('#loading').hide();
                                         this.parent.progress += 1;
                                         try_reflow();
