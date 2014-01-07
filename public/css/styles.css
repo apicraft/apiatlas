@@ -16,7 +16,7 @@ a.pure-button-primary{background-color:#286595 !important;color:#fff}
 #header .pure-menu li a{background-color:#eee}#header .pure-menu li a:hover{background-color:#fff}
 #header .pure-u-1-3{text-align:right}
 #login-confirm .pure-button{margin-right:1em !important;margin-bottom:1em;font-size:1.2em}
-#login-confirm .nevermind{text-align:center;padding-top:.8em}
+#login-confirm .pure-u-1-3{padding-top:.8em}
 .auth_false .resource .grid_vote{display:none}
 .fineprint{font-size:.8em;color:#888}
 .modal-inner footer .pure-button{margin-top:1em}

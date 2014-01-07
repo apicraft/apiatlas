@@ -53,8 +53,11 @@
 						<a href="/logout?last=<%= name %>" class="pure-button pure-button-error pure-u-1-3">Log out from github</a> 
     				<% } else { %>
 						<h2 class="pure-u-1">Let your voice be heard!</h2>
-					<a href="/auth/github?last=<%= name %>" class="login-with-github pure-button pure-button-primary pure-u-1-2"><i class="fa fa-github"></i> Login with github </a>
-						<a href="/#!" class="nevermind pure-u-1-3">Nevermind</a>	
+					<div class="pure-u-2-3">
+						<a href="/auth/github?last=<%= name %>" class="login-with-github pure-button pure-button-primary"><i class="fa fa-github"></i> Login with github </a>						</div>
+					<div class="pure-u-1-3">
+						<a href="/#!" class="nevermind">Nevermind</a>	
+					</div>
 					<p class="pure-u-1">Use your github account to vote on API Atlas. You'll be taken to the github website to authenticate (or confirm if you're already logged in).</p>
 						
     				<% } %>
