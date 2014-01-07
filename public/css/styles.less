@@ -395,7 +395,7 @@ body.resource {
             }
             &.vote_true {
 				
-                .clarify_group, .vote_no .vote_remove, .clarify_response .fa-check-square-o, .clarify_request .fa-check-square-o {display: none;}
+                .vote_no .vote_remove {display: none;}
 				.vote_yes a {
 					.button_grad(@green, @green-text);
 					color: @light_gray;
@@ -405,13 +405,20 @@ body.resource {
 					
 				}
 				
-				
+				.clarify_request, .clarify_response {
+						color: #333;
+						.button_grad(@light_gray, @medium_gray);
+						.fa-check-square-o {display: none;}
+					}
 				
             }
 			&.vote_request {
 					.clarify_response .fa-check-square-o {display: inline-block;}
 					.clarify_response .fa-check-square, .clarify_request .fa-check-square-o, .vote_no .vote_remove {display: none;}
-					
+					.clarify_request {
+						color: #333;
+						.button_grad(@light_gray, @medium_gray);
+					}
 					.vote_yes a {
 						.button_grad(@green, @green-text);
 						color: @light_gray;
@@ -420,7 +427,10 @@ body.resource {
 			&.vote_response {
 				.clarify_request .fa-check-square-o {display: inline-block;}
 				.clarify_request .fa-check-square, .clarify_response .fa-check-square-o, .vote_no .vote_remove {display: none;}
-				
+				.clarify_response {
+						color: #333;
+						.button_grad(@light_gray, @medium_gray);
+					}
 				.vote_yes a {
 					.button_grad(@green, @green-text);
 					color: @light_gray;
