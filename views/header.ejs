@@ -14,11 +14,12 @@
         <% if(page == 'resource' ){ %> var updateURL = "<%- updateURL %>"; <% } %>
     </script>
 	
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+    <link href="/css/pure-min.css" rel="stylesheet"> <!-- purecss.io framework by yui -->
 
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> <!-- icons, yo -->
-    <link rel="stylesheet" type="text/css" href="/css/modal.css" /><!-- the main stylesheet -->
+    <link href="/css/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet"> <!-- icons, yo -->
+	<link rel="stylesheet" type="text/css" href="/css/modal.css" /><!-- the main stylesheet -->
 	<link rel="stylesheet" type="text/css" href="/css/styles.css" /><!-- the main stylesheet -->
+	<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title>API Atlas<% if(name){  %> | <%= name %><%}%></title>
 </head>
     

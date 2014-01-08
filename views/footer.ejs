@@ -8,7 +8,7 @@
 						<%  //logged in
 					if(typeof(user) == 'object' && user != null){ %>
 						
-						<li class="pure-menu-disabled">Github user: <%= user.displayName %></li>
+						<li class="pure-menu-disabled"><a href="#">Github user: <%= user.displayName %></a></li>
 						<li><a href="/logout?last=<%= name %>" class="">Log out from github</a></li> 
 					<% } else { 
 						//not logged in 
@@ -26,7 +26,7 @@
 						<%  //logged in
 					if(typeof(user) == 'object' && user != null){ %>
 						
-						<li class="pure-menu-disabled">Github user: <%= user.displayName %></li>
+						<li class="pure-menu-disabled"><a href="#">Github user: <%= user.displayName %></a></li>
 						<li><a href="/logout?last=<%= name %>" class="">Log out from github</a></li> 
 					<% } else { 
 						//not logged in 
@@ -120,9 +120,9 @@
     </script>
 
 
-<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+<script type='text/javascript' src='/js/firebase.js'></script>
 <script type="text/javascript" src="/js/ejs.min.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="/js/jquery.ejs.js"></script>
 <script type="text/javascript" src="/js/jquery.event.move.js"></script>

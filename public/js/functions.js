@@ -11,35 +11,36 @@ $(function(){
             var template = {};
             var title = {};
 			//a bunch of future listeners
-			$("#resources").on('click', '.mobile_voting .vote a', function(evt){
-				evt.preventDefault(); 
-            });
-            if($('body').data('auth')){
-			$("#resources").on('click', '.mobile_voting .vote', function(){
-				
-				
+			
+            
+			$("#resources").on('click', '.mobile_voting  .vote', function(e){
+				e.preventDefault();
+				if($('body').data('auth')){
 					var $context = { 
-						'link': 	$(this).find('a').attr('href'),
+						'link': 	$(this).attr('href'),
 						'id':	 	$(this).data('parent_resource'),
 						'method':   $(this).data('vtype')
 					}					
 				 	
 					$.get($context.link, function(){
                     	console.log('voted on: ', $context.id);
-						$('.' + $context.id + ' .content').removeClass('vote_yes');
-						$('.' + $context.id + ' .content').removeClass('vote_no');
+						$('.' + $context.id + ' .mobile_voting').removeClass('vote_yes');
+						$('.' + $context.id + ' .mobile_voting').removeClass('vote_no');
 						if($context.method !== 'vote_remove'){
-							$('.' + $context.id + ' .content').addClass($context.method);
+							$('.' + $context.id + ' .mobile_voting').addClass($context.method);
 						}
 						//update the UI!
 					});
 					
 					
 						
-					
+				}else {
+					console.log('modal');
+				 	window.location.href="#login-confirm";
+				}	
 				
-				 });
-			};
+			});
+			
 			
 			$("#resources").on('click', '.resource:not(.title) .name', function(e){
 				//console.log($(this));
@@ -124,8 +125,8 @@ $(function(){
                                         this.target.data('percent', this.self.percent);
                                         
                                         this.target.find(".votes").html(this.current.votes.total);
-                                        this.target.find(".percent").html(this.self.percent + "%");
-                                        this.target.find(".content").removeClass(remove_class).addClass(add_class);
+                                        this.target.find(".percent").html(this.self.percent + "% use it");
+                                        this.target.find(".bar").removeClass(remove_class).addClass(add_class);
                                         
                                         
                                     } else {
