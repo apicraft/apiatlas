@@ -1,45 +1,28 @@
 <% include header %>
-<div class="resource pure-g-r color_<%- r.color %> resource_<%= r.type %>" data-color="<%- r.color %>" data-priority="<%- r.priority %>">
 
-	<div  class="title pure-u-1"><h1><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1></div>
-    <div class="votes pure-u-1" data-color="<%- r.color %>">
-        <div class="<%- r.color %>bar_<%- r.votes.percent %> total_bar"><%= r.votes.percent_display %> use this</div>
-		<% if(r.type == 'header'){%>
-			<div class="<%- r.color %>bar_<%- r.votes.request %> request_bar"><%= r.votes.request_display %> Only use in request</div>
-			<div class="<%- r.color %>bar_<%- r.votes.response %> response_bar"><%= r.votes.response_display %> Only use in response</div>
-		<%}%>
-    </div>
-	<div class="pure-u-1 vote_count"><%= r.votes.total %> people voted. </div>
-    <% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
-    <div class="controls vote_<%= v %> pure-u-1">
+	
+	
+<div class="resource_show resource_<%- r.name %> <%- r.type %> pure-g-r" id="<%- r.type + name.toLowerCase() %>" data-color="<%- r.color %>" data-percent="<%- r.votes.percent %>">
+    <div class="content pure-u-1">
+        <h1 class="name"><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1>
+        <div class="bar percent percent_<%- r.votes.percent %> <%- r.color %>bar_<%- r.votes.percent %>"><div class="tip"><%- r.votes.percent_display %> use it</div></div>
 		
-			<div class="pure-menu pure-menu-open">
-				<span class="pure-menu-heading">Do you use this in your APIs?</span>
+		<% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
+		<div class="voting_controls vote_<%= v %>">
+			<a href="?vote=up" class="pure-button vote vote_up" title="I use <%- r.name %> in my APIs" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_yes"><i class="fa fa-check fa-lg"></i> I use it!</a>
 			
-				<ul>
-					<li class="vote_yes pure-g">
-						<div class="pure-u-7-8">
-						<a href="?vote=up" class=" vote_up"><i class="fa fa-check"></i> Yes I do!</a> </div>
-						<div class="pure-u-1-8"><a href="?vote=remove" class="vote_remove"><i class="fa fa-ban"></i></a></div>
-					</li>	
-					<div class="clarify_group">
-						<li class="pure-menu-separator"></li>
-						<li class="clarify"><a href="?vote=request" class="clarify_request"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Requests &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a></li>
-						<li class="clarify"><a href="?vote=response" class="clarify_response"><i class="fa fa-check-square"></i><i class="fa fa-check-square-o"></i> In Responses &nbsp;<i class="fa fa-arrow-left"></i></a></li>
-						<li class="pure-menu-separator"></li>
-					</div>
-					<li class="vote_no pure-g">
-						<div class="pure-u-7-8">
-						<a href="?vote=down" class="vote_down"><i class="fa fa-times"></i> Nope</a> </div>
-						<div class="pure-u-1-8"><a href="?vote=remove" class="vote_remove"><i class="fa fa-ban"></i></a></div>
-					</li>
+			<a href="?vote=down" class="pure-button vote vote_down" title="Not using <%- r.name %>" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
+			<ul class="vote_meta">
+				<li><span class="votes"><%- r.votes.total %></span> people use it</li>
+				<li><a href="#voting_help" class="voting_help call-modal">Huh?</a></li>
+				<li><a href="?vote=remove" title="I plead the 5th" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_remove" class="vote_remove vote">Remove Vote</a></li>
+			</ul>
+			
+		</div>
 				
-		</div>   
-				
-				
-        		
-    </div>
-    <a href="#voting_help" class="voting_help call-modal pure-u-1">Huh?</a>	   
+        </div>
+
+    	   
     
     <% if(r.type != "code"){%>
     <div class="pure-u-1-2 description">

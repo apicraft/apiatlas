@@ -183,7 +183,8 @@ passport.deserializeUser(function(id, done) {
       passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
         req.session['auth'] = true;
-        res.redirect(req.session.last);
+		if(typeof(req.session.last) == "undefined"){ res.redirect('/'); }
+        else{ res.redirect(req.session.last); }
     });
 
     app.get('/logout', function(req, res){
@@ -209,7 +210,7 @@ passport.deserializeUser(function(id, done) {
 				var getUserVotes = new Firebase(fbURL + '/users/' + getUser(req).id + '/votes/resources');
 				getUserVotes.once('value', function(snap){
 					user_votes = snap.val();
-					res.render(__dirname + '/views/vis.ejs', {
+					res.render(__dirname + '/views/index.ejs', {
 						"resources": resources,
 						"page": "home", 
 						"user": getUser(req),
@@ -220,7 +221,7 @@ passport.deserializeUser(function(id, done) {
 				});
 
 		}else {
-			res.render(__dirname + '/views/vis.ejs', {
+			res.render(__dirname + '/views/index.ejs', {
                 "resources": resources,
                 "page": "home", 
                 "user": getUser(req),
@@ -232,79 +233,55 @@ passport.deserializeUser(function(id, done) {
 		}
         
 	});
-	app.get('/reindex', function(req, res){
-		
-		for(v in resources){ //the top level resource groups
-			console.log("reindexing...");
-			var group = resources[v].id;
-			var collection = new Firebase(fbURL + "/votes/resources/" + group);
-			collection.once('value', function(snapshot){
-				var components = snapshot.val();
-				for(component in components){ //an individual resource that's been voted on
-					var uid = this.parentGroup + component;
-					for(user in components[component]){ //each user of that resource
-						var update = {};
-						update[uid] =  components[component][user];
-						var indexedVote = new Firebase(fbURL + "/users/" + user + "/votes/raw/");
-													   
-						indexedVote.update(update);
-					}
+
+    app.get('/:type/:title/edit', isLoggedIn, function(req, res){
+				if(isAdmin(getUser(req))){
+					var user = null;
+					var full_user = getUser(req);
+					if(full_user !== null){ user = full_user.id; }
+					var d = {
+						"type": req.params.type,
+						"title": req.params.title
+					};
+					
+					d = extend(d, {
+						uid:  d.type + d.title,
+						name: "resources/" + d.type + "/" + d.title,
+						lookup: d.type + "/" + d.title
+					});
+					
+					d.index = resource_cache.lookup[d.lookup];		
+					console.log("GET ", d.name);
+					
+					var resource = new Firebase(fbURL + '/' + d.name);
+			
+					resource.once('value', function(snap_r){
+						var data = snap_r.val();
+						console.log(data);
+						res.render(__dirname + '/views/edit.ejs',{
+							"page": 'edit',
+							"user": user,
+							"name": d.name,
+							"type": d.type,
+							"title": d.title,
+							"r": data
+						});
+					});
+					
+					
 				}
-			},function(){}, {'parentGroup': group});
-		}
-		res.render(__dirname + '/views/reindex.ejs',{
-			'page': 'reindex',
-			'name': 'Action Complete'
-		});
+				else {
+					res.redirect('/' + req.params.type + '/' + req.params.title);
+				}
 	});
+
 	
-	app.get('/dbscrub', function(req, res){
-		var scrub = {
-			resources: {
-				s : new Firebase(fbURL + "/resources")
-				},
-			users : new Firebase(fbURL + "/users"),
-			votes : new Firebase(fbURL + "/votes"),
-			update: {}
-		};
 
-		var votes =  
-		   { down: 0,
-			 raw: {},
-			 request_only: 0,
-			 response_only: 0,
-			 total: 0,
-			 up: 0 
-		   } 
-		
-		//iterate through resources and remove totals and votes
-		scrub.resources.s.once('value', function(snapshot){
-			scrub.resources.update = snapshot.val();
-			for(i in snapshot.val()){
-				for(r in snapshot.val()[i]){
-					scrub.resources.update[i][r].url = new Firebase(fbURL + "/resources/" + i + "/" + r);
-					scrub.resources.update[i][r].url.child('votes').set(votes);
-				}
-			}
-		});
-		
-		scrub.users.set({});
-		scrub.votes.set({});
-		
-		res.render(__dirname + '/views/database_reset.ejs',{
-			'page': 'database_reset',
-			'name': 'Action Complete'
-		});
-	});
-
-    app.get('/:type/:title', function(req, res){
+	app.get('/:type/:title', function(req, res){
 		
         var user = null;
         var full_user = getUser(req);
-        if(full_user !== null){
-            user = full_user.id;
-        }
-        
+        if(full_user !== null){ user = full_user.id; }
         var d = {
             "type": req.params.type,
             "title": req.params.title
@@ -318,7 +295,7 @@ passport.deserializeUser(function(id, done) {
 		
 		d.index = resource_cache.lookup[d.lookup];		
         console.log("GET ", d.name);
-
+		
         var resource = new Firebase(fbURL + '/' + d.name);
 
         resource.once('value', function(snap_r){
@@ -608,6 +585,27 @@ var port = process.env.PORT || 3000;
 app.listen(port);
 
 console.log('Listening on port %d', port);
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+	// if user is authenticated in the session, carry on 
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the base url of whatever whas trying to be edited
+	res.redirect('/' + req.params.type + '/' + req.params.title);
+}
+
+function isAdmin(user){
+	var admins = config['ADMINS'];
+	if(admins.indexOf(user.id)>-1){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 function getUser(req){
     var user = null;

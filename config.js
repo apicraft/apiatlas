@@ -8,6 +8,7 @@ function Config() {
   
   this.SESSION_SECRET = process.env.SESSION_SECRET;
   this.REDIRECT=process.env.REDIRECT
+  this.ADMINS=JSON.parse(process.env.ADMINS);
 
 }
 

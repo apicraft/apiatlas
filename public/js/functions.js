@@ -12,35 +12,6 @@ $(function(){
             var title = {};
 			//a bunch of future listeners
 			
-            
-			$("#resources").on('click', '.mobile_voting  .vote', function(e){
-				e.preventDefault();
-				if($('body').data('auth')){
-					var $context = { 
-						'link': 	$(this).attr('href'),
-						'id':	 	$(this).data('parent_resource'),
-						'method':   $(this).data('vtype')
-					}					
-				 	
-					$.get($context.link, function(){
-                    	console.log('voted on: ', $context.id);
-						$('.' + $context.id + ' .mobile_voting').removeClass('vote_yes');
-						$('.' + $context.id + ' .mobile_voting').removeClass('vote_no');
-						if($context.method !== 'vote_remove'){
-							$('.' + $context.id + ' .mobile_voting').addClass($context.method);
-						}
-						//update the UI!
-					});
-					
-					
-						
-				}else {
-					console.log('modal');
-				 	window.location.href="#login-confirm";
-				}	
-				
-			});
-			
 			
 			$("#resources").on('click', '.resource:not(.title) .name', function(e){
 				//console.log($(this));
@@ -120,12 +91,12 @@ $(function(){
                                     if(this.target.length != 0){
                                         //update!
                                         console.log("update!");
-                                        var remove_class = this.target.data('color') + "bar_" + this.target.data('percent');
-                                        var add_class = this.target.data('color') + "bar_" + this.self.percent;
+                                        var remove_class = this.target.data('color') + "bar_" + this.target.data('percent') + " percent_" + this.target.data('percent');
+                                        var add_class = this.target.data('color') + "bar_" + this.self.percent + " percent_" + this.self.percent;
                                         this.target.data('percent', this.self.percent);
                                         
                                         this.target.find(".votes").html(this.current.votes.total);
-                                        this.target.find(".percent").html(this.self.percent + "% use it");
+                                        this.target.find(".percent .tip").html(this.self.percent + "% use it");
                                         this.target.find(".bar").removeClass(remove_class).addClass(add_class);
                                         
                                         
@@ -214,13 +185,13 @@ $(function(){
         'resource': function(){
             var resource = new Firebase(updateURL);
             resource.on('value', function(snapshot){
-                
+                console.log($('.resource_show').data('color'));
                 var percent = 0;
 				var req_percent = 0;
 				var res_percent = 0;
                 if(snapshot.val().votes.total > 0){ 
 					percent = Math.round((snapshot.val().votes.up/snapshot.val().votes.total) * 100); 
-					if($(".resource").hasClass('resource_header')){ 
+					if($(".resource_show").hasClass('resource_header')){ 
 						if(snapshot.val().votes.request > 0){
 							req_percent = Math.round((snapshot.val().votes.request/snapshot.val().votes.total) * 100);
 						}
@@ -230,22 +201,22 @@ $(function(){
 					}
 				}
                 var percent_display = percent + "%";
-                var barclass = $('.votes').data('color') + "bar_" + percent;
+                var barclass = $('.resource_show').data('color') + "bar_" + percent + " percent_" + percent;
 				
-                $('.votes  div.total_bar').html(percent_display + " use this");
-				$('.vote_count').html(snapshot.val().votes.total + " people voted.");
-                $('.votes div.total_bar').removeClass().addClass("total_bar"); 
-				$('.votes div.total_bar').addClass(barclass); 
+                $('.content  .bar .tip').html(percent_display + " use this");
+				$('.vote_meta .votes').html(snapshot.val().votes.total);
+                $('.content .bar').removeClass().addClass("bar percent " + barclass); 
+
 				//update req/res here
-				if($(".resource").hasClass('resource_header')){
-					var request_class = $('.votes').data('color') + "bar_" + req_percent;
-					var response_class = $('.votes').data('color') + "bar_" + res_percent;
+				if($(".resource_show").hasClass('resource_header')){
+					var request_class = $('.resource_show').data('color') + "bar_" + req_percent;
+					var response_class = $('.resource_show').data('color') + "bar_" + res_percent;
 					
-					$('.votes div.request_bar').removeClass().addClass('request_bar');
-					$('.votes div.response_bar').removeClass().addClass('response_bar');
+					$('.content div.request_bar').removeClass().addClass('request_bar ' + request_class);
+					$('.content div.response_bar').removeClass().addClass('response_bar ' + response_class);
 					
-					$('.votes div.request_bar').html(req_percent + "% Only use in request").addClass(request_class);
-					$('.votes div.response_bar').html(res_percent + "% Only use in response").addClass(response_class);
+					$('.content div.request_bar').html(req_percent + "% Only use in request");
+					$('.content div.response_bar').html(res_percent + "% Only use in response");
 					
 				}
 				
@@ -278,12 +249,12 @@ $(function(){
 							//both true, so toggle res off
 							$(".controls").addClass("vote_request");
 						}else if( $(".controls").hasClass("vote_request") ){
-							$(".controls").removeClass("vote_request");
+							$(".controls").removeClass("vote_true vote_yes vote_no vote_false vote_null vote_request vote_response")
 							$(".controls").addClass("vote_true");
 						}
 					} 
 					else {
-						$(".controls").removeClass("vote_true vote_false vote_null vote_request vote_response")
+						$(".controls").removeClass("vote_true vote_yes vote_no vote_false vote_null vote_request vote_response")
 						if($(this).hasClass("vote_up")){           $(".controls").addClass("vote_true");	}
 						else if($(this).hasClass("vote_down")){    $(".controls").addClass("vote_false");	}
 						else if($(this).hasClass("vote_remove")){  $(".controls").addClass("vote_null");	}
@@ -299,13 +270,39 @@ $(function(){
         },
         '*': function(){
             //run before ANY page
+			$("body").on('click', '.voting_controls  .vote', function(e){
+				e.preventDefault();
+				if($('body').data('auth')){
+					var $context = { 
+						'link': 	$(this).attr('href'),
+						'id':	 	$(this).data('parent_resource'),
+						'method':   $(this).data('vtype')
+					}					
+				 	
+					$.get($context.link, function(){
+                    	console.log('voted on: ', $context.id);
+						$('.' + $context.id + ' .voting_controls').removeClass('vote_yes vote_true');
+						$('.' + $context.id + ' .voting_controls').removeClass('vote_no vote_false');
+						if($context.method !== 'vote_remove'){
+							$('.' + $context.id + ' .voting_controls').addClass($context.method);
+						}
+						//update the UI!
+					});
+					
+					
+						
+				}else {
+					console.log('modal');
+				 	window.location.href="#login-confirm";
+				}	
+				
+			});
+
         }
     
     }
 	preloads['*'](); //helper function for the every-page
     
-   
-
     $.each(alts, function(i, val){
         if($('body').hasClass(val)){ preloads[val](); }
     });

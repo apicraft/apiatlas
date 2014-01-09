@@ -1,16 +1,9 @@
 <div class="resource resource_<%- name %> <%- type %> pure-u-1-3" data-link="<%- rel %>" id="<%- id + name.toLowerCase() %>" data-color="<%- color %>" data-percent="<%- percent %>">
     <div class="content">
-		<!-- 
-		<div class="mobile_voting">
-			<div class="vote_up vote" data-parent_resource="resource_<%- name %>" data-vtype="vote_yes"><a href="<%- rel %>?vote=up"><i class="fa fa-check"></i></a></div>
-			<div class="vote_remove vote"  data-parent_resource="resource_<%- name %>" data-vtype="vote_remove"><a href="<%- rel %>?vote=remove"><i class="fa fa-ban"></i></a></div>
-			<div class="vote_down vote"  data-parent_resource="resource_<%- name %>" data-vtype="vote_no"><a href="<%- rel %>?vote=down"><i class="fa fa-times"></i></a></div>
-			
-		</div>
-		-->
+		<% var tipclass = "left"; if(percent >50){tipclass="right";} %>
         <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> <span class="code_name"><%= desc %></span><%} %></a></h3>
-        <div class="bar percent <%- color %>bar_<%- percent %>" data-size="<%- percent %>"><div class="tip right"><%- percent_display %> use it</div></div> 
-		<div class="mobile_voting <%= vote_class %>">
+        <div class="bar percent percent_<%- percent %> <%- color %>bar_<%- percent %>"><div class="tip <%= tipclass %>"><%- percent_display %> use it</div></div> 
+		<div class="voting_controls <%= vote_class %>">
 			<a href="<%- rel %>?vote=up" class="pure-button vote vote_up" title="I use <%- name %> in my APIs" data-parent_resource="resource_<%- name %>" data-vtype="vote_yes"><i class="fa fa-check fa-lg"></i> I use it!</a>
 			<a href="<%- rel %>?vote=down" class="pure-button vote vote_down" title="Not using <%- name %>" data-parent_resource="resource_<%- name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
 			<div class="vote_count"><span class="votes"><%- votes %></span> Responses</div>
@@ -19,4 +12,3 @@
 				
         </div>
     </div>
-</div>

@@ -1,0 +1,24 @@
+<% include header %>
+
+<div id="content">
+ 	<form class="pure-form pure-form-stacked">
+		<fieldset class="pure-g-r">
+			<legend class="pure-u-1">Editing: <%= r.name %></legend>
+	
+			<label for="name" class="pure-u-1">Name (or just the code number)</label>
+			<input id="name" name="name" class="pure-u-1-2" type="text" value="<%= r.name %>">
+	
+			<label for="description" class="pure-u-1">Description (used as part of the name for codes)</label>
+			<textarea id="description" name="description" class="pure-u-1-2"><%= r.description %></textarea>
+			
+			<label for="example" class="pure-u-1">Example or extra info</label>
+			<textarea id="example" name="example" class="pure-u-1-2"><%= r.example %></textarea>
+			
+			<div class="pure-u-1 form_controls">
+			<button type="submit" class="pure-button pure-button-primary">Update <%= r.name %></button><a href="/<%= name %>">Cancel</a> <a href="/<%= name %>">Create New Resource</a>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<% include footer %>
