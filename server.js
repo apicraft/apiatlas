@@ -67,6 +67,7 @@ var resource_cache = {
 				for(i in tmp_cache.content){
 					context.lookup[tmp_cache.content[i].url] = i;
 				}
+				tmp_cache = null;
 				//console.log(context.lookup);
 				console.log('cache rebuilt');
 			}
@@ -206,6 +207,7 @@ passport.deserializeUser(function(id, done) {
 			user_votes[n] = {}
 		}
 
+		
 		if(getUser(req) !== null){
 				var getUserVotes = new Firebase(fbURL + '/users/' + getUser(req).id + '/votes/resources');
 				getUserVotes.once('value', function(snap){
@@ -301,6 +303,15 @@ passport.deserializeUser(function(id, done) {
         resource.once('value', function(snap_r){
             //if logged in, we'd look for the user ID in the users up & down objects and raise "you voted" flag
             var data = snap_r.val();
+			console.log("data: ", data);
+			if(typeof(data.votes) == "undefined"){
+				
+				data.votes = { 
+					down: 0,
+     				total: 0,
+     				up: 0 
+				} 
+			}
             if(data === null){
                 res.statusCode = 404;
                 return res.render('404', {
