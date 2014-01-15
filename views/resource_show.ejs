@@ -14,7 +14,7 @@
 			<a href="?vote=down" class="pure-button vote vote_down" title="Not using <%- r.name %>" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
 			<ul class="vote_meta">
 				<li><span class="votes"><%- r.votes.total %></span> Responses</li>
-				<li><a href="#voting_help" class="voting_help call-modal">Huh?</a></li>
+				<li><a href="#voting_help" class="voting_help call-modal">Help</a></li>
 				<li><a href="?vote=remove" title="I plead the 5th" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_remove" class="vote_remove vote">Remove Vote</a></li>
 			</ul>
 			
@@ -25,13 +25,13 @@
     	   
     
     <% if(r.type != "code"){%>
-    <div class="pure-u-1-2 description">
+    <div class="pure-u-1 description">
         <h3>Description</h3>
         <p><%= r.description %></p>
     </div>
 	<% } %>
 	<% if(r.type == "code" || r.type == "header"){%>
-    <div class="pure-u-1-2 example">
+    <div class="pure-u-1 example">
         <h3><% if(r.type == "code"){%>Description<%}else{%>Example<%}%></h3>
         <p><%= r.example %></p>
     </div>
@@ -65,13 +65,13 @@
 
 			<div class="modal-inner">
 				<header>
-					<h2 id="modal-huh">Voting</h2>
+					<h2 id="modal-huh">Survey Help</h2>
 				</header>
 
 				<div class="modal-content pure-g-r">
 					<h2 class="pure-u-1">What does it mean to 'use' part of a spec?</h2>	
-					<p class="pure-u-1">API Atlas is about surveying the community to see what is and isn't popular among api developers. "Do you use this?" asks if you adopt this component into your own designs when building APIs.</p>
-					<p class="pure-u-1">If you have more to say than simply yes, no (or pleading the 5th), say it in the comments near the bottom of the page.</p>							
+					<p class="pure-u-1">API Atlas is interested in the design aspects of APIs. "Do you use this?" asks if you adopt this component in your own API designs.</p>
+					<p class="pure-u-1">Please share thoughts beyond a simple yes or no in the comments section of each HTTP component.</p>							
 				</div>
 
 				<footer>

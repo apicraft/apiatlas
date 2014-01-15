@@ -36,14 +36,16 @@
     
     
     <% if(page != 'home'){ %> 
-	<div id="header" class="pure-g">
 	
+	<div id="header">
+	<div class="content pure-g">
 	<div class="pure-u-2-3">
         <a href="/" class="pure-menu-heading"><img src="/images/logo_mobile.png" alt="API Atlas"/></a>
     </div>
 	<div class="pure-u-1-3">
 		<a href="#mobile_menu" class="call-modal pure-button pure-button-menu"><i class="fa fa-bars fa-lg"></i></a>
 	</div>
+		</div>
 	</div>
 	<% } else { %>
 	<div id="atlas-intro" class="pure-g">
@@ -53,13 +55,13 @@
 		</div>
 		
 		<div class="atlas-intro pure-u-1 pure-hidden-phone">
-		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Explore Below<% }else{%>Be Heard!<%}%></h1></a>
-		<h2>Tells us what parts of HTTP you use in your APIs, or just explore this site to learn about the components of HTTP.</h2>
+		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Share & Explore<% }else{%>Take Survey<%}%></h1></a>
+		<h2>Share how you use HTTP for API design. Explore results from other designers.</h2>
 	
     </div>
 	<div class="atlas-intro pure-u-1 pure-hidden-desktop pure-hidden-tablet">
-		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Explore Below<% }else{%>Be Heard!<%}%></h1></a>
-		<h2>Tells us what parts of HTTP you use in your APIs, or just explore this site to learn about the components of HTTP.</h2>
+		<a href="#<% if(authorized){  %>title_Verbs<% }else{%>login-confirm<%}%>" class="call-modal pure-button pure-button-primary"><h1><%  if(authorized){  %>Share & Explore<% }else{%>Take Survey<%}%></h1></a>
+		<h2>Share how you use HTTP for API design. Explore results from other designers.</h2>
 	
     </div>
 	</div>
