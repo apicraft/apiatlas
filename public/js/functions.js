@@ -203,7 +203,7 @@ $(function(){
                 var percent_display = percent + "%";
                 var barclass = $('.resource_show').data('color') + "bar_" + percent + " percent_" + percent;
 				
-                $('.content  .bar .tip').html(percent_display + " use this");
+                $('.content  .bar .tip').html(percent_display + " use it");
 				$('.vote_meta .votes').html(snapshot.val().votes.total);
                 $('.content .bar').removeClass().addClass("bar percent " + barclass); 
 
