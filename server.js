@@ -15,6 +15,7 @@ var express = require('express')
     , passport = require('passport')
     , GitHubStrategy = require('passport-github').Strategy
     , extend = require('node.extend')
+	, flash = require('connect-flash')
     , app = express()
     , Firebase = require('firebase')
     , config = require('./config'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
@@ -145,6 +146,7 @@ passport.deserializeUser(function(id, done) {
     //Configure sessions and passport
     app.use(express.cookieParser(config['SESSION_SECRET'])); //make it a good one
     app.use(express.session({secret: config['SESSION_SECRET']}));
+  	app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
     
@@ -170,7 +172,10 @@ passport.deserializeUser(function(id, done) {
         else{ req.session.last = req.query.last }
         
           passport.authenticate('github', function(err, user, info) {
-            if (err) { return next(err); }
+            if (err) { 
+				console.log("error: ", err);
+				return next(err); 
+			}
             if (!user) { return res.redirect(req.session.last); }
             req.logIn(user, function(err) {
               if (err) { return next(err); }
@@ -181,7 +186,7 @@ passport.deserializeUser(function(id, done) {
 
 
     app.get('/auth/github/callback', 
-      passport.authenticate('github', { failureRedirect: '/login' }),
+      passport.authenticate('github', { failureRedirect: '/login', failureFlash: true }),
       function(req, res) {
         req.session['auth'] = true;
 		if(typeof(req.session.last) == "undefined"){ res.redirect('/'); }
@@ -277,7 +282,11 @@ passport.deserializeUser(function(id, done) {
 				}
 	});
 
-	
+	app.get('/flash', function(req, res){
+	  // Set a flash message by passing the key, followed by the value, to req.flash().
+	  req.flash('info', 'Flash is back!');
+	  res.redirect('/');
+	});
 
 	app.get('/:type/:title', function(req, res){
 		
@@ -294,7 +303,8 @@ passport.deserializeUser(function(id, done) {
 			name: "resources/" + d.type + "/" + d.title,
 			lookup: d.type + "/" + d.title
 		});
-		
+		console.log(d.uid);
+		//if(d.uid != 
 		d.index = resource_cache.lookup[d.lookup];		
         console.log("GET ", d.name);
 		
