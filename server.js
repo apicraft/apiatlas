@@ -181,7 +181,7 @@ passport.deserializeUser(function(id, done) {
 
 
     app.get('/auth/github/callback', 
-      passport.authenticate('github', { failureRedirect: '/login', scope: user }),
+      passport.authenticate('github', { failureRedirect: '/login' }),
       function(req, res) {
         req.session['auth'] = true;
 		if(typeof(req.session.last) == "undefined"){ res.redirect('/'); }
