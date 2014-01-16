@@ -364,9 +364,7 @@ body.resource {
 			
 			margin: 0 0 .5em 0;
 			.vote_meta {
-				text-align: right;
-				margin-top: -1.5em;
-				@media @mobile { margin-top: -.5em; }
+				
 			}
 		}
 		&.resource_header .controls.vote_true .clarify_group  {display: block;} 
@@ -444,15 +442,27 @@ body.resource {
 	}
 }
 #footer {
-    margin-top: 1em;
+    margin-top: 5em;
     padding-top: 1em;
     padding: 2em 2em 10em 2em;
-    
-	background-color: rgba(0,0,0,.5);
-	.pure-menu, p {
-		max-width: 1024px;
-		margin: .5em auto;
+    text-align: left;
+	p {
+		padding-top: 1em;
+		a {
+			color: #fff;
+			text-decoration: underline;
+		}
 	}
+	.apicraft_logo {
+		text-align: right;
+		padding-top: 0;
+		img {
+			margin-right: 1em;
+			}
+	}
+	color: #fff;
+	background-color: rgba(0,0,0,.5);
+	
 }
 
 //yes, this pre-renders a ton of css rules (300 progress bar backrounds * versions for prowser compatiability). 

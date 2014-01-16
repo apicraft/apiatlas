@@ -52,14 +52,15 @@ body{background:url('../images/accent_bg.png')}body a{color:#286595;text-decorat
 body.resource .resource_show{padding:0 2em;}body.resource .resource_show.color_blue{color:#286595}
 body.resource .resource_show.color_green{color:#5c7048}
 body.resource .resource_show.color_yellow{color:#7e5220}
-@media only screen and (max-width: 768px){body.resource .resource_show{padding:0 1em}}body.resource .resource_show .content{margin:0 0 .5em 0}body.resource .resource_show .content .vote_meta{text-align:right;margin-top:-1.5em}@media only screen and (max-width: 768px){body.resource .resource_show .content .vote_meta{margin-top:-0.5em}}
+@media only screen and (max-width: 768px){body.resource .resource_show{padding:0 1em}}body.resource .resource_show .content{margin:0 0 .5em 0}
 body.resource .resource_show.resource_header .controls.vote_true .clarify_group{display:block}
 body.resource .resource_show .scrub{margin-top:1em;display:inline-block}@media only screen and (max-width: 768px){body.resource .resource_show .scrub{text-align:center	width: 100%;margin-left:-3em}}body.resource .resource_show .scrub a{margin-left:1em;margin-bottom:1em}@media only screen and (max-width: 768px){body.resource .resource_show .scrub a{margin:1em 0;padding:0 1em}}
 body.resource .resource_show #comments{margin:2em 1em 0 0}
 body.resource .resource_show .description,body.resource .resource_show .example{margin-top:1em}body.resource .resource_show .description h3,body.resource .resource_show .example h3{margin:0 1em 0 0}
 body.resource .resource_show .description p,body.resource .resource_show .example p{padding:1em;border:1px solid #ccc;background-color:#eee;margin:.25em 0em 0 0}
 .resource_show,#content,#header .content{max-width:1024px;margin-left:auto;margin-right:auto;padding:0 2em}@media only screen and (max-width: 768px){.resource_show,#content,#header .content{padding:0 1em}}
-#footer{margin-top:1em;padding-top:1em;padding:2em 2em 10em 2em;background-color:rgba(0,0,0,0.5)}#footer .pure-menu,#footer p{max-width:1024px;margin:.5em auto}
+#footer{margin-top:5em;padding-top:1em;padding:2em 2em 10em 2em;text-align:left;color:#fff;background-color:rgba(0,0,0,0.5)}#footer p{padding-top:1em}#footer p a{color:#fff;text-decoration:underline}
+#footer .apicraft_logo{text-align:right;padding-top:0}#footer .apicraft_logo img{margin-right:1em}
 .greenbar_100{background:-moz-linear-gradient(left, #c1dfa6 100%, #f0f7ea 100%);background:-webkit-gradient(linear, left top, right top, color-stop(100%, #c1dfa6), color-stop(100%, #f0f7ea));background:-ms-linear-gradient(left, #c1dfa6 100%, #f0f7ea 100%);background:linear-gradient(90deg, #c1dfa6 100%, #f0f7ea 100%);}
 .yellowbar_100{background:-moz-linear-gradient(left, #f1e190 100%, #fbf6e4 100%);background:-webkit-gradient(linear, left top, right top, color-stop(100%, #f1e190), color-stop(100%, #fbf6e4));background:-ms-linear-gradient(left, #f1e190 100%, #fbf6e4 100%);background:linear-gradient(90deg, #f1e190 100%, #fbf6e4 100%);}
 .bluebar_100{background:-moz-linear-gradient(left, #abcde9 100%, #dee9f7 100%);background:-webkit-gradient(linear, left top, right top, color-stop(100%, #abcde9), color-stop(100%, #dee9f7));background:-ms-linear-gradient(left, #abcde9 100%, #dee9f7 100%);background:linear-gradient(90deg, #abcde9 100%, #dee9f7 100%);}

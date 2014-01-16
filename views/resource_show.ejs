@@ -15,13 +15,12 @@
 			<a href="?vote=up" class="pure-button vote vote_up" title="I use <%- r.name %> in my APIs" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_yes"><i class="fa fa-check fa-lg"></i> I use it!</a>
 			
 			<a href="?vote=down" class="pure-button vote vote_down" title="Not using <%- r.name %>" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
-			
 			<div class="scrub">
 				<% if(r.prev != undefined){%> 
-				<a href="/<%= r.prev.url %>" class="scrub_prev "><i class="fa fa-angle-double-left fa-lg"></i> &nbsp;&nbsp;previous</a>
+				<a href="/<%= r.prev.url %>" class="scrub_prev" title="<%= r.prev.url %>"><i class="fa fa-angle-double-left fa-lg"></i> &nbsp;&nbsp;previous</a>
 				<%}%>
 				<% if(r.next != undefined){%> 
-				<a href="/<%= r.next.url %>" class="scrub_next ">next &nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i></a>
+				<a href="/<%= r.next.url %>" class="scrub_next" title="<%= r.next.url %>">next &nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i></a>
 				<%}%>
 						
 			</div>
