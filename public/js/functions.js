@@ -18,6 +18,12 @@ $(function(){
 				window.location.href = $(this).find('a').attr('href');
 				
             });
+			
+			$("#resources").on('click', '.resource:not(.title) a.votes', function(e){
+				//console.log($(this));
+				e.preventDefault();
+				
+            });
 	
 			$.get("./templates/vis_resource.ejs", function(t){
                 $.get("./templates/vis_title.ejs", function(t2){

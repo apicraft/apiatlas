@@ -2,11 +2,15 @@
     <div class="content">
 		<% var tipclass = "left"; if(percent >50){tipclass="right";} %>
         <h3 class="name"><a href="<%- rel %>"><%- name %><% if(color == "yellow"){%> <span class="code_name"><%= desc %></span><%} %></a></h3>
-        <div class="bar percent percent_<%- percent %> <%- color %>bar_<%- percent %>"><div class="tip <%= tipclass %>"><%- percent_display %> use it</div></div> 
+		<span class="votes"><%- votes %> Responses</span>
+
+        <div class="bar percent percent_<%- percent %> <%- color %>bar_<%- percent %>">
+			<div class="tip <%= tipclass %>"><%- percent_display %> use it</div>
+		</div> 
 		<div class="voting_controls <%= vote_class %>">
 			<a href="<%- rel %>?vote=up" class="pure-button vote vote_up" title="I use <%- name %> in my APIs" data-parent_resource="resource_<%- name %>" data-vtype="vote_yes"><i class="fa fa-check fa-lg"></i> I use it!</a>
 			<a href="<%- rel %>?vote=down" class="pure-button vote vote_down" title="Not using <%- name %>" data-parent_resource="resource_<%- name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
-			<div class="vote_count"><span class="votes"><%- votes %></span> Responses</div>
+			
 
 		</div>
 				

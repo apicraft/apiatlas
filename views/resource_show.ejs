@@ -5,6 +5,9 @@
 <div class="resource_show resource_<%- r.name %> <%- r.type %> pure-g-r" id="<%- r.type + name.toLowerCase() %>" data-color="<%- r.color %>" data-percent="<%- r.votes.percent %>">
     <div class="content pure-u-1">
         <h1 class="name"><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1>
+		<div class="vote_meta">
+			<span class="votes"><%- r.votes.total %></span> Responses	
+		</div>
         <div class="bar percent percent_<%- r.votes.percent %> <%- r.color %>bar_<%- r.votes.percent %>"><div class="tip"><%- r.votes.percent_display %> use it</div></div>
 		
 		<% v = (r.your_vote == undefined ? "null" : r.your_vote); %>
@@ -12,12 +15,16 @@
 			<a href="?vote=up" class="pure-button vote vote_up" title="I use <%- r.name %> in my APIs" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_yes"><i class="fa fa-check fa-lg"></i> I use it!</a>
 			
 			<a href="?vote=down" class="pure-button vote vote_down" title="Not using <%- r.name %>" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_no"><i class="fa fa-times fa-lg"></i> I don't.</a>&nbsp;
-			<ul class="vote_meta">
-				<li><span class="votes"><%- r.votes.total %></span> Responses</li>
-				<li><a href="#voting_help" class="voting_help call-modal">Help</a></li>
-				<li><a href="?vote=remove" title="I plead the 5th" data-parent_resource="resource_<%- r.name %>" data-vtype="vote_remove" class="vote_remove vote">Remove Vote</a></li>
-			</ul>
 			
+			<div class="scrub">
+				<% if(r.prev != undefined){%> 
+				<a href="/<%= r.prev.url %>" class="scrub_prev "><i class="fa fa-angle-double-left fa-lg"></i> &nbsp;&nbsp;previous</a>
+				<%}%>
+				<% if(r.next != undefined){%> 
+				<a href="/<%= r.next.url %>" class="scrub_next ">next &nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i></a>
+				<%}%>
+						
+			</div>
 		</div>
 				
         </div>
@@ -36,16 +43,7 @@
         <p><%= r.example %></p>
     </div>
     <% } %>
-	<div class="scrub pure-u-1">
-		<h3>Explore</h3>
-		<% if(r.prev != undefined){%> 
-		<a href="/<%= r.prev.url %>" class="scrub_prev "><i class="fa fa-angle-double-left fa-lg"></i> &nbsp;&nbsp;<%= r.prev.resource %></a>
-		<%}%>
-		<% if(r.next != undefined){%> 
-		<a href="/<%= r.next.url %>" class="scrub_next "><%= r.next.resource %> &nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i></a>
-		<%}%>
-				
-	</div>
+	<div class="pure-u-1"><br/><a href="#voting_help" class="voting_help call-modal">Help</a></div>
     
     <div class="pure-u-1" id="comments">
     
