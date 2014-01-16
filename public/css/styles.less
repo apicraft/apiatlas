@@ -147,7 +147,6 @@ body.resource .voting_controls .vote {font-size: 1.2em; }
 			}
 			a {
 				color: @blue-text;
-				&:hover {text-decoration: none;}
 			}
 		}
 		@media @mobile {
@@ -359,6 +358,11 @@ body.resource .voting_controls .vote {font-size: 1.2em; }
 }
 body {
 	background: url('../images/accent_bg.png');
+	a {
+		color: @blue-text;
+		text-decoration: none;
+		&:hover {text-decoration: underline;}
+	}
 }
 body.resource {
     .resource_show {
@@ -376,9 +380,25 @@ body.resource {
 		&.resource_header .controls.vote_true .clarify_group  {display: block;} 
 		.scrub {
 			margin-top: 1em;
+			@media @mobile {
+				text-align: center
+			}
+			h3 {text-align: left;}
 			a {
 				margin-right: 1em;
 				margin-bottom: 1em;
+				@media @mobile {
+					width: 85%;
+					margin: 1em auto;
+					text-align: left;
+					padding: 0 1em;
+				}
+				&.pure-button {border-radius: .5em;}
+			}
+			.scrub_next  {
+				@media @mobile {float: none;}
+				float: right;
+				text-align: right;
 			}
 		}
         #comments {
@@ -400,6 +420,10 @@ body.resource {
 	max-width: 1024px;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 0 2em;
+	@media @mobile {
+		padding: 0 1em;
+	}
 }
 #footer {
     margin-top: 1em;

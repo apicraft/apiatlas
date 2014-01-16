@@ -39,10 +39,10 @@
 	<div class="scrub pure-u-1">
 		<h3>Explore</h3>
 		<% if(r.prev != undefined){%> 
-		<a href="/<%= r.prev.url %>" class="scrub_prev pure-button"><i class="fa fa-arrow-left"></i> &nbsp;&nbsp;<%= r.prev.resource %></a>
+		<a href="/<%= r.prev.url %>" class="scrub_prev "><i class="fa fa-angle-double-left fa-lg"></i> &nbsp;&nbsp;<%= r.prev.resource %></a>
 		<%}%>
 		<% if(r.next != undefined){%> 
-		<a href="/<%= r.next.url %>" class="scrub_next pure-button "><%= r.next.resource %> &nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+		<a href="/<%= r.next.url %>" class="scrub_next "><%= r.next.resource %> &nbsp;&nbsp;<i class="fa fa-angle-double-right fa-lg"></i></a>
 		<%}%>
 				
 	</div>
