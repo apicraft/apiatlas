@@ -93,10 +93,22 @@ var gitHubStrategy = new GitHubStrategy({
 
 function oauthCallBack(accessToken, refreshToken, profile, done){
  //save provider, id, display
+
+	
+	var avatar_base = "http://www.gravatar.com/avatar/" + profile._json.gravatar_id;
+
     var p = {
         "provider": profile.provider,
         "id": profile.id,
         "displayName": profile.displayName,
+		"gravatar_id": profile._json.gravatar_id,
+		"handle": profile.username,
+		"avatars": {
+			"small": avatar_base + "?s=30",
+			"medium": avatar_base + "?s=75",
+			"large": avatar_base + "?s=200",
+			"base": avatar_base
+		}
     };
     console.log('logging in ',p);
 
