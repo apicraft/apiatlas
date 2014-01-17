@@ -171,7 +171,7 @@ passport.deserializeUser(function(id, done) {
         if(typeof(req.query.last) == "undefined"){ req.session.last = '/'; }
         else{ req.session.last = req.query.last }
         
-          passport.authenticate('github', function(err, user, info) {
+          passport.authenticate('github', { scope: 'user:profile' }, function(err, user, info) {
             if (err) { 
 				console.log("error: ", err);
 				return next(err); 

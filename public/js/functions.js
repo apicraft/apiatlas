@@ -100,8 +100,8 @@ $(function(){
                                         var remove_class = this.target.data('color') + "bar_" + this.target.data('percent') + " percent_" + this.target.data('percent');
                                         var add_class = this.target.data('color') + "bar_" + this.self.percent + " percent_" + this.self.percent;
                                         this.target.data('percent', this.self.percent);
-                                        
-                                        this.target.find(".votes").html(this.current.votes.total);
+										
+                                        this.target.find(".votes").html(counts(this.current.votes.total));
                                         this.target.find(".percent .tip").html(this.self.percent + "% use it");
                                         this.target.find(".bar").removeClass(remove_class).addClass(add_class);
                                         
@@ -115,25 +115,7 @@ $(function(){
 										
 										
 										
-										$("#" + this.self.uid)
-				
-										.on('swipeleft', function(e) {
-											$(this).removeClass('swipe_open');
-										})
-						
-										.on('swiperight', function(e) {
-											$(this).addClass('swipe_open');
-										})
 										
-										.on('movestart', function(e) {
-											// If the movestart heads off in a upwards or downwards
-											// direction, prevent it so that the browser scrolls normally.
-											if ((e.distX > e.distY && e.distX < -e.distY) ||
-												(e.distX < e.distY && e.distX > -e.distY)) {
-												e.preventDefault();
-												return;
-											}
-										});
 										
 										
                                         $('#loading').hide();
@@ -209,8 +191,10 @@ $(function(){
                 var percent_display = percent + "%";
                 var barclass = $('.resource_show').data('color') + "bar_" + percent + " percent_" + percent;
 				
+				
+				
                 $('.content  .bar .tip').html(percent_display + " use it");
-				$('.vote_meta .votes').html(snapshot.val().votes.total);
+				$('.vote_meta .votes').html(counts(snapshot.val().votes.total));
                 $('.content .bar').removeClass().addClass("bar percent " + barclass); 
 
 				//update req/res here
@@ -316,7 +300,10 @@ $(function(){
 	//$(".resource .verb:first").click();
     
     function randomFromInterval(from,to) { return Math.floor(Math.random()*(to-from+1)+from); }
-
+	function counts(x){
+		if(x == 1){ return x + " Response";}
+		else { return x + " Responses";}
+	}
 });
 
 

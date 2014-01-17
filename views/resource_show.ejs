@@ -6,7 +6,12 @@
     <div class="content pure-u-1">
         <h1 class="name"><%= r.name %><% if(r.type == "code"){%> - <%= r.description %><% } %></h1>
 		<div class="vote_meta">
-			<span class="votes"><%- r.votes.total %></span> Responses	
+			<% 
+			var $v_count = r.votes.total + " Responses";
+			if(r.votes.total == 1){$v_count = r.votes.total + " Response";}
+		%>
+		
+			<span class="votes"><%- $v_count %></span>	
 		</div>
         <div class="bar percent percent_<%- r.votes.percent %> <%- r.color %>bar_<%- r.votes.percent %>"><div class="tip"><%- r.votes.percent_display %> use it</div></div>
 		
