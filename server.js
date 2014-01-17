@@ -15,7 +15,6 @@ var express = require('express')
     , passport = require('passport')
     , GitHubStrategy = require('passport-github').Strategy
     , extend = require('node.extend')
-	, flash = require('connect-flash')
     , app = express()
     , Firebase = require('firebase')
     , config = require('./config'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
@@ -158,7 +157,6 @@ passport.deserializeUser(function(id, done) {
     //Configure sessions and passport
     app.use(express.cookieParser(config['SESSION_SECRET'])); //make it a good one
     app.use(express.session({secret: config['SESSION_SECRET']}));
-  	app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
     
@@ -198,7 +196,7 @@ passport.deserializeUser(function(id, done) {
 
 
     app.get('/auth/github/callback', 
-      passport.authenticate('github', { failureRedirect: '/login', failureFlash: true }),
+      passport.authenticate('github', { failureRedirect: '/' }),
       function(req, res) {
         req.session['auth'] = true;
 		if(typeof(req.session.last) == "undefined"){ res.redirect('/'); }
@@ -292,12 +290,6 @@ passport.deserializeUser(function(id, done) {
 				else {
 					res.redirect('/' + req.params.type + '/' + req.params.title);
 				}
-	});
-
-	app.get('/flash', function(req, res){
-	  // Set a flash message by passing the key, followed by the value, to req.flash().
-	  req.flash('info', 'Flash is back!');
-	  res.redirect('/');
 	});
 
 	app.get('/:type/:title', function(req, res){
