@@ -213,7 +213,48 @@ passport.deserializeUser(function(id, done) {
         });
         //req.logout();            
     });
-
+	app.get('/homepage_content', function(req, res){
+		//have the server build the html for the home page!
+		var u = getUser(req);
+		
+		_components = new Firebase(fbURL + "/resources");
+		_components.once('value', function(snap){
+			var output = "";
+			var sorted = [];
+			var counter = 2;
+			for(i in snap.val()){
+				sorted[counter] = i;
+				counter--;
+			}
+			for(i in sorted){
+				var group = sorted[i];
+				output += ejs.render(resource_title, {"title": group});
+				for(k in snap.val()[group]){
+					var r = snap.val()[group][k];
+					r.percent = 0;
+					if(r.votes.total > 0){r.percent = Math.round((r.votes.up/r.votes.total)*100);}
+					r.id = group;
+					r.color = resources[group].color;
+					r.rel = "/" + group + "/" + r.name.toLowerCase();
+					r.percent_display = r.percent + "%";
+					r.vote_class = "vote_null"
+					if(u !== null){
+						if(tyepof(r.votes.raw[u.id]) != "undefined"){
+						   r.vote_class = "vote_" + r.votes.raw[u.id]
+						   }
+					}
+					var d = r; d.description = r.description;
+					//console.log(r.description)
+					output += ejs.render(resource_template, d);
+				}
+			}
+			res.writeHead(200, {'Content-Type': 'text/html'});
+        	res.write(output);
+        	res.end();
+		
+		});
+	    
+	});
     //default page
     app.get('/', function(req, res) {
         //should this be automated or stuck in config.js? Not yet, but probably in a more flexible version
@@ -221,14 +262,15 @@ passport.deserializeUser(function(id, done) {
 		for(n in resources){
 			user_votes[n] = {}
 		}
-
+		var page_resources = resources;
+		resources.source = fbURL;
 		
 		if(getUser(req) !== null){
 				var getUserVotes = new Firebase(fbURL + '/users/' + getUser(req).id + '/votes/resources');
 				getUserVotes.once('value', function(snap){
 					user_votes = snap.val();
 					res.render(__dirname + '/views/index.ejs', {
-						"resources": resources,
+						"resources": page_resources,
 						"page": "home", 
 						"user": getUser(req),
 						"name": "",
@@ -605,6 +647,10 @@ passport.deserializeUser(function(id, done) {
     
 	});
 */
+
+	var resource_template = fs.readFileSync(__dirname + '/views/vis_resource.ejs', 'utf-8');
+	var resource_title = fs.readFileSync(__dirname + '/views/vis_title.ejs', 'utf-8');
+
 
 var port = process.env.PORT || 3000;
 app.listen(port);
