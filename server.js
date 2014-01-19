@@ -239,7 +239,7 @@ passport.deserializeUser(function(id, done) {
 					r.percent_display = r.percent + "%";
 					r.vote_class = "vote_null"
 					if(u !== null){
-						if(tyepof(r.votes.raw[u.id]) != "undefined"){
+						if(typeof(r.votes.raw[u.id]) != "undefined"){
 						   r.vote_class = "vote_" + r.votes.raw[u.id]
 						   }
 					}
