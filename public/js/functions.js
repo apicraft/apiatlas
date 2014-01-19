@@ -62,6 +62,8 @@ $(function(){
 					e.preventDefault();
 					
 				});	
+				
+				$("#loading").remove();
             }); //t
                    
             $(".title_bar a.menu_icon").click(function(){
