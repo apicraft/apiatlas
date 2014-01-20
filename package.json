@@ -21,7 +21,8 @@
     "node.extend": "~1.0.8",
     "firebase": "~0.6.9",
     "passport": "~0.1.17",
-    "passport-github": "~0.1.5"
+    "passport-github": "~0.1.5",
+    "mailgun-js": "~0.2.2"
   },
   "engines": {
     "node": ">= 0.10.0",

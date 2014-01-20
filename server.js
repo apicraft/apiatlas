@@ -6,6 +6,7 @@
 */
 
 var express = require('express')
+    , config = require('./config')
     , lessMiddleware = require('less-middleware')
     , http = require('http')
     , url = require('url')
@@ -16,8 +17,12 @@ var express = require('express')
     , GitHubStrategy = require('passport-github').Strategy
     , extend = require('node.extend')
     , app = express()
-    , Firebase = require('firebase')
-    , config = require('./config'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
+    , Firebase = require('firebase'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
+
+
+					var mg_api_key = config['MAILGUN_API_KEY'];
+var mg_domain = 'adammagaluk.mailgun.org';
+var mailgun = require('mailgun-js')(mg_api_key, mg_domain);
 
 var fbURL = config['FIREBASE_FORGE']; //firebase endpoint
 
@@ -84,6 +89,22 @@ var resource_cache = {
 
 resource_cache.init();
 
+var date = new Date();
+var data = {
+	  from: 'API Atlas Notifier <adammagaluk@gmail.com>',
+	  to: 'apiatlas@adammagaluk.mailgun.org',
+	  subject: 'API Atlas Started',
+	  html: "API Atlas has started up at "+ date
+	};
+	
+mailgun.messages.send(data, function (error, response, body) {
+	if(error){
+		console.log("Error: ", error);
+	}
+	console.log(body);
+});
+
+
 var gitHubStrategy = new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
@@ -93,13 +114,12 @@ var gitHubStrategy = new GitHubStrategy({
 function oauthCallBack(accessToken, refreshToken, profile, done){
  //save provider, id, display
 
-	
 	var avatar_base = "http://www.gravatar.com/avatar/" + profile._json.gravatar_id;
 
     var p = {
         "provider": profile.provider,
         "id": profile.id,
-        "displayName": profile.displayName,
+        "displayName": profile.displayName || "",
 		"gravatar_id": profile._json.gravatar_id,
 		"handle": profile.username,
 		"avatars": {
@@ -117,8 +137,24 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
             //create that user
             console.log('creating user...');
             var users = new Firebase(fbURL + '/users');
-            users.child(p.id).set(p, function(e){
-                return done(e,p);
+            users.child(p.id).set(JSON.stringify(p), function(e){
+				if(e){
+					console.log(e);
+					var data = {
+					  from: 'Error Notifier <adammagaluk@gmail.com>',
+					  to: 'apiatlas@adammagaluk.mailgun.org',
+					  subject: 'API Atlas User Error',
+					  html: "There was a problem creating a new user. Details: <h3>Firebase Error: </h3><code>" + JSON.stringify(e) + "</code><h3>Passport User Object:</h3><code>" + JSON.stringify(p) + "</code>"
+					};
+					
+					mailgun.messages.send(data, function (error, response, body) {
+					  console.log(body);
+					});
+				
+				}
+				else{
+					return done(e,p);
+				}
             });
         }else{
             return done(null,p);
@@ -293,6 +329,7 @@ passport.deserializeUser(function(id, done) {
         
 	});
 
+/*
     app.get('/:type/:title/edit', isLoggedIn, function(req, res){
 				if(isAdmin(getUser(req))){
 					var user = null;
@@ -333,11 +370,23 @@ passport.deserializeUser(function(id, done) {
 					res.redirect('/' + req.params.type + '/' + req.params.title);
 				}
 	});
-
+*/
 	app.get('/:type/:title', function(req, res){
 		
-        var user = null;
+		var user = null;
         var full_user = getUser(req);
+		
+		if(!resources[req.params.type]){ 
+			//404
+			res.statusCode = 404;
+			res.render('404', {
+				"page":  "not_found",
+				"user": full_user,
+				"name": "/404"
+			});
+			return;
+		}
+
         if(full_user !== null){ user = full_user.id; }
         var d = {
             "type": req.params.type,

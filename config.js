@@ -9,7 +9,8 @@ function Config() {
   this.SESSION_SECRET = process.env.SESSION_SECRET;
   this.REDIRECT=process.env.REDIRECT
   this.ADMINS=JSON.parse(process.env.ADMINS);
-
+ 
+  this.MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
 }
 
 module.exports = new Config();
