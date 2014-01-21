@@ -20,7 +20,8 @@ var express = require('express')
     , Firebase = require('firebase'); //make sure it's pointing in the right direction. config.js doesn't sync w/ git
 
 
-					var mg_api_key = config['MAILGUN_API_KEY'];
+var mg_api_key = config['MAILGUN_API_KEY'];
+var mg_from = "postmaster@adammagaluk.mailgun.org";
 var mg_domain = 'adammagaluk.mailgun.org';
 var mailgun = require('mailgun-js')(mg_api_key, mg_domain);
 
@@ -88,10 +89,10 @@ var resource_cache = {
 }
 
 resource_cache.init();
-
+/*
 var date = new Date();
 var data = {
-	  from: 'API Atlas Notifier <adammagaluk@gmail.com>',
+	  from: mg_from,
 	  to: 'apiatlas@adammagaluk.mailgun.org',
 	  subject: 'API Atlas Started',
 	  html: "API Atlas has started up at "+ date
@@ -104,7 +105,7 @@ mailgun.messages.send(data, function (error, response, body) {
 	console.log(body);
 });
 
-
+*/
 var gitHubStrategy = new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
@@ -140,8 +141,9 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
             users.child(p.id).set(JSON.stringify(p), function(e){
 				if(e){
 					console.log(e);
+					/*
 					var data = {
-					  from: 'Error Notifier <adammagaluk@gmail.com>',
+					  from: mg_from,
 					  to: 'apiatlas@adammagaluk.mailgun.org',
 					  subject: 'API Atlas User Error',
 					  html: "There was a problem creating a new user. Details: <h3>Firebase Error: </h3><code>" + JSON.stringify(e) + "</code><h3>Passport User Object:</h3><code>" + JSON.stringify(p) + "</code>"
@@ -150,7 +152,7 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
 					mailgun.messages.send(data, function (error, response, body) {
 					  console.log(body);
 					});
-				
+				*/
 				}
 				else{
 					return done(e,p);
