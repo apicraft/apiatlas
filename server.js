@@ -138,7 +138,7 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
             //create that user
             console.log('creating user...');
             var users = new Firebase(fbURL + '/users');
-            users.child(p.id).set(JSON.stringify(p), function(e){
+            users.child(p.id).set(p, function(e){
 				if(e){
 					console.log(e);
 					
