@@ -89,7 +89,7 @@ var resource_cache = {
 }
 
 resource_cache.init();
-/*
+
 var date = new Date();
 var data = {
 	  from: mg_from,
@@ -105,7 +105,7 @@ mailgun.messages.send(data, function (error, response, body) {
 	console.log(body);
 });
 
-*/
+
 var gitHubStrategy = new GitHubStrategy({
         clientID: config['GITHUB_CLIENT'],
         clientSecret: config['GITHUB_SECRET'],
@@ -141,7 +141,7 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
             users.child(p.id).set(JSON.stringify(p), function(e){
 				if(e){
 					console.log(e);
-					/*
+					
 					var data = {
 					  from: mg_from,
 					  to: 'apiatlas@adammagaluk.mailgun.org',
@@ -152,7 +152,7 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
 					mailgun.messages.send(data, function (error, response, body) {
 					  console.log(body);
 					});
-				*/
+				
 					
 					res.statusCode = 404;
 					res.render('404', {
