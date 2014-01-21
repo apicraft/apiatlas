@@ -153,6 +153,14 @@ function oauthCallBack(accessToken, refreshToken, profile, done){
 					  console.log(body);
 					});
 				*/
+					
+					res.statusCode = 404;
+					res.render('404', {
+						"page":  "not_found",
+						"user": full_user,
+						"name": "/404"
+					});
+					return;
 				}
 				else{
 					return done(e,p);
